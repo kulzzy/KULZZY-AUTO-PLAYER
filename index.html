@@ -2,908 +2,635 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#020d1a">
-<title>Kulzzy Radio Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#06122a">
+<title>Kulzzy Radio Network</title>
 
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;min-height:100%}
-body{background:#020d1a;color:#fff;font-family:Arial,Helvetica,sans-serif;padding:15px}
-.container{width:100%;max-width:700px;margin:0 auto;background:#03182c;border:2px solid #ffd000;border-radius:18px;padding:20px;box-shadow:0 0 30px rgba(0,0,0,.5)}
-h1{text-align:center;color:#ffd000;margin:0;font-size:27px;font-weight:900}
-.subtitle{text-align:center;color:#aeb9c5;margin-top:7px;margin-bottom:22px;font-size:14px}
-.section{background:#020d1a;border:1px solid #26384a;border-radius:12px;padding:16px;margin-top:15px}
-.sectionTitle{color:#ffd000;font-size:17px;font-weight:900;margin-bottom:13px}
-label{display:block;margin-top:14px;margin-bottom:7px;color:#ffd000;font-weight:bold}
-input,select{width:100%;padding:14px;border-radius:9px;border:1px solid #44576b;background:#020d1a;color:#fff;font-size:16px;outline:none}
-input:focus,select:focus{border-color:#ffd000}
-select option{background:#020d1a;color:#fff}
-.tokenStatus{color:#ffd000;font-size:13px;line-height:1.5;margin-bottom:10px}
-.tokenInput{display:none}
-.smallButton,.refreshButton{width:100%;padding:13px;margin-top:8px;border-radius:9px;border:1px solid #55697c;background:#10283d;color:#fff;font-weight:bold;cursor:pointer}
-.cloudStatus{padding:12px;border-radius:9px;background:#10283d;border:1px solid #26384a;color:#55ff88;font-size:13px;line-height:1.5;margin-bottom:13px}
-.uploadBox{border:2px dashed #465a70;border-radius:12px;padding:18px;text-align:center}
-.fileInput{width:100%;padding:10px;border:none;background:transparent}
-.fileName{margin-top:10px;color:#c7d0d9;font-size:13px;word-break:break-word}
-.uploadButton,.saveButton{width:100%;padding:16px;margin-top:13px;border:0;border-radius:10px;background:#ffd000;color:#020d1a;font-size:17px;font-weight:900;cursor:pointer}
-.uploadButton:disabled,.saveButton:disabled,.liveButton:disabled,.offButton:disabled{opacity:.5;cursor:not-allowed}
-.progressOuter{display:none;width:100%;height:12px;background:#172a3d;border-radius:20px;overflow:hidden;margin-top:14px}
-.progressInner{width:0%;height:100%;background:#ffd000;transition:width .2s}
-.cloudAudioBox{display:none;margin-top:14px;padding:13px;border-radius:9px;background:#071d31;border:1px solid #2c4358}
-.cloudAudioTitle{color:#55ff88;font-weight:bold;margin-bottom:8px}
-.cloudAudioUrl{color:#9fcfff;font-size:11px;line-height:1.5;word-break:break-all}
-.modeButtons{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.modeButton{padding:15px 8px;border-radius:10px;border:2px solid #44576b;background:#020d1a;color:#fff;font-size:14px;font-weight:bold;cursor:pointer}
-.modeButton.active{border-color:#ffd000;background:#17344d;color:#ffd000}
-.saveButton{margin-top:16px;font-size:18px}
-.liveButton,.offButton{width:100%;margin-top:12px;padding:18px;border:0;border-radius:10px;font-size:18px;font-weight:900;cursor:pointer}
-.liveButton{background:#e60012;color:#fff}
-.offButton{background:#55ff88;color:#020d1a}
-.refreshButton{margin-top:10px}
-.status{margin-top:18px;padding:14px;border-radius:9px;background:#020d1a;border:1px solid #26384a;color:#ffd000;text-align:center;font-size:14px;line-height:1.5;word-break:break-word}
-.note{margin-top:12px;padding:12px;border-radius:8px;background:rgba(255,208,0,.07);color:#c7d0d9;font-size:12px;line-height:1.55}
-.success{color:#55ff88}
-.warning{color:#ffd000}
-.error{color:#ff5964}
-@media(max-width:520px){
-body{padding:8px}
-.container{padding:15px;border-radius:14px}
-h1{font-size:23px}
-.modeButtons{grid-template-columns:1fr}
+
+html,body{
+    width:100%;
+    min-height:100%;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    min-height:100dvh;
+    padding:clamp(4px,1.2vw,16px);
+    background:#06122a;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.radio{
+    width:100%;
+    max-width:1100px;
+    min-width:0;
+    margin:auto;
+    background:#031326;
+    border:clamp(2px,.45vw,5px) solid #ffd700;
+    overflow:hidden;
+    box-shadow:0 5px 24px rgba(0,0,0,.3);
+}
+
+.main-panel{
+    width:100%;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    background:linear-gradient(120deg,#061b31,#031326);
+}
+
+.header{
+    width:100%;
+    min-width:0;
+    min-height:clamp(100px,18vw,175px);
+    padding:clamp(10px,3vw,28px);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:clamp(8px,2vw,24px);
+    border-bottom:2px solid rgba(255,255,255,.12);
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:clamp(8px,2vw,22px);
+    flex:1 1 auto;
+    min-width:0;
+}
+
+.brand-dot{
+    width:clamp(15px,4vw,42px);
+    height:clamp(15px,4vw,42px);
+    flex:0 0 auto;
+    border-radius:50%;
+    background:#ff1025;
+    box-shadow:0 0 22px rgba(255,0,35,.6);
+}
+
+.brand-text{min-width:0}
+
+.brand-name{
+    color:#ffd700;
+    font-size:clamp(17px,4.1vw,43px);
+    line-height:1.13;
+    font-weight:900;
+    letter-spacing:.2px;
+    overflow-wrap:break-word;
+}
+
+.slogan{
+    margin-top:clamp(5px,1.4vw,15px);
+    color:#c8d2df;
+    font-size:clamp(11px,2.4vw,25px);
+    line-height:1.3;
+}
+
+.live-badge{
+    width:clamp(58px,13vw,145px);
+    height:clamp(58px,13vw,145px);
+    flex:0 0 auto;
+    border-radius:50%;
+    background:#f20c20;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:clamp(2px,.7vw,8px);
+    color:#fff;
+    font-size:clamp(13px,2.8vw,31px);
+    font-weight:bold;
+}
+
+.live-dot{
+    font-size:clamp(14px,2.8vw,28px);
+    line-height:1;
+}
+
+.play-area{
+    width:100%;
+    min-width:0;
+    min-height:clamp(180px,32vw,350px);
+    padding:clamp(16px,3.5vw,35px) 12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.play-button{
+    width:clamp(85px,16vw,175px);
+    height:clamp(85px,16vw,175px);
+    max-width:70%;
+    max-height:55vh;
+    aspect-ratio:1/1;
+    flex:0 1 auto;
+    padding:0;
+    border:clamp(4px,.7vw,7px) solid #ffd700;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#ff2638,#ed001d 72%);
+    color:#fff;
+    font-size:clamp(36px,6vw,68px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 0 35px rgba(255,0,30,.32);
+    -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
+    transition:transform .15s ease;
+}
+
+.play-button:active{transform:scale(.96)}
+.play-button:disabled{opacity:.7;cursor:wait}
+
+.play-button span{
+    display:block;
+    line-height:1;
+    margin-left:.1em;
+}
+
+.play-button.playing span{
+    margin-left:0;
+    font-size:.68em;
+    letter-spacing:3px;
+}
+
+#normalAudio,#liveAudio{display:none}
+
+@media(max-width:360px){
+    body{padding:4px}
+
+    .header{
+        min-height:96px;
+        padding:10px 8px;
+        gap:6px;
+    }
+
+    .brand{gap:7px}
+
+    .brand-name{font-size:clamp(15px,4.5vw,17px)}
+
+    .slogan{
+        font-size:10px;
+        margin-top:5px;
+    }
+
+    .live-badge{
+        width:53px;
+        height:53px;
+        font-size:12px;
+    }
+
+    .live-dot{font-size:13px}
+
+    .play-area{
+        min-height:165px;
+        padding:12px;
+    }
+
+    .play-button{
+        width:85px;
+        height:85px;
+        max-width:70%;
+        font-size:35px;
+    }
+}
+
+@media(min-width:600px){
+    .radio{max-width:900px}
+    .header{padding:clamp(20px,3vw,32px)}
+    .play-area{min-height:clamp(240px,32vw,350px)}
+}
+
+@media(min-width:1000px){
+    .radio{max-width:1100px}
+    .header{min-height:175px}
+    .play-area{min-height:350px}
+    .play-button{width:175px;height:175px}
+}
+
+@media(max-height:500px){
+    body{align-items:flex-start}
+
+    .header{
+        min-height:80px;
+        padding:10px 16px;
+    }
+
+    .brand-name{font-size:clamp(16px,3.5vw,30px)}
+
+    .slogan{
+        margin-top:5px;
+        font-size:clamp(10px,1.8vw,17px);
+    }
+
+    .live-badge{
+        width:clamp(48px,12vh,70px);
+        height:clamp(48px,12vh,70px);
+        font-size:clamp(12px,2.5vh,16px);
+    }
+
+    .live-dot{font-size:14px}
+
+    .play-area{
+        min-height:115px;
+        padding:8px;
+    }
+
+    .play-button{
+        width:clamp(70px,18vh,100px);
+        height:clamp(70px,18vh,100px);
+        max-height:35vh;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .play-button{transition:none}
 }
 </style>
 </head>
 
 <body>
-<div class="container">
+<div class="radio">
+<main class="main-panel">
 
-<h1>🎛️ KULZZY RADIO ADMIN</h1>
-<div class="subtitle">Kulzzy Radio Network • Celebrating Lives Everyday</div>
+<header class="header">
+    <div class="brand">
+        <div class="brand-dot"></div>
+        <div class="brand-text">
+            <div class="brand-name">KULZZY RADIO<br>NETWORK</div>
+            <div class="slogan">Celebrating Lives Everyday</div>
+        </div>
+    </div>
 
-<div class="section">
-<div class="sectionTitle">🔐 GITHUB AUTHORIZATION</div>
-<div id="tokenStatus" class="tokenStatus">Checking authorization...</div>
-<input id="tokenInput" class="tokenInput" type="password" autocomplete="off" placeholder="Paste your GitHub token">
-<button id="tokenButton" class="smallButton" type="button">🔑 SET GITHUB TOKEN</button>
-<div class="note">Your GitHub token is stored in this browser's local storage. Never share your token publicly.</div>
-</div>
+    <div class="live-badge">
+        <span class="live-dot">●</span>
+        <span>LIVE</span>
+    </div>
+</header>
 
-<div class="section">
-<div class="sectionTitle">☁️ CLOUDINARY AUDIO UPLOAD</div>
+<section class="play-area">
+    <button id="playButton"
+            class="play-button"
+            type="button"
+            aria-label="Play Kulzzy Radio">
+        <span id="playIcon">▶</span>
+    </button>
 
-<div class="cloudStatus">
-✅ Cloudinary settings<br>
-Cloud Name: <strong>s4j0x7dk</strong><br>
-Upload Preset: <strong>AUDIO PLAYER</strong><br>
-Upload Mode: <strong>Unsigned</strong>
-</div>
+    <audio id="normalAudio" preload="auto" playsinline></audio>
+    <audio id="liveAudio" preload="none" playsinline></audio>
+</section>
 
-<div class="uploadBox">
-<input id="audioUpload" class="fileInput" type="file" accept=".mp3,audio/mpeg">
-<div id="fileName" class="fileName">No MP3 selected</div>
-<button id="uploadButton" class="uploadButton" type="button">☁️ UPLOAD LONG AUDIO TO CLOUDINARY</button>
-<div id="progressOuter" class="progressOuter">
-<div id="progressInner" class="progressInner"></div>
-</div>
-</div>
-
-<div id="cloudAudioBox" class="cloudAudioBox">
-<div class="cloudAudioTitle">✅ AUDIO UPLOADED TO CLOUDINARY</div>
-<div id="cloudAudioUrl" class="cloudAudioUrl"></div>
-</div>
-
-<div class="note">After uploading, click SAVE &amp; PLAY CLOUD AUDIO to make it the current audio.</div>
-</div>
-
-<div class="section">
-<div class="sectionTitle">🎵 AUDIO CONTROL</div>
-
-<label for="cloudAudioInput">CLOUDINARY AUDIO</label>
-<input id="cloudAudioInput" type="text" readonly placeholder="Upload an audio file first">
-
-<label for="nowPlaying">📻 NOW PLAYING</label>
-<input id="nowPlaying" type="text" placeholder="Example: Birthday Celebration">
-
-<label>🔁 PLAY MODE</label>
-<div class="modeButtons">
-<button id="repeatButton" class="modeButton active" type="button">🔁 REPEAT SONG</button>
-<button id="onceButton" class="modeButton" type="button">▶️ PLAY ONCE</button>
-</div>
-
-<div class="note">
-<strong>REPEAT SONG:</strong> repeats the current audio.<br><br>
-<strong>PLAY ONCE:</strong> plays the current audio once.
-</div>
-
-<button id="saveButton" class="saveButton" type="button" disabled>💾 SAVE &amp; PLAY CLOUD AUDIO</button>
-</div>
-
-<div class="section">
-<div class="sectionTitle">📁 EXISTING GITHUB AUDIO</div>
-
-<label for="audioSelect">SELECT EXISTING AUDIO</label>
-<select id="audioSelect">
-<option value="">Loading songs...</option>
-</select>
-
-<button id="refreshButton" class="refreshButton" type="button">🔄 REFRESH AUDIO LIST</button>
-
-<div class="note">Choose an existing MP3 to make it the current audio.</div>
-</div>
-
-<div class="section">
-<div class="sectionTitle">🔴 GOCAST LIVE CONTROL</div>
-
-<div class="cloudStatus">
-Stream: <strong>GoCast — Kulzzy Radio Network</strong><br>
-Stream URL:
-<span style="word-break:break-all">https://icecast.gocast.fm/stream/kulzzy-radio-network</span>
-</div>
-
-<button id="liveButton" class="liveButton" type="button">🔴 GO LIVE ON AIR</button>
-<button id="offButton" class="offButton" type="button">⏹️ OFF AIR — RETURN TO NORMAL AUDIO</button>
-
-<div class="note">
-<strong>Before pressing GO LIVE:</strong> start your broadcast in the GoCast browser studio and confirm it is ON AIR. This button changes the player configuration; it does not activate your microphone or start the broadcast itself.<br><br>
-Press OFF AIR to switch the player back to the normal audio saved in the configuration. The admin cannot independently detect whether GoCast has stopped broadcasting.
-</div>
-</div>
-
-<div id="status" class="status">Ready</div>
+</main>
 </div>
 
 <script>
+(function(){
 "use strict";
 
-const GITHUB_USERNAME = "kulzzy";
-const REPOSITORY = "KULZZY-AUTO-PLAYER";
-const AUDIO_FOLDER = "audio";
-const CONFIG_FILE = "config.json";
-const TOKEN_KEY = "KULZZY_RADIO_GITHUB_TOKEN";
+const CONFIG_URL="./config.json";
 
-const CLOUDINARY_CLOUD_NAME = "s4j0x7dk";
-const CLOUDINARY_UPLOAD_PRESET = "AUDIO PLAYER";
-const CLOUDINARY_UPLOAD_URL =
-    "https://api.cloudinary.com/v1_1/" +
-    CLOUDINARY_CLOUD_NAME + "/video/upload";
+const NORMAL_AUDIO_URL=
+"https://res.cloudinary.com/s4j0x7dk/video/upload/v1788195407/smnabqvzrzwnhyxk3usp.mp3";
 
-const LIVE_STREAM_URL =
-    "https://icecast.gocast.fm/stream/kulzzy-radio-network";
+const LIVE_STREAM_URL=
+"https://icecast.gocast.fm/stream/kulzzy-radio-network";
 
-let playMode = "REPEAT";
-let cloudinaryAudioURL = "";
-let savedNormalAudio = "";
-let savedNormalTitle = "";
-let configSha = "";
+const audio=document.getElementById("normalAudio");
+const liveAudio=document.getElementById("liveAudio");
+const playButton=document.getElementById("playButton");
+const playIcon=document.getElementById("playIcon");
 
-const $ = id => document.getElementById(id);
+let mode="AUDIO";
+let currentTrack="";
+let isLoading=false;
+let needsRandomStart=true;
+let lastRefresh=-1;
+let playbackRequest=0;
+let liveRetryAt=0;
+let configStatus="LIVE";
 
-const tokenStatus = $("tokenStatus");
-const tokenInput = $("tokenInput");
-const tokenButton = $("tokenButton");
-const audioUpload = $("audioUpload");
-const fileName = $("fileName");
-const uploadButton = $("uploadButton");
-const progressOuter = $("progressOuter");
-const progressInner = $("progressInner");
-const cloudAudioBox = $("cloudAudioBox");
-const cloudAudioUrl = $("cloudAudioUrl");
-const cloudAudioInput = $("cloudAudioInput");
-const audioSelect = $("audioSelect");
-const refreshButton = $("refreshButton");
-const nowPlaying = $("nowPlaying");
-const repeatButton = $("repeatButton");
-const onceButton = $("onceButton");
-const saveButton = $("saveButton");
-const liveButton = $("liveButton");
-const offButton = $("offButton");
-const statusBox = $("status");
+audio.loop=false;
 
-function setStatus(message, type = "") {
-    statusBox.textContent = message;
-    statusBox.className = "status" + (type ? " " + type : "");
-}
-
-function getToken() {
-    return localStorage.getItem(TOKEN_KEY);
-}
-
-function updateAuthorization() {
-    const token = getToken();
-
-    if (token && token.length > 10) {
-        tokenStatus.textContent =
-            "🔐 GitHub authorization is saved on this device.";
-        tokenStatus.className = "tokenStatus success";
-        tokenInput.style.display = "none";
-        tokenButton.textContent = "🔑 CHANGE GITHUB TOKEN";
-    } else {
-        tokenStatus.textContent =
-            "⚠️ GitHub authorization is not saved.";
-        tokenStatus.className = "tokenStatus warning";
-        tokenInput.style.display = "none";
-        tokenButton.textContent = "🔑 SET GITHUB TOKEN";
-    }
-}
-
-tokenButton.addEventListener("click", () => {
-    if (tokenInput.style.display === "block") {
-        saveToken();
-    } else {
-        tokenInput.style.display = "block";
-        tokenInput.value = "";
-        tokenButton.textContent = "💾 SAVE TOKEN";
-        tokenInput.focus();
-    }
-});
-
-function saveToken() {
-    const token = tokenInput.value.trim();
-
-    if (!token) {
-        setStatus("❌ Please paste your GitHub token.", "error");
-        return;
-    }
-
-    localStorage.setItem(TOKEN_KEY, token);
-    tokenInput.value = "";
-    tokenInput.style.display = "none";
-
-    updateAuthorization();
-
-    setStatus("✅ GitHub token saved. Checking configuration...", "success");
-
-    loadConfig()
-        .then(() => loadAudioFiles())
-        .catch(error => setStatus("❌ " + error.message, "error"));
-}
-
-tokenInput.addEventListener("keydown", event => {
-    if (event.key === "Enter") saveToken();
-});
-
-function requireToken() {
-    const token = getToken();
-
-    if (!token) {
-        tokenInput.style.display = "block";
-        tokenButton.textContent = "💾 SAVE TOKEN";
-        tokenInput.focus();
-        throw new Error("Please save your GitHub token first.");
-    }
-
-    return token;
-}
-
-function githubHeaders(token) {
-    return {
-        "Authorization": "Bearer " + token,
-        "Accept": "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28"
-    };
-}
-
-/*
- FIX:
- Always preserve the normal audio URL, including when
- the configuration is currently set to LIVE.
-
- The normal audio title is saved separately in
- normalAudioTitle while LIVE is active.
-*/
-async function loadConfig() {
-    const url =
-        "https://api.github.com/repos/" +
-        GITHUB_USERNAME + "/" +
-        REPOSITORY + "/contents/" +
-        CONFIG_FILE + "?t=" + Date.now();
-
-    const headers = {"Accept": "application/vnd.github+json"};
-
-    if (getToken()) {
-        headers.Authorization = "Bearer " + getToken();
-    }
-
-    const response = await fetch(url, {
-        headers,
-        cache: "no-store"
-    });
-
-    if (!response.ok) {
-        throw new Error(
-            "Could not load config.json (" + response.status + ")."
-        );
-    }
-
-    const file = await response.json();
-    configSha = file.sha;
-
-    const decoded = decodeURIComponent(
-        escape(atob(file.content.replace(/\n/g, "")))
+function setButtonState(playing){
+    playIcon.textContent=playing?"Ⅱ":"▶";
+    playButton.classList.toggle("playing",playing);
+    playButton.setAttribute(
+        "aria-label",
+        playing?"Pause Kulzzy Radio":"Play Kulzzy Radio"
     );
-
-    const config = JSON.parse(decoded);
-
-    if (config.currentAudio) {
-        savedNormalAudio = config.currentAudio;
-
-        if (config.status === "LIVE") {
-            savedNormalTitle = config.normalAudioTitle || "";
-        } else {
-            savedNormalTitle = config.nowPlaying || "";
-        }
-    }
-
-    return config;
 }
 
-async function updateConfig(config, message) {
-    const token = requireToken();
-
-    setStatus("⏳ Updating radio configuration...");
-
-    const apiURL =
-        "https://api.github.com/repos/" +
-        GITHUB_USERNAME + "/" +
-        REPOSITORY + "/contents/" +
-        CONFIG_FILE;
-
-    const getResponse = await fetch(apiURL, {
-        method: "GET",
-        headers: githubHeaders(token),
-        cache: "no-store"
-    });
-
-    if (!getResponse.ok) {
-        if (
-            getResponse.status === 401 ||
-            getResponse.status === 403
-        ) {
-            localStorage.removeItem(TOKEN_KEY);
-            updateAuthorization();
-
-            throw new Error(
-                "GitHub authorization failed. Check that your token has permission to update repository contents."
-            );
-        }
-
-        throw new Error(
-            "Could not read config.json (" + getResponse.status + ")."
-        );
-    }
-
-    const file = await getResponse.json();
-    const json = JSON.stringify(config, null, 2);
-    const encoded = btoa(unescape(encodeURIComponent(json)));
-
-    const putResponse = await fetch(apiURL, {
-        method: "PUT",
-        headers: githubHeaders(token),
-        body: JSON.stringify({
-            message: message || "Update Kulzzy Radio config",
-            content: encoded,
-            sha: file.sha
-        })
-    });
-
-    if (!putResponse.ok) {
-        const errorText = await putResponse.text();
-
-        throw new Error(
-            "GitHub update failed (" +
-            putResponse.status + "): " + errorText
-        );
-    }
-
-    const result = await putResponse.json();
-
-    configSha =
-        result.content && result.content.sha
-            ? result.content.sha
-            : "";
-
-    return true;
+function stopLive(){
+    liveAudio.pause();
+    liveAudio.removeAttribute("src");
+    liveAudio.load();
 }
 
-async function loadAudioFiles() {
-    audioSelect.innerHTML =
-        '<option value="">⏳ Loading songs...</option>';
+function switchToLive(){
+    if(mode!=="LIVE"){
+        playbackRequest++;
+        audio.pause();
 
-    try {
-        const url =
-            "https://api.github.com/repos/" +
-            GITHUB_USERNAME + "/" +
-            REPOSITORY + "/contents/" +
-            AUDIO_FOLDER + "?t=" + Date.now();
-
-        const headers = {"Accept": "application/vnd.github+json"};
-
-        if (getToken()) {
-            headers.Authorization = "Bearer " + getToken();
-        }
-
-        const response = await fetch(url, {
-            headers,
-            cache: "no-store"
-        });
-
-        if (!response.ok) {
-            throw new Error("Could not read GitHub audio folder.");
-        }
-
-        const files = await response.json();
-
-        if (!Array.isArray(files)) {
-            throw new Error("GitHub did not return an audio folder.");
-        }
-
-        const audioFiles = files
-            .filter(file =>
-                file.type === "file" &&
-                /\.(mp3|mpeg)$/i.test(file.name)
-            )
-            .sort((a, b) =>
-                a.name.localeCompare(
-                    b.name,
-                    undefined,
-                    {numeric: true, sensitivity: "base"}
-                )
-            );
-
-        audioSelect.innerHTML = "";
-
-        const first = document.createElement("option");
-        first.value = "";
-        first.textContent = audioFiles.length
-            ? "Select existing GitHub song"
-            : "No GitHub MP3 files found";
-
-        audioSelect.appendChild(first);
-
-        audioFiles.forEach(file => {
-            const option = document.createElement("option");
-            option.value = "audio/" + file.name;
-
-            option.textContent = file.name
-                .replace(/\.mp3$/i, "")
-                .replace(/_/g, " ");
-
-            audioSelect.appendChild(option);
-        });
-
-        if (audioFiles.length) {
-            setStatus(
-                "✅ Found " + audioFiles.length +
-                " GitHub audio file(s).",
-                "success"
-            );
-        }
-    } catch (error) {
-        console.error(error);
-
-        audioSelect.innerHTML =
-            '<option value="">GitHub audio list unavailable</option>';
-
-        setStatus(
-            "⚠️ Could not load the GitHub audio list. Check the repository and token permissions.",
-            "warning"
-        );
+        mode="LIVE";
+        liveAudio.src=LIVE_STREAM_URL;
+        liveAudio.load();
     }
+
+    setButtonState(!liveAudio.paused);
 }
 
-audioUpload.addEventListener("change", () => {
-    const file = audioUpload.files[0];
-
-    if (!file) {
-        fileName.textContent = "No MP3 selected";
-        return;
+function switchToAudio(forceReload){
+    if(mode==="LIVE"){
+        stopLive();
+        currentTrack="";
+        needsRandomStart=true;
     }
 
-    if (!/\.mp3$/i.test(file.name)) {
-        fileName.textContent = "❌ Please select an MP3 file.";
-        audioUpload.value = "";
-        return;
+    mode="AUDIO";
+
+    if(forceReload){
+        audio.pause();
+        currentTrack="";
+        needsRandomStart=true;
     }
 
-    fileName.textContent =
-        "🎵 " + file.name + " • " + formatBytes(file.size);
+    if(!audio.src || currentTrack!==NORMAL_AUDIO_URL){
+        audio.pause();
+        currentTrack=NORMAL_AUDIO_URL;
+        audio.src=NORMAL_AUDIO_URL;
+        audio.load();
+        needsRandomStart=true;
+    }
 
-    cloudinaryAudioURL = "";
-    cloudAudioInput.value = "";
-    cloudAudioBox.style.display = "none";
-    saveButton.disabled = true;
-});
-
-function formatBytes(bytes) {
-    if (bytes === 0) return "0 Bytes";
-
-    const units = ["Bytes", "KB", "MB", "GB"];
-
-    const i = Math.min(
-        units.length - 1,
-        Math.floor(Math.log(bytes) / Math.log(1024))
-    );
-
-    return parseFloat(
-        (bytes / Math.pow(1024, i)).toFixed(2)
-    ) + " " + units[i];
+    setButtonState(!audio.paused);
 }
 
-uploadButton.addEventListener("click", () => {
-    const file = audioUpload.files[0];
-
-    if (!file || !/\.mp3$/i.test(file.name)) {
-        setStatus("❌ Please select an MP3 file first.", "error");
-        return;
-    }
-
-    uploadButton.disabled = true;
-    progressOuter.style.display = "block";
-    progressInner.style.width = "0%";
-
-    setStatus("☁️ Starting Cloudinary upload...");
-
-    const formData = new FormData();
-
-    formData.append("file", file);
-    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
-
-    const xhr = new XMLHttpRequest();
-
-    xhr.open("POST", CLOUDINARY_UPLOAD_URL);
-
-    xhr.upload.addEventListener("progress", event => {
-        if (event.lengthComputable) {
-            const percent = event.loaded / event.total * 100;
-
-            progressInner.style.width = percent.toFixed(1) + "%";
-
-            setStatus(
-                "☁️ Uploading to Cloudinary... " +
-                percent.toFixed(0) + "%"
-            );
-        }
-    });
-
-    xhr.onload = () => {
-        uploadButton.disabled = false;
-
-        if (xhr.status < 200 || xhr.status >= 300) {
-            let message = "Cloudinary upload failed.";
-
-            try {
-                const result = JSON.parse(xhr.responseText);
-
-                if (result.error && result.error.message) {
-                    message = result.error.message;
-                }
-            } catch (_) {}
-
-            progressOuter.style.display = "none";
-            setStatus("❌ " + message, "error");
+function waitForMetadata(requestId){
+    return new Promise(function(resolve,reject){
+        if(audio.readyState>=1 &&
+           Number.isFinite(audio.duration) &&
+           audio.duration>0){
+            resolve();
             return;
         }
 
-        try {
-            const result = JSON.parse(xhr.responseText);
+        function cleanup(){
+            audio.removeEventListener("loadedmetadata",ready);
+            audio.removeEventListener("durationchange",ready);
+            audio.removeEventListener("error",failed);
+        }
 
-            if (!result.secure_url) {
-                throw new Error(
-                    "Cloudinary did not return an audio URL."
-                );
+        function ready(){
+            if(requestId!==playbackRequest || mode!=="AUDIO"){
+                cleanup();
+                resolve();
+                return;
             }
 
-            cloudinaryAudioURL = result.secure_url;
-            cloudAudioInput.value = cloudinaryAudioURL;
-            cloudAudioUrl.textContent = cloudinaryAudioURL;
-            cloudAudioBox.style.display = "block";
-
-            progressInner.style.width = "100%";
-            saveButton.disabled = false;
-
-            setStatus(
-                "✅ Audio uploaded. Click SAVE & PLAY CLOUD AUDIO.",
-                "success"
-            );
-
-            setTimeout(() => {
-                progressOuter.style.display = "none";
-            }, 1200);
-
-        } catch (error) {
-            progressOuter.style.display = "none";
-            setStatus("❌ " + error.message, "error");
+            if(audio.readyState>=1 &&
+               Number.isFinite(audio.duration) &&
+               audio.duration>0){
+                cleanup();
+                resolve();
+            }
         }
-    };
 
-    xhr.onerror = () => {
-        uploadButton.disabled = false;
-        progressOuter.style.display = "none";
+        function failed(){
+            cleanup();
+            reject(new Error("Normal audio could not be loaded."));
+        }
 
-        setStatus(
-            "❌ Network error while uploading to Cloudinary.",
-            "error"
-        );
-    };
-
-    xhr.send(formData);
-});
-
-repeatButton.addEventListener("click", () => {
-    playMode = "REPEAT";
-    repeatButton.classList.add("active");
-    onceButton.classList.remove("active");
-});
-
-onceButton.addEventListener("click", () => {
-    playMode = "ONCE";
-    onceButton.classList.add("active");
-    repeatButton.classList.remove("active");
-});
-
-function makeAudioConfig(audio, title) {
-    return {
-        version: 1,
-        currentAudio: audio,
-        nowPlaying: title || "",
-        title: "AUTOMATIC AUDIO",
-        status: "AUDIO",
-        background: "",
-        volume: 1,
-        playlistMode: false,
-        playMode: playMode,
-        refresh: Date.now()
-    };
+        audio.addEventListener("loadedmetadata",ready);
+        audio.addEventListener("durationchange",ready);
+        audio.addEventListener("error",failed);
+        audio.load();
+        ready();
+    });
 }
 
-saveButton.addEventListener("click", async () => {
-    if (!cloudinaryAudioURL) {
-        setStatus(
-            "❌ Upload an audio file to Cloudinary first.",
-            "error"
-        );
+async function chooseRandomPosition(requestId){
+    await waitForMetadata(requestId);
+
+    if(requestId!==playbackRequest || mode!=="AUDIO")return;
+
+    const duration=audio.duration;
+
+    if(!Number.isFinite(duration)||duration<=3){
+        needsRandomStart=false;
         return;
     }
 
-    saveButton.disabled = true;
+    const maxPosition=Math.max(1,Math.floor(duration-2));
+    audio.currentTime=Math.floor(Math.random()*maxPosition);
 
-    try {
-        const title = nowPlaying.value.trim();
-
-        await updateConfig(
-            makeAudioConfig(cloudinaryAudioURL, title),
-            "Set Kulzzy Radio Cloudinary audio"
-        );
-
-        savedNormalAudio = cloudinaryAudioURL;
-        savedNormalTitle = title;
-
-        setStatus(
-            "✅ Cloudinary audio saved. The player will switch back to normal audio.",
-            "success"
-        );
-
-    } catch (error) {
-        console.error(error);
-        setStatus("❌ " + error.message, "error");
-    } finally {
-        saveButton.disabled = false;
-    }
-});
-
-audioSelect.addEventListener("change", async () => {
-    const selected = audioSelect.value;
-
-    if (!selected) return;
-
-    try {
-        const title = nowPlaying.value.trim();
-
-        await updateConfig(
-            makeAudioConfig(selected, title),
-            "Set Kulzzy Radio GitHub audio"
-        );
-
-        savedNormalAudio = selected;
-        savedNormalTitle = title;
-
-        setStatus(
-            "✅ GitHub audio saved and selected as normal audio.",
-            "success"
-        );
-
-    } catch (error) {
-        setStatus("❌ " + error.message, "error");
-    }
-});
-
-refreshButton.addEventListener("click", loadAudioFiles);
-
-/*
- GO LIVE:
- Preserve the normal audio and its title before switching
- the configuration to LIVE mode.
-*/
-liveButton.addEventListener("click", async () => {
-    liveButton.disabled = true;
-    offButton.disabled = true;
-
-    try {
-        const current = await loadConfig();
-
-        if (current.currentAudio) {
-            savedNormalAudio = current.currentAudio;
-
-            if (current.status !== "LIVE") {
-                savedNormalTitle = current.nowPlaying || "";
-            } else {
-                savedNormalTitle =
-                    current.normalAudioTitle ||
-                    savedNormalTitle ||
-                    "";
-            }
+    await new Promise(function(resolve){
+        if(!audio.seeking){
+            resolve();
+            return;
         }
 
-        const normalAudio =
-            savedNormalAudio || current.currentAudio || "";
+        let finished=false;
 
-        if (!normalAudio) {
-            throw new Error(
-                "No normal audio is saved. Select and save a Cloudinary or GitHub audio file first."
-            );
+        function done(){
+            if(finished)return;
+            finished=true;
+            audio.removeEventListener("seeked",done);
+            resolve();
         }
 
-        const config = {
-            version: 1,
+        audio.addEventListener("seeked",done);
+        setTimeout(done,3000);
+    });
 
-            /*
-             Keep currentAudio pointing to the normal audio.
-             The player can use status and liveStream to
-             determine that LIVE mode is active.
-            */
-            currentAudio: normalAudio,
-
-            normalAudioTitle: savedNormalTitle || "",
-            nowPlaying: "LIVE ON AIR",
-            title: "KULZZY RADIO LIVE",
-            status: "LIVE",
-            liveStream: LIVE_STREAM_URL,
-            background: "",
-            volume: 1,
-            playlistMode: false,
-            playMode: "REPEAT",
-            refresh: Date.now()
-        };
-
-        await updateConfig(
-            config,
-            "Kulzzy Radio GO LIVE"
-        );
-
-        setStatus(
-            "🔴 PLAYER SET TO LIVE. Your normal audio has been preserved. Make sure your GoCast studio is broadcasting ON AIR.",
-            "success"
-        );
-
-    } catch (error) {
-        console.error(error);
-        setStatus("❌ " + error.message, "error");
-    } finally {
-        liveButton.disabled = false;
-        offButton.disabled = false;
+    if(requestId===playbackRequest && mode==="AUDIO"){
+        needsRandomStart=false;
     }
-});
-
-/*
- OFF AIR:
- Restore the preserved normal audio even when the
- configuration currently says LIVE.
-*/
-offButton.addEventListener("click", async () => {
-    liveButton.disabled = true;
-    offButton.disabled = true;
-
-    try {
-        let normalAudio = savedNormalAudio;
-        let normalTitle = savedNormalTitle;
-
-        const current = await loadConfig();
-
-        /*
-         If the browser has no saved copy, recover the
-         normal audio from currentAudio in config.json.
-        */
-        if (!normalAudio && current.currentAudio) {
-            normalAudio = current.currentAudio;
-
-            normalTitle =
-                current.status === "LIVE"
-                    ? (current.normalAudioTitle || "")
-                    : (current.nowPlaying || "");
-        }
-
-        /*
-         Recover the title saved before the LIVE switch.
-        */
-        if (!normalTitle && current.normalAudioTitle) {
-            normalTitle = current.normalAudioTitle;
-        }
-
-        if (!normalAudio) {
-            throw new Error(
-                "No saved normal audio is available. Select and save a Cloudinary or GitHub audio file first."
-            );
-        }
-
-        const config = makeAudioConfig(
-            normalAudio,
-            normalTitle
-        );
-
-        await updateConfig(
-            config,
-            "Kulzzy Radio OFF AIR — restore normal audio"
-        );
-
-        savedNormalAudio = normalAudio;
-        savedNormalTitle = normalTitle;
-
-        setStatus(
-            "⏹️ OFF AIR MODE SAVED. The player will return to normal audio.",
-            "success"
-        );
-
-    } catch (error) {
-        console.error(error);
-        setStatus("❌ " + error.message, "error");
-    } finally {
-        liveButton.disabled = false;
-        offButton.disabled = false;
-    }
-});
-
-document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") {
-        loadAudioFiles();
-    }
-});
-
-async function start() {
-    updateAuthorization();
-
-    try {
-        const config = await loadConfig();
-
-        if (config.currentAudio) {
-            savedNormalAudio = config.currentAudio;
-
-            savedNormalTitle =
-                config.status === "LIVE"
-                    ? (config.normalAudioTitle || "")
-                    : (config.nowPlaying || "");
-        }
-
-        setStatus(
-            config.status === "LIVE"
-                ? "🔴 Configuration is set to LIVE. Normal audio is preserved."
-                : "✅ Configuration loaded. Normal audio is selected.",
-            "success"
-        );
-
-    } catch (error) {
-        console.error(error);
-
-        setStatus(
-            "⚠️ Could not load config.json. Check repository access.",
-            "warning"
-        );
-    }
-
-    loadAudioFiles();
 }
 
-start();
+async function playNormalAudio(){
+    if(isLoading)return;
+
+    isLoading=true;
+    playButton.disabled=true;
+
+    const requestId=++playbackRequest;
+
+    try{
+        if(!audio.src || currentTrack!==NORMAL_AUDIO_URL){
+            audio.pause();
+            currentTrack=NORMAL_AUDIO_URL;
+            audio.src=NORMAL_AUDIO_URL;
+            needsRandomStart=true;
+            audio.load();
+        }
+
+        if(needsRandomStart){
+            await chooseRandomPosition(requestId);
+        }
+
+        if(requestId!==playbackRequest || mode!=="AUDIO")return;
+
+        await audio.play();
+        setButtonState(true);
+
+    }catch(error){
+        setButtonState(false);
+        console.error("Kulzzy Radio audio error:",error);
+
+    }finally{
+        playButton.disabled=false;
+        isLoading=false;
+    }
+}
+
+async function playLiveAudio(){
+    try{
+        if(!liveAudio.src){
+            liveAudio.src=LIVE_STREAM_URL;
+            liveAudio.load();
+        }
+
+        await liveAudio.play();
+
+        if(mode==="LIVE"){
+            setButtonState(true);
+        }
+
+    }catch(error){
+        console.error("Live stream failed; switching to normal audio.",error);
+
+        liveRetryAt=Date.now()+30000;
+        configStatus="LIVE";
+
+        switchToAudio(false);
+        await playNormalAudio();
+    }
+}
+
+async function loadConfig(){
+    try{
+        const response=await fetch(
+            CONFIG_URL+"?t="+Date.now(),
+            {cache:"no-store"}
+        );
+
+        if(!response.ok){
+            throw new Error("Configuration unavailable");
+        }
+
+        const config=await response.json();
+
+        const status=String(config.status||"AUDIO")
+            .trim()
+            .toUpperCase();
+
+        const refresh=Number(config.refresh||0);
+
+        configStatus=status;
+
+        if(status==="LIVE" && Date.now()>=liveRetryAt){
+            switchToLive();
+            return;
+        }
+
+        const forceReload=
+            lastRefresh!==-1 && refresh!==lastRefresh;
+
+        lastRefresh=refresh;
+
+        switchToAudio(forceReload);
+
+    }catch(error){
+        console.error("Kulzzy Radio configuration error:",error);
+
+        if(mode!=="LIVE"){
+            switchToAudio(false);
+        }
+    }
+}
+
+playButton.addEventListener("click",async function(){
+    if(isLoading)return;
+
+    if(mode==="LIVE"){
+        if(!liveAudio.paused){
+            liveAudio.pause();
+            setButtonState(false);
+        }else{
+            await playLiveAudio();
+        }
+        return;
+    }
+
+    if(!audio.paused){
+        audio.pause();
+        setButtonState(false);
+        return;
+    }
+
+    await playNormalAudio();
+});
+
+audio.addEventListener("play",function(){
+    setButtonState(true);
+
+    window.parent.postMessage({
+        type:"KULZZY_AUDIOVISUALS",
+        action:"audio-playing"
+    },"*");
+});
+
+audio.addEventListener("pause",function(){
+    if(mode==="AUDIO"){
+        setButtonState(false);
+    }
+});
+
+audio.addEventListener("ended",function(){
+    if(mode!=="AUDIO")return;
+
+    window.parent.postMessage({
+        type:"KULZZY_AUDIOVISUALS",
+        action:"audio-ended"
+    },"*");
+
+    needsRandomStart=true;
+    playNormalAudio();
+});
+
+liveAudio.addEventListener("play",function(){
+    setButtonState(true);
+});
+
+liveAudio.addEventListener("pause",function(){
+    if(mode==="LIVE"){
+        setButtonState(false);
+    }
+});
+
+liveAudio.addEventListener("error",function(){
+    if(mode!=="LIVE")return;
+
+    console.error("Kulzzy Radio live stream error.");
+
+    liveRetryAt=Date.now()+30000;
+    switchToAudio(false);
+});
+
+loadConfig();
+setInterval(loadConfig,3000);
+
+})();
 </script>
 </body>
 </html>
