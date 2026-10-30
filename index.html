@@ -176,12 +176,13 @@ body{
     line-height:1.5;
 }
 
-/* SEPARATE WHITE LIVE PLAYER */
+/* WHITE LIVE PLAYER — RESPONSIVE ON ALL DEVICES */
 
 .live-panel{
     display:none;
     width:100%;
     min-width:0;
+    max-width:100%;
     background:#fff;
     color:#202020;
     border:1px solid #dedede;
@@ -199,7 +200,7 @@ body{
 }
 
 .live-header{
-    padding:24px 16px;
+    padding:clamp(10px,2.2vw,18px) 10px;
     background:#fff;
     color:#222;
     text-align:center;
@@ -207,35 +208,39 @@ body{
 }
 
 .live-logo{
-    font-size:clamp(22px,5vw,34px);
+    width:100%;
+    font-size:clamp(16px,3.5vw,26px);
     font-weight:900;
-    letter-spacing:.5px;
-    line-height:1.25;
+    letter-spacing:.2px;
+    line-height:1.2;
+    overflow-wrap:anywhere;
 }
 
 .live-subtitle{
-    margin-top:7px;
+    margin-top:4px;
     color:#555;
-    font-size:14px;
+    font-size:clamp(11px,2.2vw,15px);
+    line-height:1.35;
 }
 
 .live-status{
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    gap:8px;
-    margin-top:16px;
-    padding:9px 17px;
+    gap:6px;
+    margin-top:8px;
+    padding:6px 12px;
     background:#e60012;
     color:#fff;
     border-radius:30px;
-    font-size:13px;
+    font-size:clamp(10px,2vw,12px);
     font-weight:900;
 }
 
 .live-status-dot{
-    width:9px;
-    height:9px;
+    width:8px;
+    height:8px;
+    flex:0 0 auto;
     background:#fff;
     border-radius:50%;
     animation:pulse 1.2s infinite;
@@ -246,53 +251,99 @@ body{
 }
 
 .live-content{
-    padding:clamp(18px,4vw,35px);
+    width:100%;
+    min-width:0;
+    padding:clamp(10px,2.5vw,22px);
     text-align:center;
     background:#fff;
 }
 
 .live-title{
     color:#222;
-    font-size:clamp(20px,4.5vw,30px);
+    font-size:clamp(16px,3.5vw,24px);
     font-weight:900;
-    margin-bottom:10px;
+    margin-bottom:6px;
     overflow-wrap:anywhere;
 }
 
 .live-description{
+    width:100%;
     max-width:600px;
-    margin:0 auto 22px;
+    margin:0 auto 12px;
     color:#555;
-    font-size:14px;
-    line-height:1.7;
+    font-size:clamp(11px,2vw,13px);
+    line-height:1.45;
+    overflow-wrap:anywhere;
 }
 
-.live-audio{
+/* ALWAYS VISIBLE LIVE PLAY BUTTON */
+
+.live-play-button{
     display:block;
     width:100%;
     max-width:650px;
+    min-height:46px;
+    margin:0 auto 10px;
+    padding:11px 14px;
+    border:0;
+    border-radius:8px;
+    background:#e60012;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:clamp(14px,2.5vw,17px);
+    font-weight:900;
+    cursor:pointer;
+    touch-action:manipulation;
+    -webkit-tap-highlight-color:transparent;
+}
+
+.live-play-button:disabled{
+    opacity:.65;
+    cursor:wait;
+}
+
+.live-play-button:focus-visible{
+    outline:3px solid #ffd700;
+    outline-offset:3px;
+}
+
+/* NATIVE PLAYER ALSO REMAINS AVAILABLE */
+
+.live-audio{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    width:100%;
+    max-width:650px;
+    min-width:0;
     height:54px;
+    min-height:54px;
     margin:0 auto;
+    background:#f1f1f1;
+    border-radius:8px;
 }
 
 .live-message{
-    margin-top:16px;
-    min-height:20px;
+    margin-top:9px;
+    min-height:18px;
     color:#555;
-    font-size:13px;
-    line-height:1.6;
+    font-size:clamp(11px,2vw,13px);
+    line-height:1.45;
     overflow-wrap:anywhere;
 }
 
 .live-footer{
-    padding:13px;
+    padding:9px 8px;
     background:#f5f5f5;
     color:#555;
     text-align:center;
-    font-size:12px;
-    line-height:1.6;
+    font-size:clamp(10px,1.8vw,12px);
+    line-height:1.4;
+    overflow-wrap:anywhere;
     border-top:1px solid #e5e5e5;
 }
+
+/* SMALL PHONES */
 
 @media(max-width:360px){
     body{padding:4px}
@@ -330,7 +381,15 @@ body{
         height:85px;
         font-size:35px;
     }
+
+    .live-header{padding:9px 7px}
+    .live-content{padding:10px 8px}
+    .live-description{margin-bottom:9px}
+    .live-play-button{min-height:44px;padding:10px}
+    .live-audio{height:50px;min-height:50px}
 }
+
+/* TABLETS AND LARGER SCREENS */
 
 @media(min-width:600px){
     .radio{max-width:900px}
@@ -382,7 +441,6 @@ body{
                 class="play-button"
                 type="button"
                 aria-label="Play Kulzzy Radio">
-
                 <span id="playIcon">▶</span>
             </button>
 
@@ -404,10 +462,7 @@ body{
     <section id="livePanel" class="live-panel">
 
         <header class="live-header">
-
-            <div class="live-logo">
-                KULZZY RADIO NETWORK
-            </div>
+            <div class="live-logo">KULZZY RADIO NETWORK</div>
 
             <div class="live-subtitle">
                 Celebrating Lives Everyday
@@ -417,7 +472,6 @@ body{
                 <span class="live-status-dot"></span>
                 LIVE ON AIR
             </div>
-
         </header>
 
         <div class="live-content">
@@ -427,10 +481,17 @@ body{
             </div>
 
             <div class="live-description">
-                You are listening to Kulzzy Radio Network live.
-                Press the play button on the player below to listen
-                to the current broadcast.
+                Listen to Kulzzy Radio Network live.
+                Press PLAY LIVE below to hear the broadcast.
             </div>
+
+            <button
+                id="livePlayButton"
+                class="live-play-button"
+                type="button"
+                aria-label="Play live broadcast">
+                ▶ PLAY LIVE
+            </button>
 
             <audio
                 id="liveAudio"
@@ -441,7 +502,7 @@ body{
             </audio>
 
             <div id="liveMessage" class="live-message">
-                🔴 Live broadcast is available. Tap play to listen.
+                🔴 Live broadcast is available. Tap PLAY LIVE to listen.
             </div>
 
         </div>
@@ -472,6 +533,7 @@ body{
 
     const playButton = document.getElementById("playButton");
     const playIcon = document.getElementById("playIcon");
+    const livePlayButton = document.getElementById("livePlayButton");
 
     const audioTitle = document.getElementById("audioTitle");
     const audioMessage = document.getElementById("audioMessage");
@@ -483,8 +545,8 @@ body{
     let currentAudioURL = "";
     let currentRefresh = null;
     let audioPlayMode = "REPEAT";
-    let requestNumber = 0;
     let configRequestRunning = false;
+    let livePlayRequestRunning = false;
 
     normalAudio.loop = false;
 
@@ -493,9 +555,17 @@ body{
 
         playButton.setAttribute(
             "aria-label",
-            playing
-                ? "Pause Kulzzy Radio"
-                : "Play Kulzzy Radio"
+            playing ? "Pause Kulzzy Radio" : "Play Kulzzy Radio"
+        );
+    }
+
+    function setLiveButton(playing){
+        livePlayButton.textContent =
+            playing ? "Ⅱ PAUSE LIVE" : "▶ PLAY LIVE";
+
+        livePlayButton.setAttribute(
+            "aria-label",
+            playing ? "Pause live broadcast" : "Play live broadcast"
         );
     }
 
@@ -510,14 +580,10 @@ body{
     }
 
     function stopNormalAudio(){
-        requestNumber++;
-
         normalAudio.pause();
         normalAudio.removeAttribute("src");
         normalAudio.load();
-
         currentAudioURL = "";
-
         setNormalButton(false);
     }
 
@@ -525,21 +591,16 @@ body{
         liveAudio.pause();
         liveAudio.removeAttribute("src");
         liveAudio.load();
+        setLiveButton(false);
     }
 
     function getAudioURL(config){
-        const configuredAudio =
-            String(config.currentAudio || "").trim();
+        const configuredAudio = String(config.currentAudio || "").trim();
 
-        if(!configuredAudio){
-            return "";
-        }
+        if(!configuredAudio)return "";
 
         try{
-            return new URL(
-                configuredAudio,
-                window.location.href
-            ).href;
+            return new URL(configuredAudio, window.location.href).href;
         }catch(error){
             return configuredAudio;
         }
@@ -550,28 +611,24 @@ body{
 
         if(changed){
             stopNormalAudio();
-
             currentMode = "LIVE";
 
             liveAudio.src = LIVE_STREAM_URL;
             liveAudio.load();
+            setLiveButton(false);
         }
 
         showLivePanel();
 
         liveTitle.textContent =
-            config.title &&
-            config.title !== "AUTOMATIC AUDIO"
+            config.title && config.title !== "AUTOMATIC AUDIO"
                 ? config.title
                 : "Kulzzy Radio Live";
 
-        liveMessage.textContent =
-            "🔴 Live mode is active. Press play to listen to the broadcast.";
-
-        /*
-         The browser may require the listener to press Play.
-         This avoids unreliable autoplay restrictions on phones.
-        */
+        if(liveAudio.paused){
+            liveMessage.textContent =
+                "🔴 Live mode is active. Press PLAY LIVE to listen.";
+        }
     }
 
     function switchToNormalAudio(config, forceReload){
@@ -580,7 +637,6 @@ body{
         }
 
         currentMode = "AUDIO";
-
         showNormalPanel();
 
         const audioURL = getAudioURL(config);
@@ -627,9 +683,7 @@ body{
             );
 
             if(!response.ok){
-                throw new Error(
-                    "Configuration could not be loaded."
-                );
+                throw new Error("Configuration could not be loaded.");
             }
 
             const config = await response.json();
@@ -667,7 +721,10 @@ body{
         }
     }
 
-    playButton.addEventListener("click", async function(){
+    playButton.addEventListener("click", async function(event){
+        event.preventDefault();
+        event.stopPropagation();
+
         if(currentMode === "LIVE")return;
 
         if(!normalAudio.paused){
@@ -701,6 +758,46 @@ body{
         }
     });
 
+    livePlayButton.addEventListener("click", async function(event){
+        event.preventDefault();
+        event.stopPropagation();
+
+        if(currentMode !== "LIVE")return;
+        if(livePlayRequestRunning)return;
+
+        if(!liveAudio.paused){
+            liveAudio.pause();
+            return;
+        }
+
+        if(!liveAudio.src){
+            liveAudio.src = LIVE_STREAM_URL;
+        }
+
+        livePlayRequestRunning = true;
+        livePlayButton.disabled = true;
+        liveMessage.textContent = "Connecting to the live broadcast...";
+
+        try{
+            await liveAudio.play();
+
+            liveMessage.textContent =
+                "🔴 Connected to Kulzzy Radio live broadcast.";
+
+        }catch(error){
+            console.error("Live stream playback error:", error);
+
+            liveMessage.textContent =
+                "Could not start live audio. Check your internet connection and confirm GoCast is broadcasting.";
+
+            setLiveButton(false);
+
+        }finally{
+            livePlayRequestRunning = false;
+            livePlayButton.disabled = false;
+        }
+    });
+
     normalAudio.addEventListener("play", function(){
         setNormalButton(true);
     });
@@ -714,8 +811,7 @@ body{
 
         if(audioPlayMode === "ONCE"){
             setNormalButton(false);
-            audioMessage.textContent =
-                "Audio finished playing.";
+            audioMessage.textContent = "Audio finished playing.";
             return;
         }
 
@@ -733,33 +829,35 @@ body{
             "Audio could not load. Please check the audio file or your internet connection.";
     });
 
-    liveAudio.addEventListener("error", function(){
-        if(currentMode !== "LIVE")return;
-
-        liveMessage.textContent =
-            "The live stream could not connect. Check that GoCast is broadcasting and try pressing Play again.";
-    });
-
     liveAudio.addEventListener("playing", function(){
+        setLiveButton(true);
+
         liveMessage.textContent =
             "🔴 Connected to the Kulzzy Radio live stream.";
     });
 
     liveAudio.addEventListener("pause", function(){
+        setLiveButton(false);
+
         if(currentMode === "LIVE"){
             liveMessage.textContent =
-                "Live player paused. Press Play to listen again.";
+                "Live player paused. Press PLAY LIVE to listen again.";
         }
+    });
+
+    liveAudio.addEventListener("error", function(){
+        if(currentMode !== "LIVE")return;
+
+        setLiveButton(false);
+
+        liveMessage.textContent =
+            "The live stream could not connect. Check that GoCast is broadcasting and try again.";
     });
 
     loadConfig();
 
-    /*
-     Check the published configuration every 3 seconds.
-     When the admin changes LIVE/AUDIO, the visible player
-     switches automatically without requiring a page reload.
-    */
-    setInterval(loadConfig, 3000);
+    /* Check LIVE/OFF AIR settings every second. */
+    setInterval(loadConfig, 1000);
 
 })();
 </script>
