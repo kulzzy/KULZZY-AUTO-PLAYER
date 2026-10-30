@@ -1,14 +1,15 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#06122a">
-<title>Kulzzy Radio Network</title><style>
-*{
-    box-sizing:border-box;
-}
+<title>Kulzzy Radio Network</title>
 
-html{
+<style>
+*{box-sizing:border-box}
+
+html,body{
     width:100%;
     min-height:100%;
     margin:0;
@@ -16,10 +17,8 @@ html{
 }
 
 body{
-    width:100%;
     min-height:100vh;
     min-height:100dvh;
-    margin:0;
     padding:clamp(4px,1.2vw,16px);
     background:#06122a;
     color:#fff;
@@ -77,9 +76,7 @@ body{
     box-shadow:0 0 22px rgba(255,0,35,.6);
 }
 
-.brand-text{
-    min-width:0;
-}
+.brand-text{min-width:0}
 
 .brand-name{
     color:#ffd700;
@@ -95,7 +92,6 @@ body{
     color:#c8d2df;
     font-size:clamp(11px,2.4vw,25px);
     line-height:1.3;
-    white-space:normal;
 }
 
 .live-badge{
@@ -112,7 +108,6 @@ body{
     color:#fff;
     font-size:clamp(13px,2.8vw,31px);
     font-weight:bold;
-    box-shadow:0 0 18px rgba(255,0,30,.15);
 }
 
 .live-dot{
@@ -123,25 +118,27 @@ body{
 .play-area{
     width:100%;
     min-width:0;
-    min-height:clamp(220px,42vw,440px);
-    padding:clamp(20px,5vw,50px) 12px;
+    min-height:clamp(180px,32vw,350px);
+    padding:clamp(16px,3.5vw,35px) 12px;
     display:flex;
     justify-content:center;
     align-items:center;
+    overflow:hidden;
 }
 
 .play-button{
-    width:clamp(115px,22vw,230px);
-    height:clamp(115px,22vw,230px);
+    width:clamp(85px,16vw,175px);
+    height:clamp(85px,16vw,175px);
     max-width:70%;
-    max-height:70vw;
+    max-height:55vh;
     aspect-ratio:1/1;
-    flex:0 0 auto;
+    flex:0 1 auto;
+    padding:0;
     border:clamp(4px,.7vw,7px) solid #ffd700;
     border-radius:50%;
     background:radial-gradient(circle at 35% 30%,#ff2638,#ed001d 72%);
     color:#fff;
-    font-size:clamp(45px,8vw,88px);
+    font-size:clamp(36px,6vw,68px);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -152,14 +149,8 @@ body{
     transition:transform .15s ease;
 }
 
-.play-button:active{
-    transform:scale(.96);
-}
-
-.play-button:disabled{
-    opacity:.7;
-    cursor:wait;
-}
+.play-button:active{transform:scale(.96)}
+.play-button:disabled{opacity:.7;cursor:wait}
 
 .play-button span{
     display:block;
@@ -173,16 +164,11 @@ body{
     letter-spacing:3px;
 }
 
-#normalAudio,
-#liveAudio{
-    display:none;
-}
+#normalAudio,#liveAudio{display:none}
 
 /* Small phones */
 @media(max-width:360px){
-    body{
-        padding:4px;
-    }
+    body{padding:4px}
 
     .header{
         min-height:96px;
@@ -190,13 +176,9 @@ body{
         gap:6px;
     }
 
-    .brand{
-        gap:7px;
-    }
+    .brand{gap:7px}
 
-    .brand-name{
-        font-size:clamp(15px,4.5vw,17px);
-    }
+    .brand-name{font-size:clamp(15px,4.5vw,17px)}
 
     .slogan{
         font-size:10px;
@@ -209,70 +191,54 @@ body{
         font-size:12px;
     }
 
-    .live-dot{
-        font-size:13px;
-    }
+    .live-dot{font-size:13px}
 
     .play-area{
-        min-height:210px;
+        min-height:165px;
+        padding:12px;
     }
 
     .play-button{
-        width:120px;
-        height:120px;
-        max-width:75%;
+        width:85px;
+        height:85px;
+        max-width:70%;
+        font-size:35px;
     }
 }
 
-/* Tablets and medium screens */
+/* Tablets */
 @media(min-width:600px){
-    .radio{
-        max-width:900px;
-    }
+    .radio{max-width:900px}
 
-    .header{
-        padding:clamp(20px,3vw,32px);
-    }
+    .header{padding:clamp(20px,3vw,32px)}
 
-    .play-area{
-        min-height:clamp(300px,40vw,420px);
-    }
+    .play-area{min-height:clamp(240px,32vw,350px)}
 }
 
-/* Large desktop screens */
+/* Desktops */
 @media(min-width:1000px){
-    .radio{
-        max-width:1100px;
-    }
+    .radio{max-width:1100px}
 
-    .header{
-        min-height:175px;
-    }
+    .header{min-height:175px}
 
-    .play-area{
-        min-height:420px;
-    }
+    .play-area{min-height:350px}
 
     .play-button{
-        width:220px;
-        height:220px;
+        width:175px;
+        height:175px;
     }
 }
 
 /* Short screens and landscape phones */
 @media(max-height:500px){
-    body{
-        align-items:flex-start;
-    }
+    body{align-items:flex-start}
 
     .header{
         min-height:80px;
         padding:10px 16px;
     }
 
-    .brand-name{
-        font-size:clamp(16px,3.5vw,30px);
-    }
+    .brand-name{font-size:clamp(16px,3.5vw,30px)}
 
     .slogan{
         margin-top:5px;
@@ -285,104 +251,101 @@ body{
         font-size:clamp(12px,2.5vh,16px);
     }
 
-    .live-dot{
-        font-size:14px;
-    }
+    .live-dot{font-size:14px}
 
     .play-area{
-        min-height:150px;
-        padding:12px;
+        min-height:115px;
+        padding:8px;
     }
 
     .play-button{
-        width:clamp(95px,24vh,135px);
-        height:clamp(95px,24vh,135px);
+        width:clamp(70px,18vh,100px);
+        height:clamp(70px,18vh,100px);
+        max-height:35vh;
     }
 }
 
-/* Accessibility: reduce animation if requested by the device */
 @media(prefers-reduced-motion:reduce){
-    .play-button{
-        transition:none;
-    }
+    .play-button{transition:none}
 }
-</style></head><body><div class="radio"><main class="main-panel">
+</style>
+</head>
 
-    <header class="header">
+<body>
+<div class="radio">
+<main class="main-panel">
 
-        <div class="brand">
-            <div class="brand-dot"></div>
+<header class="header">
+    <div class="brand">
+        <div class="brand-dot"></div>
 
-            <div class="brand-text">
-                <div class="brand-name">
-                    KULZZY RADIO<br>NETWORK
-                </div>
+        <div class="brand-text">
+            <div class="brand-name">
+                KULZZY RADIO<br>NETWORK
+            </div>
 
-                <div class="slogan">
-                    Celebrating Lives Everyday
-                </div>
+            <div class="slogan">
+                Celebrating Lives Everyday
             </div>
         </div>
+    </div>
 
-        <div class="live-badge">
-            <span class="live-dot">●</span>
-            <span>LIVE</span>
-        </div>
+    <div class="live-badge">
+        <span class="live-dot">●</span>
+        <span>LIVE</span>
+    </div>
+</header>
 
-    </header>
+<section class="play-area">
+    <button
+        id="playButton"
+        class="play-button"
+        type="button"
+        aria-label="Play Kulzzy Radio"
+    >
+        <span id="playIcon">▶</span>
+    </button>
 
-    <section class="play-area">
-
-        <button
-            id="playButton"
-            class="play-button"
-            type="button"
-            aria-label="Play Kulzzy Radio"
-        >
-            <span id="playIcon">▶</span>
-        </button>
-
-        <audio id="normalAudio" preload="auto" playsinline></audio>
-        <audio id="liveAudio" preload="none" playsinline></audio>
-
-    </section>
+    <audio id="normalAudio" preload="auto" playsinline></audio>
+    <audio id="liveAudio" preload="none" playsinline></audio>
+</section>
 
 </main>
+</div>
 
-</div><script>
+<script>
 (function(){
-
 "use strict";
 
-const CONFIG_URL = "./config.json";
+const CONFIG_URL="./config.json";
 
-const CLOUDINARY_AUDIO_URL =
+const CLOUDINARY_AUDIO_URL=
 "https://res.cloudinary.com/s4j0x7dk/video/upload/v1788195407/smnabqvzrzwnhyxk3usp.mp3";
 
-const LIVE_STREAM_URL =
+const LIVE_STREAM_URL=
 "https://icecast.gocast.fm/stream/kulzzy-radio-network";
 
-const audio = document.getElementById("normalAudio");
-const liveAudio = document.getElementById("liveAudio");
-const playButton = document.getElementById("playButton");
-const playIcon = document.getElementById("playIcon");
+const audio=document.getElementById("normalAudio");
+const liveAudio=document.getElementById("liveAudio");
+const playButton=document.getElementById("playButton");
+const playIcon=document.getElementById("playIcon");
 
-let mode = "AUDIO";
-let currentTrack = "";
-let isLoading = false;
-let needsRandomStart = true;
-let lastRefresh = -1;
-let playbackRequest = 0;
+let mode="AUDIO";
+let currentTrack="";
+let isLoading=false;
+let needsRandomStart=true;
+let lastRefresh=-1;
+let playbackRequest=0;
 
-audio.loop = false;
+audio.loop=false;
 
 function setButtonState(playing){
-    playIcon.textContent = playing ? "Ⅱ" : "▶";
+    playIcon.textContent=playing?"Ⅱ":"▶";
     playButton.classList.toggle("playing",playing);
 
     playButton.setAttribute(
         "aria-label",
-        playing ? "Pause Kulzzy Radio" : "Play Kulzzy Radio"
+        playing?"Pause Kulzzy Radio":"Play Kulzzy Radio"
     );
 }
 
@@ -390,9 +353,9 @@ function waitForMetadata(requestId){
     return new Promise(function(resolve,reject){
 
         if(
-            audio.readyState >= 1 &&
+            audio.readyState>=1 &&
             Number.isFinite(audio.duration) &&
-            audio.duration > 0
+            audio.duration>0
         ){
             resolve();
             return;
@@ -406,8 +369,8 @@ function waitForMetadata(requestId){
 
         function ready(){
             if(
-                requestId !== playbackRequest ||
-                mode !== "AUDIO"
+                requestId!==playbackRequest ||
+                mode!=="AUDIO"
             ){
                 cleanup();
                 resolve();
@@ -415,9 +378,9 @@ function waitForMetadata(requestId){
             }
 
             if(
-                audio.readyState >= 1 &&
+                audio.readyState>=1 &&
                 Number.isFinite(audio.duration) &&
-                audio.duration > 0
+                audio.duration>0
             ){
                 cleanup();
                 resolve();
@@ -446,33 +409,31 @@ function waitForSeek(requestId){
             return;
         }
 
-        let finished = false;
+        let finished=false;
+        let timer;
 
         function done(){
-            if(finished) return;
+            if(finished)return;
 
-            finished = true;
+            finished=true;
             audio.removeEventListener("seeked",done);
+            clearInterval(timer);
             resolve();
         }
 
         audio.addEventListener("seeked",done);
 
-        const timer = setInterval(function(){
+        timer=setInterval(function(){
             if(
-                requestId !== playbackRequest ||
-                mode !== "AUDIO" ||
+                requestId!==playbackRequest ||
+                mode!=="AUDIO" ||
                 !audio.seeking
             ){
-                clearInterval(timer);
                 done();
             }
         },100);
 
-        setTimeout(function(){
-            clearInterval(timer);
-            done();
-        },5000);
+        setTimeout(done,5000);
     });
 }
 
@@ -481,56 +442,54 @@ async function chooseRandomPosition(requestId){
     await waitForMetadata(requestId);
 
     if(
-        requestId !== playbackRequest ||
-        mode !== "AUDIO"
+        requestId!==playbackRequest ||
+        mode!=="AUDIO"
     ){
         return;
     }
 
-    const duration = audio.duration;
+    const duration=audio.duration;
 
-    if(!Number.isFinite(duration) || duration <= 3){
-        needsRandomStart = false;
+    if(!Number.isFinite(duration)||duration<=3){
+        needsRandomStart=false;
         return;
     }
 
-    // Pick a random timestamp in the SAME Cloudinary audio file.
-    const maxPosition = Math.max(1,Math.floor(duration - 2));
-    const randomPosition = Math.floor(Math.random() * maxPosition);
+    const maxPosition=Math.max(1,Math.floor(duration-2));
 
-    audio.currentTime = randomPosition;
+    audio.currentTime=Math.floor(Math.random()*maxPosition);
 
     await waitForSeek(requestId);
 
     if(
-        requestId === playbackRequest &&
-        mode === "AUDIO"
+        requestId===playbackRequest &&
+        mode==="AUDIO"
     ){
-        needsRandomStart = false;
+        needsRandomStart=false;
     }
 }
 
 async function playNormalAudio(){
 
-    if(isLoading) return;
+    if(isLoading)return;
 
-    isLoading = true;
-    playButton.disabled = true;
+    isLoading=true;
+    playButton.disabled=true;
 
-    const requestId = ++playbackRequest;
+    const requestId=++playbackRequest;
 
     try{
 
         if(
             !audio.src ||
-            currentTrack !== CLOUDINARY_AUDIO_URL
+            currentTrack!==CLOUDINARY_AUDIO_URL
         ){
             audio.pause();
 
-            currentTrack = CLOUDINARY_AUDIO_URL;
-            audio.src = CLOUDINARY_AUDIO_URL;
+            currentTrack=CLOUDINARY_AUDIO_URL;
+            audio.src=CLOUDINARY_AUDIO_URL;
 
-            needsRandomStart = true;
+            needsRandomStart=true;
             audio.load();
         }
 
@@ -539,8 +498,8 @@ async function playNormalAudio(){
         }
 
         if(
-            requestId !== playbackRequest ||
-            mode !== "AUDIO"
+            requestId!==playbackRequest ||
+            mode!=="AUDIO"
         ){
             return;
         }
@@ -555,31 +514,30 @@ async function playNormalAudio(){
 
     }finally{
 
-        playButton.disabled = false;
-        isLoading = false;
-
+        playButton.disabled=false;
+        isLoading=false;
     }
 }
 
 function switchToLive(){
 
-    if(mode === "LIVE") return;
+    if(mode!=="LIVE"){
 
-    playbackRequest++;
+        playbackRequest++;
+        audio.pause();
 
-    audio.pause();
+        mode="LIVE";
 
-    mode = "LIVE";
+        liveAudio.src=LIVE_STREAM_URL;
+        liveAudio.load();
+    }
 
-    liveAudio.src = LIVE_STREAM_URL;
-    liveAudio.load();
-
-    setButtonState(false);
+    setButtonState(!liveAudio.paused);
 }
 
 function switchToAudio(forceReload){
 
-    const wasLive = mode === "LIVE";
+    const wasLive=mode==="LIVE";
 
     if(wasLive){
 
@@ -587,31 +545,31 @@ function switchToAudio(forceReload){
         liveAudio.removeAttribute("src");
         liveAudio.load();
 
-        currentTrack = "";
-        needsRandomStart = true;
+        currentTrack="";
+        needsRandomStart=true;
     }
 
-    mode = "AUDIO";
+    mode="AUDIO";
 
     if(forceReload){
 
         audio.pause();
-        currentTrack = "";
-        needsRandomStart = true;
+        currentTrack="";
+        needsRandomStart=true;
     }
 
     if(
         !audio.src ||
-        currentTrack !== CLOUDINARY_AUDIO_URL
+        currentTrack!==CLOUDINARY_AUDIO_URL
     ){
 
         audio.pause();
 
-        currentTrack = CLOUDINARY_AUDIO_URL;
-        audio.src = CLOUDINARY_AUDIO_URL;
+        currentTrack=CLOUDINARY_AUDIO_URL;
+        audio.src=CLOUDINARY_AUDIO_URL;
 
         audio.load();
-        needsRandomStart = true;
+        needsRandomStart=true;
     }
 
     setButtonState(!audio.paused);
@@ -621,55 +579,59 @@ async function loadConfig(){
 
     try{
 
-        const response = await fetch(
-            CONFIG_URL + "?t=" + Date.now(),
+        const response=await fetch(
+            CONFIG_URL+"?t="+Date.now(),
             {cache:"no-store"}
         );
 
-        if(!response.ok) return;
+        if(!response.ok){
+            throw new Error("Configuration unavailable");
+        }
 
-        const config = await response.json();
+        const config=await response.json();
 
-        const status = String(config.status || "AUDIO")
+        const status=String(config.status||"AUDIO")
             .trim()
             .toUpperCase();
 
-        const refresh = Number(config.refresh || 0);
+        const refresh=Number(config.refresh||0);
 
-        if(status === "LIVE"){
+        if(status==="LIVE"){
             switchToLive();
             return;
         }
 
-        const forceReload =
-            lastRefresh !== -1 &&
-            refresh !== lastRefresh;
+        const forceReload=
+            lastRefresh!==-1 &&
+            refresh!==lastRefresh;
 
-        lastRefresh = refresh;
+        lastRefresh=refresh;
 
         switchToAudio(forceReload);
 
     }catch(error){
 
-        if(mode !== "LIVE"){
+        if(mode!=="LIVE"){
             switchToAudio(false);
         }
 
+        console.error("Kulzzy Radio configuration:",error);
     }
 }
 
 playButton.addEventListener("click",async function(){
 
-    if(isLoading) return;
+    if(isLoading)return;
 
-    if(mode === "LIVE"){
+    if(mode==="LIVE"){
 
         try{
 
             if(liveAudio.paused){
 
                 if(!liveAudio.src){
-                    liveAudio.src = LIVE_STREAM_URL;
+                    liveAudio.src=LIVE_STREAM_URL;
+                    liveAudio.load();
                 }
 
                 await liveAudio.play();
@@ -679,14 +641,12 @@ playButton.addEventListener("click",async function(){
 
                 liveAudio.pause();
                 setButtonState(false);
-
             }
 
         }catch(error){
 
             setButtonState(false);
             console.error("Live stream playback error:",error);
-
         }
 
         return;
@@ -697,11 +657,9 @@ playButton.addEventListener("click",async function(){
         audio.pause();
         setButtonState(false);
         return;
-
     }
 
     await playNormalAudio();
-
 });
 
 audio.addEventListener("play",function(){
@@ -712,29 +670,26 @@ audio.addEventListener("play",function(){
         type:"KULZZY_AUDIOVISUALS",
         action:"audio-playing"
     },"*");
-
 });
 
 audio.addEventListener("pause",function(){
 
-    if(mode === "AUDIO"){
+    if(mode==="AUDIO"){
         setButtonState(false);
     }
-
 });
 
 audio.addEventListener("ended",function(){
 
-    if(mode !== "AUDIO") return;
+    if(mode!=="AUDIO")return;
 
     window.parent.postMessage({
         type:"KULZZY_AUDIOVISUALS",
         action:"audio-ended"
     },"*");
 
-    needsRandomStart = true;
+    needsRandomStart=true;
     playNormalAudio();
-
 });
 
 liveAudio.addEventListener("play",function(){
@@ -743,17 +698,18 @@ liveAudio.addEventListener("play",function(){
 
 liveAudio.addEventListener("pause",function(){
 
-    if(mode === "LIVE"){
+    if(mode==="LIVE"){
         setButtonState(false);
     }
-
 });
 
 liveAudio.addEventListener("error",function(){
 
     setButtonState(false);
-    console.error("Kulzzy Radio live stream could not be played.");
 
+    console.error(
+        "Kulzzy Radio live stream could not be played."
+    );
 });
 
 loadConfig();
@@ -761,5 +717,6 @@ loadConfig();
 setInterval(loadConfig,3000);
 
 })();
-</script></body>
+</script>
+</body>
 </html>
