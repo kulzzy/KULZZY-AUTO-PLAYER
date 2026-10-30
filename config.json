@@ -3,10 +3,10 @@
   "currentAudio": "audio/ON_AIR_BIRTHDAY_SONG_BASS_ONLY.mp3",
   "nowPlaying": "",
   "title": "AUTOMATIC AUDIO",
-  "status": "AUDIO",
+  "status": "LIVE",
   "background": "",
   "volume": 1,
   "playlistMode": false,
   "playMode": "REPEAT",
-  "refresh": 1793342285364
+  "refresh": 1793342285365
 }
