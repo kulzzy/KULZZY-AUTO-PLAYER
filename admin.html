@@ -1,9 +1,12 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#020d1a">
-<title>Kulzzy Radio Admin</title><style>
+<title>Kulzzy Radio Admin</title>
+
+<style>
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;min-height:100%}
 body{background:#020d1a;color:#fff;font-family:Arial,Helvetica,sans-serif;padding:15px}
@@ -43,63 +46,114 @@ select option{background:#020d1a;color:#fff}
 .success{color:#55ff88}
 .warning{color:#ffd000}
 .error{color:#ff5964}
-@media(max-width:520px){body{padding:8px}.container{padding:15px;border-radius:14px}h1{font-size:23px}.modeButtons{grid-template-columns:1fr}}
-</style></head><body>
+@media(max-width:520px){
+body{padding:8px}
+.container{padding:15px;border-radius:14px}
+h1{font-size:23px}
+.modeButtons{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
 <div class="container">
+
 <h1>🎛️ KULZZY RADIO ADMIN</h1>
-<div class="subtitle">Kulzzy Radio Network • Celebrating Lives Everyday</div><div class="section">
+<div class="subtitle">Kulzzy Radio Network • Celebrating Lives Everyday</div>
+
+<div class="section">
 <div class="sectionTitle">🔐 GITHUB AUTHORIZATION</div>
 <div id="tokenStatus" class="tokenStatus">Checking authorization...</div>
 <input id="tokenInput" class="tokenInput" type="password" autocomplete="off" placeholder="Paste your GitHub token">
 <button id="tokenButton" class="smallButton" type="button">🔑 SET GITHUB TOKEN</button>
 <div class="note">Your GitHub token is stored in this browser's local storage. Never share your token publicly.</div>
-</div><div class="section">
+</div>
+
+<div class="section">
 <div class="sectionTitle">☁️ CLOUDINARY AUDIO UPLOAD</div>
-<div class="cloudStatus">✅ Cloudinary settings<br>Cloud Name: <strong>s4j0x7dk</strong><br>Upload Preset: <strong>AUDIO PLAYER</strong><br>Upload Mode: <strong>Unsigned</strong></div>
+
+<div class="cloudStatus">
+✅ Cloudinary settings<br>
+Cloud Name: <strong>s4j0x7dk</strong><br>
+Upload Preset: <strong>AUDIO PLAYER</strong><br>
+Upload Mode: <strong>Unsigned</strong>
+</div>
+
 <div class="uploadBox">
 <input id="audioUpload" class="fileInput" type="file" accept=".mp3,audio/mpeg">
 <div id="fileName" class="fileName">No MP3 selected</div>
 <button id="uploadButton" class="uploadButton" type="button">☁️ UPLOAD LONG AUDIO TO CLOUDINARY</button>
-<div id="progressOuter" class="progressOuter"><div id="progressInner" class="progressInner"></div></div>
+<div id="progressOuter" class="progressOuter">
+<div id="progressInner" class="progressInner"></div>
 </div>
+</div>
+
 <div id="cloudAudioBox" class="cloudAudioBox">
 <div class="cloudAudioTitle">✅ AUDIO UPLOADED TO CLOUDINARY</div>
 <div id="cloudAudioUrl" class="cloudAudioUrl"></div>
 </div>
+
 <div class="note">After uploading, click SAVE &amp; PLAY CLOUD AUDIO to make it the current audio.</div>
-</div><div class="section">
+</div>
+
+<div class="section">
 <div class="sectionTitle">🎵 AUDIO CONTROL</div>
+
 <label for="cloudAudioInput">CLOUDINARY AUDIO</label>
 <input id="cloudAudioInput" type="text" readonly placeholder="Upload an audio file first">
+
 <label for="nowPlaying">📻 NOW PLAYING</label>
 <input id="nowPlaying" type="text" placeholder="Example: Birthday Celebration">
+
 <label>🔁 PLAY MODE</label>
 <div class="modeButtons">
 <button id="repeatButton" class="modeButton active" type="button">🔁 REPEAT SONG</button>
 <button id="onceButton" class="modeButton" type="button">▶️ PLAY ONCE</button>
 </div>
-<div class="note"><strong>REPEAT SONG:</strong> repeats the current audio. <br><br><strong>PLAY ONCE:</strong> plays the current audio once.</div>
+
+<div class="note">
+<strong>REPEAT SONG:</strong> repeats the current audio.<br><br>
+<strong>PLAY ONCE:</strong> plays the current audio once.
+</div>
+
 <button id="saveButton" class="saveButton" type="button" disabled>💾 SAVE &amp; PLAY CLOUD AUDIO</button>
-</div><div class="section">
+</div>
+
+<div class="section">
 <div class="sectionTitle">📁 EXISTING GITHUB AUDIO</div>
+
 <label for="audioSelect">SELECT EXISTING AUDIO</label>
-<select id="audioSelect"><option value="">Loading songs...</option></select>
+<select id="audioSelect">
+<option value="">Loading songs...</option>
+</select>
+
 <button id="refreshButton" class="refreshButton" type="button">🔄 REFRESH AUDIO LIST</button>
+
 <div class="note">Choose an existing MP3 to make it the current audio.</div>
-</div><div class="section">
+</div>
+
+<div class="section">
 <div class="sectionTitle">🔴 GOCAST LIVE CONTROL</div>
+
 <div class="cloudStatus">
 Stream: <strong>GoCast — Kulzzy Radio Network</strong><br>
-Stream URL: <span style="word-break:break-all">https://icecast.gocast.fm/stream/kulzzy-radio-network</span>
+Stream URL:
+<span style="word-break:break-all">https://icecast.gocast.fm/stream/kulzzy-radio-network</span>
 </div>
+
 <button id="liveButton" class="liveButton" type="button">🔴 GO LIVE ON AIR</button>
 <button id="offButton" class="offButton" type="button">⏹️ OFF AIR — RETURN TO NORMAL AUDIO</button>
+
 <div class="note">
 <strong>Before pressing GO LIVE:</strong> start your broadcast in the GoCast browser studio and confirm it is ON AIR. This button changes the player configuration; it does not activate your microphone or start the broadcast itself.<br><br>
-Press OFF AIR to switch the player back to the normal audio currently saved in the configuration. The admin cannot independently detect whether GoCast has stopped broadcasting.
+Press OFF AIR to switch the player back to the normal audio saved in the configuration. The admin cannot independently detect whether GoCast has stopped broadcasting.
 </div>
-</div><div id="status" class="status">Ready</div>
-</div><script>
+</div>
+
+<div id="status" class="status">Ready</div>
+</div>
+
+<script>
 "use strict";
 
 const GITHUB_USERNAME = "kulzzy";
@@ -107,19 +161,24 @@ const REPOSITORY = "KULZZY-AUTO-PLAYER";
 const AUDIO_FOLDER = "audio";
 const CONFIG_FILE = "config.json";
 const TOKEN_KEY = "KULZZY_RADIO_GITHUB_TOKEN";
+
 const CLOUDINARY_CLOUD_NAME = "s4j0x7dk";
 const CLOUDINARY_UPLOAD_PRESET = "AUDIO PLAYER";
-const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/" + CLOUDINARY_CLOUD_NAME + "/video/upload";
-const LIVE_STREAM_URL = "https://icecast.gocast.fm/stream/kulzzy-radio-network";
+const CLOUDINARY_UPLOAD_URL =
+    "https://api.cloudinary.com/v1_1/" +
+    CLOUDINARY_CLOUD_NAME + "/video/upload";
+
+const LIVE_STREAM_URL =
+    "https://icecast.gocast.fm/stream/kulzzy-radio-network";
 
 let playMode = "REPEAT";
 let cloudinaryAudioURL = "";
 let savedNormalAudio = "";
 let savedNormalTitle = "";
 let configSha = "";
-let configLoadError = false;
 
 const $ = id => document.getElementById(id);
+
 const tokenStatus = $("tokenStatus");
 const tokenInput = $("tokenInput");
 const tokenButton = $("tokenButton");
@@ -152,13 +211,16 @@ function getToken() {
 
 function updateAuthorization() {
     const token = getToken();
+
     if (token && token.length > 10) {
-        tokenStatus.textContent = "🔐 GitHub authorization is saved on this device.";
+        tokenStatus.textContent =
+            "🔐 GitHub authorization is saved on this device.";
         tokenStatus.className = "tokenStatus success";
         tokenInput.style.display = "none";
         tokenButton.textContent = "🔑 CHANGE GITHUB TOKEN";
     } else {
-        tokenStatus.textContent = "⚠️ GitHub authorization is not saved.";
+        tokenStatus.textContent =
+            "⚠️ GitHub authorization is not saved.";
         tokenStatus.className = "tokenStatus warning";
         tokenInput.style.display = "none";
         tokenButton.textContent = "🔑 SET GITHUB TOKEN";
@@ -178,16 +240,23 @@ tokenButton.addEventListener("click", () => {
 
 function saveToken() {
     const token = tokenInput.value.trim();
+
     if (!token) {
         setStatus("❌ Please paste your GitHub token.", "error");
         return;
     }
+
     localStorage.setItem(TOKEN_KEY, token);
     tokenInput.value = "";
     tokenInput.style.display = "none";
+
     updateAuthorization();
+
     setStatus("✅ GitHub token saved. Checking configuration...", "success");
-    loadConfig().then(loadAudioFiles).catch(error => setStatus("❌ " + error.message, "error"));
+
+    loadConfig()
+        .then(() => loadAudioFiles())
+        .catch(error => setStatus("❌ " + error.message, "error"));
 }
 
 tokenInput.addEventListener("keydown", event => {
@@ -196,12 +265,14 @@ tokenInput.addEventListener("keydown", event => {
 
 function requireToken() {
     const token = getToken();
+
     if (!token) {
         tokenInput.style.display = "block";
         tokenButton.textContent = "💾 SAVE TOKEN";
         tokenInput.focus();
         throw new Error("Please save your GitHub token first.");
     }
+
     return token;
 }
 
@@ -213,41 +284,93 @@ function githubHeaders(token) {
     };
 }
 
-async function loadConfig() {
-    const url = "https://api.github.com/repos/" + GITHUB_USERNAME + "/" + REPOSITORY + "/contents/" + CONFIG_FILE + "?t=" + Date.now();
-    const headers = {"Accept":"application/vnd.github+json"};
-    if (getToken()) headers.Authorization = "Bearer " + getToken();
+/*
+ FIX:
+ Always preserve the normal audio URL, including when
+ the configuration is currently set to LIVE.
 
-    const response = await fetch(url, {headers, cache:"no-store"});
-    if (!response.ok) throw new Error("Could not load config.json (" + response.status + ").");
+ The normal audio title is saved separately in
+ normalAudioTitle while LIVE is active.
+*/
+async function loadConfig() {
+    const url =
+        "https://api.github.com/repos/" +
+        GITHUB_USERNAME + "/" +
+        REPOSITORY + "/contents/" +
+        CONFIG_FILE + "?t=" + Date.now();
+
+    const headers = {"Accept": "application/vnd.github+json"};
+
+    if (getToken()) {
+        headers.Authorization = "Bearer " + getToken();
+    }
+
+    const response = await fetch(url, {
+        headers,
+        cache: "no-store"
+    });
+
+    if (!response.ok) {
+        throw new Error(
+            "Could not load config.json (" + response.status + ")."
+        );
+    }
 
     const file = await response.json();
     configSha = file.sha;
-    const decoded = decodeURIComponent(escape(atob(file.content.replace(/\n/g, ""))));
+
+    const decoded = decodeURIComponent(
+        escape(atob(file.content.replace(/\n/g, "")))
+    );
+
     const config = JSON.parse(decoded);
 
-    if (config.status !== "LIVE" && config.currentAudio) {
+    if (config.currentAudio) {
         savedNormalAudio = config.currentAudio;
-        savedNormalTitle = config.nowPlaying || "";
+
+        if (config.status === "LIVE") {
+            savedNormalTitle = config.normalAudioTitle || "";
+        } else {
+            savedNormalTitle = config.nowPlaying || "";
+        }
     }
-    configLoadError = false;
+
     return config;
 }
 
 async function updateConfig(config, message) {
     const token = requireToken();
+
     setStatus("⏳ Updating radio configuration...");
 
-    const apiURL = "https://api.github.com/repos/" + GITHUB_USERNAME + "/" + REPOSITORY + "/contents/" + CONFIG_FILE;
-    const getResponse = await fetch(apiURL, {method:"GET", headers:githubHeaders(token), cache:"no-store"});
+    const apiURL =
+        "https://api.github.com/repos/" +
+        GITHUB_USERNAME + "/" +
+        REPOSITORY + "/contents/" +
+        CONFIG_FILE;
+
+    const getResponse = await fetch(apiURL, {
+        method: "GET",
+        headers: githubHeaders(token),
+        cache: "no-store"
+    });
 
     if (!getResponse.ok) {
-        if (getResponse.status === 401 || getResponse.status === 403) {
+        if (
+            getResponse.status === 401 ||
+            getResponse.status === 403
+        ) {
             localStorage.removeItem(TOKEN_KEY);
             updateAuthorization();
-            throw new Error("GitHub authorization failed. Check that your token has permission to update repository contents.");
+
+            throw new Error(
+                "GitHub authorization failed. Check that your token has permission to update repository contents."
+            );
         }
-        throw new Error("Could not read config.json (" + getResponse.status + ").");
+
+        throw new Error(
+            "Could not read config.json (" + getResponse.status + ")."
+        );
     }
 
     const file = await getResponse.json();
@@ -255,78 +378,137 @@ async function updateConfig(config, message) {
     const encoded = btoa(unescape(encodeURIComponent(json)));
 
     const putResponse = await fetch(apiURL, {
-        method:"PUT",
-        headers:githubHeaders(token),
-        body:JSON.stringify({
+        method: "PUT",
+        headers: githubHeaders(token),
+        body: JSON.stringify({
             message: message || "Update Kulzzy Radio config",
-            content:encoded,
-            sha:file.sha
+            content: encoded,
+            sha: file.sha
         })
     });
 
     if (!putResponse.ok) {
         const errorText = await putResponse.text();
-        throw new Error("GitHub update failed (" + putResponse.status + "): " + errorText);
+
+        throw new Error(
+            "GitHub update failed (" +
+            putResponse.status + "): " + errorText
+        );
     }
 
     const result = await putResponse.json();
-    configSha = result.content && result.content.sha ? result.content.sha : "";
+
+    configSha =
+        result.content && result.content.sha
+            ? result.content.sha
+            : "";
+
     return true;
 }
 
 async function loadAudioFiles() {
-    audioSelect.innerHTML = '<option value="">⏳ Loading songs...</option>';
+    audioSelect.innerHTML =
+        '<option value="">⏳ Loading songs...</option>';
 
     try {
-        const url = "https://api.github.com/repos/" + GITHUB_USERNAME + "/" + REPOSITORY + "/contents/" + AUDIO_FOLDER + "?t=" + Date.now();
-        const headers = {"Accept":"application/vnd.github+json"};
-        if (getToken()) headers.Authorization = "Bearer " + getToken();
+        const url =
+            "https://api.github.com/repos/" +
+            GITHUB_USERNAME + "/" +
+            REPOSITORY + "/contents/" +
+            AUDIO_FOLDER + "?t=" + Date.now();
 
-        const response = await fetch(url, {headers, cache:"no-store"});
-        if (!response.ok) throw new Error("Could not read GitHub audio folder.");
+        const headers = {"Accept": "application/vnd.github+json"};
+
+        if (getToken()) {
+            headers.Authorization = "Bearer " + getToken();
+        }
+
+        const response = await fetch(url, {
+            headers,
+            cache: "no-store"
+        });
+
+        if (!response.ok) {
+            throw new Error("Could not read GitHub audio folder.");
+        }
 
         const files = await response.json();
-        if (!Array.isArray(files)) throw new Error("GitHub did not return an audio folder.");
 
-        const audioFiles = files.filter(file =>
-            file.type === "file" && /\.(mp3|mpeg)$/i.test(file.name)
-        ).sort((a,b) => a.name.localeCompare(b.name, undefined, {numeric:true,sensitivity:"base"}));
+        if (!Array.isArray(files)) {
+            throw new Error("GitHub did not return an audio folder.");
+        }
+
+        const audioFiles = files
+            .filter(file =>
+                file.type === "file" &&
+                /\.(mp3|mpeg)$/i.test(file.name)
+            )
+            .sort((a, b) =>
+                a.name.localeCompare(
+                    b.name,
+                    undefined,
+                    {numeric: true, sensitivity: "base"}
+                )
+            );
 
         audioSelect.innerHTML = "";
+
         const first = document.createElement("option");
         first.value = "";
-        first.textContent = audioFiles.length ? "Select existing GitHub song" : "No GitHub MP3 files found";
+        first.textContent = audioFiles.length
+            ? "Select existing GitHub song"
+            : "No GitHub MP3 files found";
+
         audioSelect.appendChild(first);
 
         audioFiles.forEach(file => {
             const option = document.createElement("option");
             option.value = "audio/" + file.name;
-            option.textContent = file.name.replace(/\.mp3$/i, "").replace(/_/g, " ");
+
+            option.textContent = file.name
+                .replace(/\.mp3$/i, "")
+                .replace(/_/g, " ");
+
             audioSelect.appendChild(option);
         });
 
         if (audioFiles.length) {
-            setStatus("✅ Found " + audioFiles.length + " GitHub audio file(s).", "success");
+            setStatus(
+                "✅ Found " + audioFiles.length +
+                " GitHub audio file(s).",
+                "success"
+            );
         }
     } catch (error) {
         console.error(error);
-        audioSelect.innerHTML = '<option value="">GitHub audio list unavailable</option>';
-        setStatus("⚠️ Could not load the GitHub audio list. Check the repository and token permissions.", "warning");
+
+        audioSelect.innerHTML =
+            '<option value="">GitHub audio list unavailable</option>';
+
+        setStatus(
+            "⚠️ Could not load the GitHub audio list. Check the repository and token permissions.",
+            "warning"
+        );
     }
 }
 
 audioUpload.addEventListener("change", () => {
     const file = audioUpload.files[0];
+
     if (!file) {
         fileName.textContent = "No MP3 selected";
         return;
     }
+
     if (!/\.mp3$/i.test(file.name)) {
         fileName.textContent = "❌ Please select an MP3 file.";
         audioUpload.value = "";
         return;
     }
-    fileName.textContent = "🎵 " + file.name + " • " + formatBytes(file.size);
+
+    fileName.textContent =
+        "🎵 " + file.name + " • " + formatBytes(file.size);
+
     cloudinaryAudioURL = "";
     cloudAudioInput.value = "";
     cloudAudioBox.style.display = "none";
@@ -335,13 +517,22 @@ audioUpload.addEventListener("change", () => {
 
 function formatBytes(bytes) {
     if (bytes === 0) return "0 Bytes";
-    const units = ["Bytes","KB","MB","GB"];
-    const i = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
-    return parseFloat((bytes / Math.pow(1024,i)).toFixed(2)) + " " + units[i];
+
+    const units = ["Bytes", "KB", "MB", "GB"];
+
+    const i = Math.min(
+        units.length - 1,
+        Math.floor(Math.log(bytes) / Math.log(1024))
+    );
+
+    return parseFloat(
+        (bytes / Math.pow(1024, i)).toFixed(2)
+    ) + " " + units[i];
 }
 
 uploadButton.addEventListener("click", () => {
     const file = audioUpload.files[0];
+
     if (!file || !/\.mp3$/i.test(file.name)) {
         setStatus("❌ Please select an MP3 file first.", "error");
         return;
@@ -350,31 +541,45 @@ uploadButton.addEventListener("click", () => {
     uploadButton.disabled = true;
     progressOuter.style.display = "block";
     progressInner.style.width = "0%";
+
     setStatus("☁️ Starting Cloudinary upload...");
 
     const formData = new FormData();
+
     formData.append("file", file);
     formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
     const xhr = new XMLHttpRequest();
+
     xhr.open("POST", CLOUDINARY_UPLOAD_URL);
 
     xhr.upload.addEventListener("progress", event => {
         if (event.lengthComputable) {
             const percent = event.loaded / event.total * 100;
+
             progressInner.style.width = percent.toFixed(1) + "%";
-            setStatus("☁️ Uploading to Cloudinary... " + percent.toFixed(0) + "%");
+
+            setStatus(
+                "☁️ Uploading to Cloudinary... " +
+                percent.toFixed(0) + "%"
+            );
         }
     });
 
     xhr.onload = () => {
         uploadButton.disabled = false;
+
         if (xhr.status < 200 || xhr.status >= 300) {
             let message = "Cloudinary upload failed.";
+
             try {
                 const result = JSON.parse(xhr.responseText);
-                if (result.error && result.error.message) message = result.error.message;
+
+                if (result.error && result.error.message) {
+                    message = result.error.message;
+                }
             } catch (_) {}
+
             progressOuter.style.display = "none";
             setStatus("❌ " + message, "error");
             return;
@@ -382,15 +587,30 @@ uploadButton.addEventListener("click", () => {
 
         try {
             const result = JSON.parse(xhr.responseText);
-            if (!result.secure_url) throw new Error("Cloudinary did not return an audio URL.");
+
+            if (!result.secure_url) {
+                throw new Error(
+                    "Cloudinary did not return an audio URL."
+                );
+            }
+
             cloudinaryAudioURL = result.secure_url;
             cloudAudioInput.value = cloudinaryAudioURL;
             cloudAudioUrl.textContent = cloudinaryAudioURL;
             cloudAudioBox.style.display = "block";
+
             progressInner.style.width = "100%";
             saveButton.disabled = false;
-            setStatus("✅ Audio uploaded. Click SAVE & PLAY CLOUD AUDIO.", "success");
-            setTimeout(() => progressOuter.style.display = "none", 1200);
+
+            setStatus(
+                "✅ Audio uploaded. Click SAVE & PLAY CLOUD AUDIO.",
+                "success"
+            );
+
+            setTimeout(() => {
+                progressOuter.style.display = "none";
+            }, 1200);
+
         } catch (error) {
             progressOuter.style.display = "none";
             setStatus("❌ " + error.message, "error");
@@ -400,7 +620,11 @@ uploadButton.addEventListener("click", () => {
     xhr.onerror = () => {
         uploadButton.disabled = false;
         progressOuter.style.display = "none";
-        setStatus("❌ Network error while uploading to Cloudinary.", "error");
+
+        setStatus(
+            "❌ Network error while uploading to Cloudinary.",
+            "error"
+        );
     };
 
     xhr.send(formData);
@@ -420,30 +644,46 @@ onceButton.addEventListener("click", () => {
 
 function makeAudioConfig(audio, title) {
     return {
-        version:1,
-        currentAudio:audio,
-        nowPlaying:title || "",
-        title:"AUTOMATIC AUDIO",
-        status:"AUDIO",
-        background:"",
-        volume:1,
-        playlistMode:false,
-        playMode:playMode,
-        refresh:Date.now()
+        version: 1,
+        currentAudio: audio,
+        nowPlaying: title || "",
+        title: "AUTOMATIC AUDIO",
+        status: "AUDIO",
+        background: "",
+        volume: 1,
+        playlistMode: false,
+        playMode: playMode,
+        refresh: Date.now()
     };
 }
 
 saveButton.addEventListener("click", async () => {
     if (!cloudinaryAudioURL) {
-        setStatus("❌ Upload an audio file to Cloudinary first.", "error");
+        setStatus(
+            "❌ Upload an audio file to Cloudinary first.",
+            "error"
+        );
         return;
     }
+
     saveButton.disabled = true;
+
     try {
-        await updateConfig(makeAudioConfig(cloudinaryAudioURL, nowPlaying.value.trim()), "Set Kulzzy Radio Cloudinary audio");
+        const title = nowPlaying.value.trim();
+
+        await updateConfig(
+            makeAudioConfig(cloudinaryAudioURL, title),
+            "Set Kulzzy Radio Cloudinary audio"
+        );
+
         savedNormalAudio = cloudinaryAudioURL;
-        savedNormalTitle = nowPlaying.value.trim();
-        setStatus("✅ Cloudinary audio saved. The player will switch back to normal audio.", "success");
+        savedNormalTitle = title;
+
+        setStatus(
+            "✅ Cloudinary audio saved. The player will switch back to normal audio.",
+            "success"
+        );
+
     } catch (error) {
         console.error(error);
         setStatus("❌ " + error.message, "error");
@@ -454,14 +694,25 @@ saveButton.addEventListener("click", async () => {
 
 audioSelect.addEventListener("change", async () => {
     const selected = audioSelect.value;
+
     if (!selected) return;
 
     try {
-        const config = makeAudioConfig(selected, nowPlaying.value.trim());
-        await updateConfig(config, "Set Kulzzy Radio GitHub audio");
+        const title = nowPlaying.value.trim();
+
+        await updateConfig(
+            makeAudioConfig(selected, title),
+            "Set Kulzzy Radio GitHub audio"
+        );
+
         savedNormalAudio = selected;
-        savedNormalTitle = nowPlaying.value.trim();
-        setStatus("✅ GitHub audio saved and selected as normal audio.", "success");
+        savedNormalTitle = title;
+
+        setStatus(
+            "✅ GitHub audio saved and selected as normal audio.",
+            "success"
+        );
+
     } catch (error) {
         setStatus("❌ " + error.message, "error");
     }
@@ -469,6 +720,11 @@ audioSelect.addEventListener("change", async () => {
 
 refreshButton.addEventListener("click", loadAudioFiles);
 
+/*
+ GO LIVE:
+ Preserve the normal audio and its title before switching
+ the configuration to LIVE mode.
+*/
 liveButton.addEventListener("click", async () => {
     liveButton.disabled = true;
     offButton.disabled = true;
@@ -476,27 +732,60 @@ liveButton.addEventListener("click", async () => {
     try {
         const current = await loadConfig();
 
-        if (current.status !== "LIVE" && current.currentAudio) {
+        if (current.currentAudio) {
             savedNormalAudio = current.currentAudio;
-            savedNormalTitle = current.nowPlaying || "";
+
+            if (current.status !== "LIVE") {
+                savedNormalTitle = current.nowPlaying || "";
+            } else {
+                savedNormalTitle =
+                    current.normalAudioTitle ||
+                    savedNormalTitle ||
+                    "";
+            }
+        }
+
+        const normalAudio =
+            savedNormalAudio || current.currentAudio || "";
+
+        if (!normalAudio) {
+            throw new Error(
+                "No normal audio is saved. Select and save a Cloudinary or GitHub audio file first."
+            );
         }
 
         const config = {
-            version:1,
-            currentAudio:savedNormalAudio || current.currentAudio || "",
-            nowPlaying:"LIVE ON AIR",
-            title:"KULZZY RADIO LIVE",
-            status:"LIVE",
-            liveStream:LIVE_STREAM_URL,
-            background:"",
-            volume:1,
-            playlistMode:false,
-            playMode:"REPEAT",
-            refresh:Date.now()
+            version: 1,
+
+            /*
+             Keep currentAudio pointing to the normal audio.
+             The player can use status and liveStream to
+             determine that LIVE mode is active.
+            */
+            currentAudio: normalAudio,
+
+            normalAudioTitle: savedNormalTitle || "",
+            nowPlaying: "LIVE ON AIR",
+            title: "KULZZY RADIO LIVE",
+            status: "LIVE",
+            liveStream: LIVE_STREAM_URL,
+            background: "",
+            volume: 1,
+            playlistMode: false,
+            playMode: "REPEAT",
+            refresh: Date.now()
         };
 
-        await updateConfig(config, "Kulzzy Radio GO LIVE");
-        setStatus("🔴 PLAYER SET TO LIVE. Make sure your GoCast studio is broadcasting ON AIR.", "success");
+        await updateConfig(
+            config,
+            "Kulzzy Radio GO LIVE"
+        );
+
+        setStatus(
+            "🔴 PLAYER SET TO LIVE. Your normal audio has been preserved. Make sure your GoCast studio is broadcasting ON AIR.",
+            "success"
+        );
+
     } catch (error) {
         console.error(error);
         setStatus("❌ " + error.message, "error");
@@ -506,6 +795,11 @@ liveButton.addEventListener("click", async () => {
     }
 });
 
+/*
+ OFF AIR:
+ Restore the preserved normal audio even when the
+ configuration currently says LIVE.
+*/
 offButton.addEventListener("click", async () => {
     liveButton.disabled = true;
     offButton.disabled = true;
@@ -514,23 +808,52 @@ offButton.addEventListener("click", async () => {
         let normalAudio = savedNormalAudio;
         let normalTitle = savedNormalTitle;
 
-        if (!normalAudio) {
-            const current = await loadConfig();
-            if (current.status !== "LIVE" && current.currentAudio) {
-                normalAudio = current.currentAudio;
-                normalTitle = current.nowPlaying || "";
-            }
+        const current = await loadConfig();
+
+        /*
+         If the browser has no saved copy, recover the
+         normal audio from currentAudio in config.json.
+        */
+        if (!normalAudio && current.currentAudio) {
+            normalAudio = current.currentAudio;
+
+            normalTitle =
+                current.status === "LIVE"
+                    ? (current.normalAudioTitle || "")
+                    : (current.nowPlaying || "");
+        }
+
+        /*
+         Recover the title saved before the LIVE switch.
+        */
+        if (!normalTitle && current.normalAudioTitle) {
+            normalTitle = current.normalAudioTitle;
         }
 
         if (!normalAudio) {
-            throw new Error("No saved normal audio is available. Select and save a Cloudinary or GitHub audio file first.");
+            throw new Error(
+                "No saved normal audio is available. Select and save a Cloudinary or GitHub audio file first."
+            );
         }
 
-        const config = makeAudioConfig(normalAudio, normalTitle);
-        await updateConfig(config, "Kulzzy Radio OFF AIR — restore normal audio");
+        const config = makeAudioConfig(
+            normalAudio,
+            normalTitle
+        );
+
+        await updateConfig(
+            config,
+            "Kulzzy Radio OFF AIR — restore normal audio"
+        );
+
         savedNormalAudio = normalAudio;
         savedNormalTitle = normalTitle;
-        setStatus("⏹️ OFF AIR MODE SAVED. The player will return to normal audio.", "success");
+
+        setStatus(
+            "⏹️ OFF AIR MODE SAVED. The player will return to normal audio.",
+            "success"
+        );
+
     } catch (error) {
         console.error(error);
         setStatus("❌ " + error.message, "error");
@@ -548,20 +871,39 @@ document.addEventListener("visibilitychange", () => {
 
 async function start() {
     updateAuthorization();
+
     try {
         const config = await loadConfig();
-        if (config.status !== "LIVE" && config.currentAudio) {
+
+        if (config.currentAudio) {
             savedNormalAudio = config.currentAudio;
-            savedNormalTitle = config.nowPlaying || "";
+
+            savedNormalTitle =
+                config.status === "LIVE"
+                    ? (config.normalAudioTitle || "")
+                    : (config.nowPlaying || "");
         }
-        setStatus(config.status === "LIVE" ? "🔴 Configuration is set to LIVE." : "✅ Configuration loaded. Normal audio is selected.", "success");
+
+        setStatus(
+            config.status === "LIVE"
+                ? "🔴 Configuration is set to LIVE. Normal audio is preserved."
+                : "✅ Configuration loaded. Normal audio is selected.",
+            "success"
+        );
+
     } catch (error) {
         console.error(error);
-        setStatus("⚠️ Could not load config.json. Check repository access.", "warning");
+
+        setStatus(
+            "⚠️ Could not load config.json. Check repository access.",
+            "warning"
+        );
     }
+
     loadAudioFiles();
 }
 
 start();
-</script></body>
+</script>
+</body>
 </html>
