@@ -182,7 +182,6 @@ const statusText = document.getElementById("statusText");
 
 let currentAudioUrl = "";
 let currentMode = "AUDIO";
-let isLive = false;
 let isLoading = false;
 let lastRefresh = -1;
 
@@ -218,7 +217,6 @@ function switchToLive(){
         normalAudio.pause();
 
         currentMode = "LIVE";
-        isLive = true;
 
         playButton.classList.add("hidden");
         liveAudioBox.style.display = "block";
@@ -239,7 +237,6 @@ function switchToAudio(audioUrl, forceReload){
     const changedFromLive = currentMode === "LIVE";
 
     currentMode = "AUDIO";
-    isLive = false;
 
     liveAudio.pause();
     liveAudioBox.style.display = "none";
@@ -254,7 +251,6 @@ function switchToAudio(audioUrl, forceReload){
         normalAudio.pause();
 
         currentAudioUrl = audioUrl;
-
         normalAudio.src = audioUrl;
         normalAudio.load();
     }
