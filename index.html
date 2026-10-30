@@ -1,43 +1,47 @@
 <!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#06122a">
 <title>Kulzzy Radio Network</title><style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
-html,body{
-    margin:0;
-    padding:0;
+html{
     width:100%;
     min-height:100%;
-    background:#06122a;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
+    margin:0;
+    padding:0;
 }
 
 body{
+    width:100%;
     min-height:100vh;
+    min-height:100dvh;
+    margin:0;
+    padding:clamp(4px,1.2vw,16px);
+    background:#06122a;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
     display:flex;
     justify-content:center;
     align-items:center;
-    padding:8px;
 }
 
 .radio{
-    display:grid;
-    grid-template-columns:minmax(0,3fr) minmax(210px,1fr);
     width:100%;
-    max-width:1200px;
-    min-height:390px;
+    max-width:1100px;
+    min-width:0;
+    margin:auto;
     background:#031326;
-    border-top:5px solid #ffd700;
-    border-right:5px solid #ffd700;
-    border-bottom:5px solid #ffd700;
+    border:clamp(2px,.45vw,5px) solid #ffd700;
     overflow:hidden;
+    box-shadow:0 5px 24px rgba(0,0,0,.3);
 }
 
 .main-panel{
+    width:100%;
     min-width:0;
     display:flex;
     flex-direction:column;
@@ -45,49 +49,58 @@ body{
 }
 
 .header{
-    min-height:150px;
-    padding:25px 35px;
+    width:100%;
+    min-width:0;
+    min-height:clamp(100px,18vw,175px);
+    padding:clamp(10px,3vw,28px);
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:20px;
+    gap:clamp(8px,2vw,24px);
     border-bottom:2px solid rgba(255,255,255,.12);
 }
 
 .brand{
     display:flex;
     align-items:center;
-    gap:24px;
+    gap:clamp(8px,2vw,22px);
+    flex:1 1 auto;
     min-width:0;
 }
 
 .brand-dot{
-    width:42px;
-    height:42px;
-    flex:0 0 42px;
+    width:clamp(15px,4vw,42px);
+    height:clamp(15px,4vw,42px);
+    flex:0 0 auto;
     border-radius:50%;
     background:#ff1025;
-    box-shadow:0 0 25px rgba(255,0,35,.65);
+    box-shadow:0 0 22px rgba(255,0,35,.6);
+}
+
+.brand-text{
+    min-width:0;
 }
 
 .brand-name{
     color:#ffd700;
-    font-size:clamp(21px,3.3vw,43px);
-    line-height:1.15;
+    font-size:clamp(17px,4.1vw,43px);
+    line-height:1.13;
     font-weight:900;
-    letter-spacing:.3px;
+    letter-spacing:.2px;
+    overflow-wrap:break-word;
 }
 
 .slogan{
-    margin-top:16px;
+    margin-top:clamp(5px,1.4vw,15px);
     color:#c8d2df;
-    font-size:clamp(14px,2.3vw,25px);
-    white-space:nowrap;
+    font-size:clamp(11px,2.4vw,25px);
+    line-height:1.3;
+    white-space:normal;
 }
 
 .live-badge{
-    width:clamp(95px,14vw,150px);
-    height:clamp(95px,14vw,150px);
+    width:clamp(58px,13vw,145px);
+    height:clamp(58px,13vw,145px);
     flex:0 0 auto;
     border-radius:50%;
     background:#f20c20;
@@ -95,41 +108,47 @@ body{
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    gap:8px;
-    font-size:clamp(19px,3vw,32px);
+    gap:clamp(2px,.7vw,8px);
+    color:#fff;
+    font-size:clamp(13px,2.8vw,31px);
     font-weight:bold;
-    color:white;
-    box-shadow:0 0 20px rgba(255,0,30,.15);
+    box-shadow:0 0 18px rgba(255,0,30,.15);
 }
 
 .live-dot{
-    font-size:25px;
+    font-size:clamp(14px,2.8vw,28px);
     line-height:1;
 }
 
 .play-area{
-    flex:1;
-    min-height:245px;
+    width:100%;
+    min-width:0;
+    min-height:clamp(220px,42vw,440px);
+    padding:clamp(20px,5vw,50px) 12px;
     display:flex;
-    align-items:center;
     justify-content:center;
-    padding:35px 15px;
+    align-items:center;
 }
 
 .play-button{
-    width:clamp(135px,19vw,220px);
-    height:clamp(135px,19vw,220px);
+    width:clamp(115px,22vw,230px);
+    height:clamp(115px,22vw,230px);
+    max-width:70%;
+    max-height:70vw;
+    aspect-ratio:1/1;
+    flex:0 0 auto;
+    border:clamp(4px,.7vw,7px) solid #ffd700;
     border-radius:50%;
-    border:7px solid #ffd700;
     background:radial-gradient(circle at 35% 30%,#ff2638,#ed001d 72%);
     color:#fff;
-    font-size:clamp(55px,8vw,85px);
+    font-size:clamp(45px,8vw,88px);
     display:flex;
     align-items:center;
     justify-content:center;
     cursor:pointer;
-    box-shadow:0 0 40px rgba(255,0,30,.36);
+    box-shadow:0 0 35px rgba(255,0,30,.32);
     -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
     transition:transform .15s ease;
 }
 
@@ -145,7 +164,7 @@ body{
 .play-button span{
     display:block;
     line-height:1;
-    margin-left:7px;
+    margin-left:.1em;
 }
 
 .play-button.playing span{
@@ -154,146 +173,154 @@ body{
     letter-spacing:3px;
 }
 
-#normalAudio,#liveAudio{
+#normalAudio,
+#liveAudio{
     display:none;
 }
 
-.listeners-panel{
-    min-width:0;
-    background:#020d19;
-    border-left:6px solid #ffd700;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:25px 12px;
-    text-align:center;
-}
-
-.listeners-heading{
-    font-size:clamp(19px,2.5vw,30px);
-    line-height:1.25;
-    font-weight:bold;
-    color:#fff;
-}
-
-.listeners-dot{
-    display:inline-block;
-    width:16px;
-    height:16px;
-    margin-right:8px;
-    border-radius:50%;
-    background:#ff1025;
-    box-shadow:0 0 15px rgba(255,0,35,.45);
-    vertical-align:middle;
-}
-
-.listener-count{
-    margin-top:30px;
-    color:#f20c20;
-    font-size:clamp(42px,7vw,88px);
-    font-weight:900;
-    line-height:1;
-    overflow-wrap:anywhere;
-}
-
-@media(max-width:600px){
-    body{padding:5px}
-
-    .radio{
-        grid-template-columns:minmax(0,1fr) 115px;
-        min-height:300px;
-        border-top-width:4px;
-        border-right-width:4px;
-        border-bottom-width:4px;
+/* Small phones */
+@media(max-width:360px){
+    body{
+        padding:4px;
     }
 
     .header{
-        min-height:125px;
-        padding:15px 10px;
-        gap:8px;
+        min-height:96px;
+        padding:10px 8px;
+        gap:6px;
     }
 
-    .brand{gap:10px}
-
-    .brand-dot{
-        width:19px;
-        height:19px;
-        flex-basis:19px;
+    .brand{
+        gap:7px;
     }
 
     .brand-name{
-        font-size:clamp(15px,4.2vw,23px);
+        font-size:clamp(15px,4.5vw,17px);
     }
 
     .slogan{
-        margin-top:8px;
-        font-size:clamp(10px,2.8vw,14px);
-        white-space:normal;
+        font-size:10px;
+        margin-top:5px;
     }
 
     .live-badge{
-        width:58px;
-        height:58px;
-        font-size:14px;
-        gap:2px;
-    }
-
-    .live-dot{font-size:15px}
-
-    .play-area{
-        min-height:190px;
-        padding:20px 8px;
-    }
-
-    .play-button{
-        width:clamp(105px,30vw,145px);
-        height:clamp(105px,30vw,145px);
-        border-width:5px;
-        font-size:52px;
-    }
-
-    .listeners-panel{
-        border-left-width:4px;
-        padding:12px 5px;
-    }
-
-    .listeners-heading{font-size:16px}
-
-    .listeners-dot{
-        width:10px;
-        height:10px;
-        margin-right:3px;
-    }
-
-    .listener-count{
-        margin-top:22px;
-        font-size:clamp(28px,8vw,42px);
-    }
-}
-
-@media(max-width:350px){
-    .radio{grid-template-columns:minmax(0,1fr) 90px}
-    .brand{gap:6px}
-    .brand-name{font-size:14px}
-
-    .live-badge{
-        width:47px;
-        height:47px;
+        width:53px;
+        height:53px;
         font-size:12px;
     }
 
-    .listeners-heading{font-size:13px}
-    .listener-count{font-size:26px}
+    .live-dot{
+        font-size:13px;
+    }
+
+    .play-area{
+        min-height:210px;
+    }
+
+    .play-button{
+        width:120px;
+        height:120px;
+        max-width:75%;
+    }
+}
+
+/* Tablets and medium screens */
+@media(min-width:600px){
+    .radio{
+        max-width:900px;
+    }
+
+    .header{
+        padding:clamp(20px,3vw,32px);
+    }
+
+    .play-area{
+        min-height:clamp(300px,40vw,420px);
+    }
+}
+
+/* Large desktop screens */
+@media(min-width:1000px){
+    .radio{
+        max-width:1100px;
+    }
+
+    .header{
+        min-height:175px;
+    }
+
+    .play-area{
+        min-height:420px;
+    }
+
+    .play-button{
+        width:220px;
+        height:220px;
+    }
+}
+
+/* Short screens and landscape phones */
+@media(max-height:500px){
+    body{
+        align-items:flex-start;
+    }
+
+    .header{
+        min-height:80px;
+        padding:10px 16px;
+    }
+
+    .brand-name{
+        font-size:clamp(16px,3.5vw,30px);
+    }
+
+    .slogan{
+        margin-top:5px;
+        font-size:clamp(10px,1.8vw,17px);
+    }
+
+    .live-badge{
+        width:clamp(48px,12vh,70px);
+        height:clamp(48px,12vh,70px);
+        font-size:clamp(12px,2.5vh,16px);
+    }
+
+    .live-dot{
+        font-size:14px;
+    }
+
+    .play-area{
+        min-height:150px;
+        padding:12px;
+    }
+
+    .play-button{
+        width:clamp(95px,24vh,135px);
+        height:clamp(95px,24vh,135px);
+    }
+}
+
+/* Accessibility: reduce animation if requested by the device */
+@media(prefers-reduced-motion:reduce){
+    .play-button{
+        transition:none;
+    }
 }
 </style></head><body><div class="radio"><main class="main-panel">
 
     <header class="header">
+
         <div class="brand">
             <div class="brand-dot"></div>
-            <div>
-                <div class="brand-name">KULZZY RADIO<br>NETWORK</div>
-                <div class="slogan">Celebrating Lives Everyday</div>
+
+            <div class="brand-text">
+                <div class="brand-name">
+                    KULZZY RADIO<br>NETWORK
+                </div>
+
+                <div class="slogan">
+                    Celebrating Lives Everyday
+                </div>
             </div>
         </div>
 
@@ -301,30 +328,30 @@ body{
             <span class="live-dot">●</span>
             <span>LIVE</span>
         </div>
+
     </header>
 
     <section class="play-area">
-        <button id="playButton" class="play-button"
-                type="button" aria-label="Play Kulzzy Radio">
+
+        <button
+            id="playButton"
+            class="play-button"
+            type="button"
+            aria-label="Play Kulzzy Radio"
+        >
             <span id="playIcon">▶</span>
         </button>
 
         <audio id="normalAudio" preload="auto" playsinline></audio>
         <audio id="liveAudio" preload="none" playsinline></audio>
+
     </section>
 
 </main>
 
-<aside class="listeners-panel">
-    <div class="listeners-heading">
-        <span class="listeners-dot"></span>
-        OUR<br>LISTENERS
-    </div>
-    <div class="listener-count" id="listenerCount">8,388</div>
-</aside>
-
 </div><script>
 (function(){
+
 "use strict";
 
 const CONFIG_URL = "./config.json";
@@ -345,107 +372,146 @@ let currentTrack = "";
 let isLoading = false;
 let needsRandomStart = true;
 let lastRefresh = -1;
-let randomStartPending = false;
 let playbackRequest = 0;
 
 audio.loop = false;
 
 function setButtonState(playing){
     playIcon.textContent = playing ? "Ⅱ" : "▶";
-    playButton.classList.toggle("playing", playing);
+    playButton.classList.toggle("playing",playing);
+
     playButton.setAttribute(
         "aria-label",
         playing ? "Pause Kulzzy Radio" : "Play Kulzzy Radio"
     );
 }
 
-function waitForMetadata(element){
+function waitForMetadata(requestId){
     return new Promise(function(resolve,reject){
-        if(element.readyState >= 1 && Number.isFinite(element.duration)){
+
+        if(
+            audio.readyState >= 1 &&
+            Number.isFinite(audio.duration) &&
+            audio.duration > 0
+        ){
             resolve();
             return;
         }
 
         function cleanup(){
-            element.removeEventListener("loadedmetadata",onReady);
-            element.removeEventListener("durationchange",onReady);
-            element.removeEventListener("error",onError);
+            audio.removeEventListener("loadedmetadata",ready);
+            audio.removeEventListener("durationchange",ready);
+            audio.removeEventListener("error",failed);
         }
 
-        function onReady(){
-            if(Number.isFinite(element.duration) && element.duration > 0){
+        function ready(){
+            if(
+                requestId !== playbackRequest ||
+                mode !== "AUDIO"
+            ){
+                cleanup();
+                resolve();
+                return;
+            }
+
+            if(
+                audio.readyState >= 1 &&
+                Number.isFinite(audio.duration) &&
+                audio.duration > 0
+            ){
                 cleanup();
                 resolve();
             }
         }
 
-        function onError(){
+        function failed(){
             cleanup();
-            reject(new Error("Audio metadata could not be loaded."));
+            reject(new Error("Audio could not be loaded."));
         }
 
-        element.addEventListener("loadedmetadata",onReady);
-        element.addEventListener("durationchange",onReady);
-        element.addEventListener("error",onError);
+        audio.addEventListener("loadedmetadata",ready);
+        audio.addEventListener("durationchange",ready);
+        audio.addEventListener("error",failed);
 
-        element.load();
-        onReady();
+        audio.load();
+        ready();
     });
 }
 
-function waitForSeek(element){
+function waitForSeek(requestId){
     return new Promise(function(resolve){
-        if(!element.seeking){
+
+        if(!audio.seeking){
             resolve();
             return;
         }
 
+        let finished = false;
+
         function done(){
-            element.removeEventListener("seeked",done);
-            element.removeEventListener("timeupdate",check);
+            if(finished) return;
+
+            finished = true;
+            audio.removeEventListener("seeked",done);
             resolve();
         }
 
-        function check(){
-            if(!element.seeking) done();
-        }
+        audio.addEventListener("seeked",done);
 
-        element.addEventListener("seeked",done,{once:true});
-        element.addEventListener("timeupdate",check);
-        setTimeout(done,4000);
+        const timer = setInterval(function(){
+            if(
+                requestId !== playbackRequest ||
+                mode !== "AUDIO" ||
+                !audio.seeking
+            ){
+                clearInterval(timer);
+                done();
+            }
+        },100);
+
+        setTimeout(function(){
+            clearInterval(timer);
+            done();
+        },5000);
     });
 }
 
-async function seekToRandomPosition(requestId){
-    await waitForMetadata(audio);
+async function chooseRandomPosition(requestId){
 
-    if(requestId !== playbackRequest || mode !== "AUDIO"){
+    await waitForMetadata(requestId);
+
+    if(
+        requestId !== playbackRequest ||
+        mode !== "AUDIO"
+    ){
         return;
     }
 
     const duration = audio.duration;
 
-    if(!Number.isFinite(duration) || duration <= 2){
+    if(!Number.isFinite(duration) || duration <= 3){
         needsRandomStart = false;
         return;
     }
 
-    // Choose a random point from the same audio file.
-    // Leave at least 2 seconds at the end.
-    const maxPosition = Math.max(0, duration - 2);
+    // Pick a random timestamp in the SAME Cloudinary audio file.
+    const maxPosition = Math.max(1,Math.floor(duration - 2));
     const randomPosition = Math.floor(Math.random() * maxPosition);
 
-    if(randomPosition > 0){
-        audio.currentTime = randomPosition;
-        await waitForSeek(audio);
-    }
+    audio.currentTime = randomPosition;
 
-    if(requestId === playbackRequest){
+    await waitForSeek(requestId);
+
+    if(
+        requestId === playbackRequest &&
+        mode === "AUDIO"
+    ){
         needsRandomStart = false;
     }
 }
 
-async function startNormalAudio(){
+async function playNormalAudio(){
+
     if(isLoading) return;
 
     isLoading = true;
@@ -454,21 +520,28 @@ async function startNormalAudio(){
     const requestId = ++playbackRequest;
 
     try{
-        if(!audio.src || currentTrack !== CLOUDINARY_AUDIO_URL){
+
+        if(
+            !audio.src ||
+            currentTrack !== CLOUDINARY_AUDIO_URL
+        ){
             audio.pause();
+
             currentTrack = CLOUDINARY_AUDIO_URL;
             audio.src = CLOUDINARY_AUDIO_URL;
-            audio.load();
+
             needsRandomStart = true;
+            audio.load();
         }
 
         if(needsRandomStart){
-            randomStartPending = true;
-            await seekToRandomPosition(requestId);
-            randomStartPending = false;
+            await chooseRandomPosition(requestId);
         }
 
-        if(requestId !== playbackRequest || mode !== "AUDIO"){
+        if(
+            requestId !== playbackRequest ||
+            mode !== "AUDIO"
+        ){
             return;
         }
 
@@ -476,36 +549,67 @@ async function startNormalAudio(){
         setButtonState(true);
 
     }catch(error){
-        randomStartPending = false;
+
         setButtonState(false);
         console.error("Kulzzy Radio playback error:",error);
+
     }finally{
+
         playButton.disabled = false;
         isLoading = false;
+
     }
 }
 
-async function switchToAudio(forceReload){
-    if(mode === "LIVE"){
+function switchToLive(){
+
+    if(mode === "LIVE") return;
+
+    playbackRequest++;
+
+    audio.pause();
+
+    mode = "LIVE";
+
+    liveAudio.src = LIVE_STREAM_URL;
+    liveAudio.load();
+
+    setButtonState(false);
+}
+
+function switchToAudio(forceReload){
+
+    const wasLive = mode === "LIVE";
+
+    if(wasLive){
+
         liveAudio.pause();
         liveAudio.removeAttribute("src");
         liveAudio.load();
-        needsRandomStart = true;
+
         currentTrack = "";
+        needsRandomStart = true;
     }
 
     mode = "AUDIO";
 
     if(forceReload){
+
         audio.pause();
         currentTrack = "";
         needsRandomStart = true;
     }
 
-    if(!audio.src || currentTrack !== CLOUDINARY_AUDIO_URL){
+    if(
+        !audio.src ||
+        currentTrack !== CLOUDINARY_AUDIO_URL
+    ){
+
         audio.pause();
+
         currentTrack = CLOUDINARY_AUDIO_URL;
         audio.src = CLOUDINARY_AUDIO_URL;
+
         audio.load();
         needsRandomStart = true;
     }
@@ -513,19 +617,10 @@ async function switchToAudio(forceReload){
     setButtonState(!audio.paused);
 }
 
-function switchToLive(){
-    if(mode !== "LIVE"){
-        playbackRequest++;
-        audio.pause();
-        mode = "LIVE";
-        liveAudio.src = LIVE_STREAM_URL;
-        liveAudio.load();
-        setButtonState(false);
-    }
-}
-
 async function loadConfig(){
+
     try{
+
         const response = await fetch(
             CONFIG_URL + "?t=" + Date.now(),
             {cache:"no-store"}
@@ -547,63 +642,89 @@ async function loadConfig(){
         }
 
         const forceReload =
-            lastRefresh !== -1 && refresh !== lastRefresh;
+            lastRefresh !== -1 &&
+            refresh !== lastRefresh;
 
         lastRefresh = refresh;
 
-        await switchToAudio(forceReload);
+        switchToAudio(forceReload);
 
     }catch(error){
+
         if(mode !== "LIVE"){
-            await switchToAudio(false);
+            switchToAudio(false);
         }
+
     }
 }
 
 playButton.addEventListener("click",async function(){
+
     if(isLoading) return;
 
     if(mode === "LIVE"){
-        if(liveAudio.paused){
-            try{
+
+        try{
+
+            if(liveAudio.paused){
+
+                if(!liveAudio.src){
+                    liveAudio.src = LIVE_STREAM_URL;
+                }
+
                 await liveAudio.play();
                 setButtonState(true);
-            }catch(error){
+
+            }else{
+
+                liveAudio.pause();
                 setButtonState(false);
-                console.error("Live stream playback error:",error);
+
             }
-        }else{
-            liveAudio.pause();
+
+        }catch(error){
+
             setButtonState(false);
+            console.error("Live stream playback error:",error);
+
         }
+
         return;
     }
 
     if(!audio.paused){
+
         audio.pause();
         setButtonState(false);
         return;
+
     }
 
-    await startNormalAudio();
+    await playNormalAudio();
+
 });
 
 audio.addEventListener("play",function(){
+
     setButtonState(true);
 
     window.parent.postMessage({
         type:"KULZZY_AUDIOVISUALS",
         action:"audio-playing"
     },"*");
+
 });
 
 audio.addEventListener("pause",function(){
-    if(mode === "AUDIO" && !randomStartPending){
+
+    if(mode === "AUDIO"){
         setButtonState(false);
     }
+
 });
 
-audio.addEventListener("ended",async function(){
+audio.addEventListener("ended",function(){
+
     if(mode !== "AUDIO") return;
 
     window.parent.postMessage({
@@ -611,9 +732,9 @@ audio.addEventListener("ended",async function(){
         action:"audio-ended"
     },"*");
 
-    // Restart the SAME Cloudinary file at a new random position.
     needsRandomStart = true;
-    await startNormalAudio();
+    playNormalAudio();
+
 });
 
 liveAudio.addEventListener("play",function(){
@@ -621,15 +742,22 @@ liveAudio.addEventListener("play",function(){
 });
 
 liveAudio.addEventListener("pause",function(){
-    if(mode === "LIVE") setButtonState(false);
+
+    if(mode === "LIVE"){
+        setButtonState(false);
+    }
+
 });
 
 liveAudio.addEventListener("error",function(){
+
     setButtonState(false);
     console.error("Kulzzy Radio live stream could not be played.");
+
 });
 
 loadConfig();
+
 setInterval(loadConfig,3000);
 
 })();
