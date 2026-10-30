@@ -147,25 +147,6 @@ html,body{
     margin:12px auto;
 }
 
-.liveHelp{
-    color:#c7d0d9;
-    font-size:13px;
-    line-height:1.5;
-    margin:8px auto;
-    max-width:600px;
-}
-
-.liveLink{
-    display:inline-block;
-    margin:8px auto;
-    padding:10px 14px;
-    background:#ffd000;
-    color:#06122a;
-    font-weight:bold;
-    text-decoration:none;
-    border-radius:8px;
-}
-
 .footer{
     width:100%;
     padding:8px 10px;
@@ -219,19 +200,6 @@ html,body{
             playsinline
             preload="none">
         </audio>
-
-        <div class="liveHelp">
-            🔴 You are in Kulzzy Radio LIVE mode.
-            If playback does not start automatically, press Play.
-        </div>
-
-        <a
-            class="liveLink"
-            href="https://gocast.fm/station/kulzzy-radio-network"
-            target="_blank"
-            rel="noopener noreferrer">
-            OPEN LIVE STATION
-        </a>
     </div>
 
 </div>
@@ -312,6 +280,7 @@ window.addEventListener("message", function(event) {
                 playButton.textContent = "❚❚";
                 buttonLabel.textContent = "NOW PLAYING";
             }
+
             userHasStartedAudio = true;
         }).catch(function(error) {
             console.log("Kulzzy radio resume blocked:", error);
@@ -340,16 +309,6 @@ async function loadConfig() {
 
         const config = await response.json();
 
-        if (
-            config.nowPlaying &&
-            String(config.nowPlaying).trim() !== ""
-        ) {
-            nowPlaying.textContent = config.nowPlaying;
-        } else {
-            nowPlaying.textContent =
-                "Kulzzy Radio Network • Celebrating Lives Everyday";
-        }
-
         currentPlayMode = String(
             config.playMode || "REPEAT"
         ).toUpperCase();
@@ -361,6 +320,16 @@ async function loadConfig() {
             switchToLive();
         } else {
             switchToAudio(config.currentAudio || "");
+
+            if (currentMode === "AUDIO") {
+                nowPlaying.style.display = "block";
+
+                nowPlaying.textContent =
+                    config.nowPlaying &&
+                    String(config.nowPlaying).trim() !== ""
+                        ? config.nowPlaying
+                        : "Kulzzy Radio Network • Celebrating Lives Everyday";
+            }
         }
 
     } catch (error) {
@@ -371,7 +340,7 @@ async function loadConfig() {
 }
 
 /* =====================================================
-   LIVE MODE — GOCAST
+   LIVE MODE — SHOW ONLY LIVE STATUS AND PLAY CONTROLS
 ===================================================== */
 
 function switchToLive() {
@@ -382,91 +351,88 @@ function switchToLive() {
     currentMode = "LIVE";
     randomizing = false;
 
-    /* Stop normal audio. */
+    /* Stop the normal recorded audio. */
     audio.pause();
 
     playButton.classList.remove("playing");
     playButton.textContent = "▶";
-    buttonLabel.textContent = "TAP TO PLAY";
 
-    /* Display GoCast live controls. */
-    casterLive.style.display = "block";
+    /* Hide normal audio text and controls. */
+    nowPlaying.style.display = "none";
     playButton.style.display = "none";
     buttonLabel.style.display = "none";
+
+    /* Show one LIVE ON AIR message. */
     statusText.style.display = "block";
     statusText.textContent = "🔴 LIVE ON AIR";
 
-    /* Set the confirmed GoCast stream URL. */
+    /* Show the GoCast player. */
+    casterLive.style.display = "block";
+
     goCastLiveAudio.pause();
     goCastLiveAudio.src = LIVE_STREAM_URL;
     goCastLiveAudio.load();
 
-    /* Browsers may require the listener to press Play. */
+    /* Autoplay is attempted; listener can press Play if blocked. */
     goCastLiveAudio.play().catch(function(error) {
-        console.log(
-            "GoCast autoplay blocked. Listener can press Play.",
-            error
-        );
+        console.log("GoCast autoplay blocked. Press Play.", error);
     });
 }
 
 /* =====================================================
-   NORMAL AUDIO MODE
+   NORMAL AUDIO MODE — RESTORE AFTER OFF AIR
 ===================================================== */
 
 function switchToAudio(audioFile) {
-    /* Stop live mode even if the normal audio URL is empty. */
     const changedFromLive = currentMode === "LIVE";
 
     if (changedFromLive) {
+        /* Completely stop and clear the live stream. */
         goCastLiveAudio.pause();
         goCastLiveAudio.removeAttribute("src");
         goCastLiveAudio.load();
 
-        userHasStartedAudio = false;
         currentAudio = "";
+        userHasStartedAudio = false;
+        randomizing = false;
     }
 
     currentMode = "AUDIO";
 
     casterLive.style.display = "none";
-    playButton.style.display = "flex";
-    buttonLabel.style.display = "block";
     statusText.style.display = "block";
     statusText.textContent = "🎵 AUTOMATIC AUDIO";
+
+    playButton.style.display = "flex";
+    buttonLabel.style.display = "block";
+    nowPlaying.style.display = "block";
 
     if (!audioFile) {
         audio.pause();
         currentAudio = "";
+
         playButton.classList.remove("playing");
         playButton.textContent = "▶";
         buttonLabel.textContent = "TAP TO PLAY";
-        nowPlaying.textContent =
-            "Kulzzy Radio Network • Celebrating Lives Everyday";
         return;
     }
 
-    /* Do not reload the same normal audio on every config check. */
+    /* Keep the current track loaded unless it has changed. */
     if (currentAudio !== audioFile) {
-        const wasPlaying =
-            !audio.paused && !audio.ended;
-
         currentAudio = audioFile;
 
         audio.pause();
 
-        audio.src = audioFile + (audioFile.includes("?") ? "&" : "?")
-            + "v=" + Date.now();
+        audio.src =
+            audioFile +
+            (audioFile.includes("?") ? "&" : "?") +
+            "v=" + Date.now();
 
         audio.load();
 
         playButton.classList.remove("playing");
         playButton.textContent = "▶";
         buttonLabel.textContent = "TAP TO PLAY";
-
-        if (wasPlaying || changedFromLive) {
-            userHasStartedAudio = false;
-        }
     }
 }
 
@@ -532,7 +498,12 @@ async function randomRestartAndPlay() {
 
                     finished = true;
                     clearTimeout(timer);
-                    audio.removeEventListener("loadedmetadata", done);
+
+                    audio.removeEventListener(
+                        "loadedmetadata",
+                        done
+                    );
+
                     resolve();
                 }
 
@@ -546,9 +517,7 @@ async function randomRestartAndPlay() {
             });
         }
 
-        if (currentMode !== "AUDIO") {
-            return;
-        }
+        if (currentMode !== "AUDIO") return;
 
         if (
             !Number.isFinite(audio.duration) ||
@@ -581,13 +550,11 @@ async function randomRestartAndPlay() {
 }
 
 /* =====================================================
-   PLAY BUTTON
+   NORMAL AUDIO PLAY BUTTON
 ===================================================== */
 
 playButton.addEventListener("click", async function() {
-    if (currentMode !== "AUDIO") {
-        return;
-    }
+    if (currentMode !== "AUDIO") return;
 
     try {
         if (audio.paused) {
@@ -613,28 +580,7 @@ playButton.addEventListener("click", async function() {
 });
 
 /* =====================================================
-   SONG ENDED
-===================================================== */
-
-audio.addEventListener("ended", function() {
-    if (currentMode !== "AUDIO") {
-        return;
-    }
-
-    if (currentPlayMode === "REPEAT") {
-        randomRestartAndPlay();
-        return;
-    }
-
-    userHasStartedAudio = false;
-
-    playButton.classList.remove("playing");
-    playButton.textContent = "▶";
-    buttonLabel.textContent = "TAP TO PLAY";
-});
-
-/* =====================================================
-   PLAYBACK STATUS
+   NORMAL AUDIO PLAYBACK STATUS
 ===================================================== */
 
 audio.addEventListener("playing", function() {
@@ -654,6 +600,25 @@ audio.addEventListener("pause", function() {
 });
 
 /* =====================================================
+   SONG ENDED
+===================================================== */
+
+audio.addEventListener("ended", function() {
+    if (currentMode !== "AUDIO") return;
+
+    if (currentPlayMode === "REPEAT") {
+        randomRestartAndPlay();
+        return;
+    }
+
+    userHasStartedAudio = false;
+
+    playButton.classList.remove("playing");
+    playButton.textContent = "▶";
+    buttonLabel.textContent = "TAP TO PLAY";
+});
+
+/* =====================================================
    ERROR HANDLING
 ===================================================== */
 
@@ -662,9 +627,7 @@ audio.addEventListener("error", function() {
 });
 
 goCastLiveAudio.addEventListener("error", function() {
-    console.log(
-        "GoCast live stream could not be played. Check that the station is on air."
-    );
+    console.log("GoCast stream error. Check that the station is broadcasting.");
 });
 
 /* =====================================================
@@ -673,7 +636,7 @@ goCastLiveAudio.addEventListener("error", function() {
 
 loadConfig();
 
-/* Check config.json regularly for admin status changes. */
+/* Check config.json for admin changes. */
 setInterval(loadConfig, 1000);
 
 buttonLabel.style.display = "none";
