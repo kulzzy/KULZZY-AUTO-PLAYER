@@ -49,32 +49,32 @@ body {
     width: 100%;
     min-width: 0;
     height: 70%;
-    min-height: 105px;
-    max-height: 175px;
-    padding: 8px 12px;
+    min-height: 0;
+    max-height: none;
+    padding: 4px 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
-    border-bottom: 2px solid rgba(255,255,255,.12);
+    gap: 5px;
+    border-bottom: 1px solid rgba(255,255,255,.12);
     background: linear-gradient(120deg,#061b31,#031326);
 }
 
 .brand {
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 6px;
     flex: 1 1 auto;
     min-width: 0;
 }
 
 .brand-dot {
-    width: clamp(12px,3vw,28px);
-    height: clamp(12px,3vw,28px);
+    width: clamp(9px,2.5vw,18px);
+    height: clamp(9px,2.5vw,18px);
     flex: 0 0 auto;
     border-radius: 50%;
     background: #ff1025;
-    box-shadow: 0 0 15px rgba(255,0,35,.6);
+    box-shadow: 0 0 10px rgba(255,0,35,.6);
 }
 
 .brand-text {
@@ -83,34 +83,34 @@ body {
 
 .brand-name {
     color: #ffd700;
-    font-size: clamp(14px,3.8vw,30px);
-    line-height: 1.08;
+    font-size: clamp(11px,3vw,22px);
+    line-height: 1.05;
     font-weight: 900;
     overflow-wrap: break-word;
 }
 
 .slogan {
-    margin-top: 4px;
+    margin-top: 2px;
     color: #c8d2df;
-    font-size: clamp(9px,2vw,16px);
-    line-height: 1.2;
+    font-size: clamp(8px,1.7vw,12px);
+    line-height: 1.1;
 }
 
 .play-button {
-    width: clamp(55px,12vw,105px);
-    height: clamp(55px,12vw,105px);
+    width: clamp(42px,9vw,68px);
+    height: clamp(42px,9vw,68px);
     flex: 0 0 auto;
     padding: 0;
-    border: 4px solid #ffd700;
+    border: 3px solid #ffd700;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 30%,#ff2638,#ed001d 72%);
     color: #fff;
-    font-size: clamp(27px,5vw,48px);
+    font-size: clamp(22px,4.5vw,36px);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 0 25px rgba(255,0,30,.32);
+    box-shadow: 0 0 15px rgba(255,0,30,.32);
     touch-action: manipulation;
 }
 
@@ -128,35 +128,35 @@ body {
     width: 100%;
     min-width: 0;
     height: 30%;
-    min-height: 50px;
-    padding: 3px 8px;
+    min-height: 0;
+    padding: 1px 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2px;
+    gap: 1px;
     background: linear-gradient(120deg,#061b31,#031326);
     overflow: hidden;
 }
 
 .now-playing {
     max-width: 100%;
-    padding: 2px 5px;
+    padding: 1px 3px;
     color: #ffd700;
     text-align: center;
     font-weight: bold;
-    font-size: clamp(10px,2vw,16px);
-    line-height: 1.15;
+    font-size: clamp(8px,1.8vw,12px);
+    line-height: 1.05;
     overflow-wrap: anywhere;
 }
 
 .player-message {
     max-width: 100%;
-    padding: 0 5px;
+    padding: 0 3px;
     color: #c8d2df;
     text-align: center;
-    font-size: clamp(9px,1.6vw,12px);
-    line-height: 1.2;
+    font-size: clamp(7px,1.5vw,10px);
+    line-height: 1.05;
     overflow-wrap: anywhere;
 }
 
@@ -183,7 +183,7 @@ body {
 }
 
 .live-header {
-    padding: 5px;
+    padding: 3px;
     background: #fff;
     color: #222;
     text-align: center;
@@ -191,24 +191,24 @@ body {
 }
 
 .live-logo {
-    font-size: clamp(12px,2.5vw,20px);
+    font-size: clamp(10px,2vw,15px);
     font-weight: 900;
-    line-height: 1.2;
+    line-height: 1.1;
     overflow-wrap: anywhere;
 }
 
 .live-subtitle {
-    margin-top: 2px;
+    margin-top: 1px;
     color: #555;
-    font-size: clamp(9px,1.8vw,12px);
-    line-height: 1.2;
+    font-size: clamp(8px,1.5vw,10px);
+    line-height: 1.1;
 }
 
 .live-content {
     width: 100%;
     min-width: 0;
     flex: 1;
-    padding: 5px;
+    padding: 3px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -220,78 +220,72 @@ body {
     width: 100%;
     max-width: 650px;
     min-width: 0;
-    height: 45px;
+    height: 35px;
     margin: 0 auto;
 }
 
 .live-message {
-    margin-top: 3px;
+    margin-top: 2px;
     color: #555;
     text-align: center;
-    font-size: 10px;
-    line-height: 1.2;
+    font-size: 9px;
+    line-height: 1.1;
     overflow-wrap: anywhere;
 }
 
 @media(max-width:360px) {
     .header {
-        min-height: 95px;
-        padding: 6px;
-        gap: 5px;
+        padding: 3px 5px;
+        gap: 4px;
     }
 
     .brand {
-        gap: 6px;
+        gap: 4px;
     }
 
     .brand-name {
-        font-size: 14px;
+        font-size: 11px;
     }
 
     .slogan {
-        font-size: 9px;
+        font-size: 7px;
     }
 
     .play-button {
-        width: 52px;
-        height: 52px;
-        font-size: 25px;
-    }
-
-    .play-area {
-        min-height: 45px;
-        padding: 2px 4px;
+        width: 40px;
+        height: 40px;
+        font-size: 21px;
     }
 
     .now-playing {
-        font-size: 10px;
+        font-size: 8px;
     }
 
     .player-message {
-        font-size: 9px;
+        font-size: 7px;
     }
 
     .live-header {
-        padding: 4px;
+        padding: 3px;
     }
 
     .live-content {
-        padding: 4px;
+        padding: 3px;
     }
 
     .live-audio {
-        height: 40px;
+        height: 32px;
     }
 }
 
 @media(min-width:600px) {
     .header {
-        padding: 12px 20px;
+        padding: 5px 12px;
     }
 
     .play-button {
-        width: 90px;
-        height: 90px;
+        width: 62px;
+        height: 62px;
     }
 }
 </style>
@@ -321,8 +315,6 @@ body {
                 </div>
             </div>
 
-            <!-- PLAY BUTTON MOVED TO THE RADIO BADGE POSITION -->
-
             <button id="playButton"
                     class="play-button"
                     type="button"
@@ -335,7 +327,7 @@ body {
         <div class="play-area">
 
             <div id="audioTitle" class="now-playing">
-                KULZZY RADIO AUTOMATIC AUDIO
+                CELEBRATING LIVES EVERYDAY
             </div>
 
             <div id="audioMessage" class="player-message">
@@ -348,7 +340,7 @@ body {
 
     </section>
 
-    <!-- COMPACT LIVE PLAYER -->
+    <!-- LIVE PLAYER -->
 
     <section id="livePanel" class="live-panel">
 
@@ -398,6 +390,22 @@ body {
     let currentRefresh = null;
     let audioPlayMode = "REPEAT";
     let configRequestRunning = false;
+
+    function cleanTitle(value){
+
+        const title = String(value || "").trim();
+
+        if(
+            !title ||
+            title.toLowerCase().includes("automatic audio") ||
+            title.toLowerCase().includes("now playing kulzzy radio")
+        ){
+            return "CELEBRATING LIVES EVERYDAY";
+        }
+
+        return title;
+
+    }
 
     function setNormalButton(playing){
 
@@ -500,11 +508,11 @@ body {
 
         normalAudio.loop = audioPlayMode !== "ONCE";
 
-        audioTitle.textContent =
+        audioTitle.textContent = cleanTitle(
             config.nowPlaying ||
             config.normalAudioTitle ||
-            config.title ||
-            "KULZZY RADIO AUTOMATIC AUDIO";
+            config.title
+        );
 
         if(!audioURL){
 
@@ -626,8 +634,7 @@ body {
 
             await normalAudio.play();
 
-            audioMessage.textContent =
-                "Now playing Kulzzy Radio automatic audio.";
+            audioMessage.textContent = "Enjoy listening.";
 
         }catch(error){
 
