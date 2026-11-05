@@ -1,9 +1,12 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#06122a">
-<title>Kulzzy Radio Network</title><style>
+<title>Kulzzy Radio Network</title>
+
+<style>
 *{box-sizing:border-box}
 
 html,body{
@@ -28,8 +31,6 @@ body{
     margin:0;
     overflow:hidden;
 }
-
-/* NORMAL AUDIO PLAYER */
 
 .audio-panel{
     width:100%;
@@ -152,8 +153,6 @@ body{
     overflow-wrap:anywhere;
 }
 
-/* YOUTUBE LIVE PLAYER */
-
 .live-panel{
     display:none;
     width:100%;
@@ -217,16 +216,6 @@ body{
     background:#000;
 }
 
-.live-message{
-    display:none;
-    padding:3px;
-    background:#fff;
-    color:#555;
-    text-align:center;
-    font-size:9px;
-    line-height:1.1;
-}
-
 @media(max-width:360px){
     .header{padding:3px 5px;gap:4px}
     .brand{gap:4px}
@@ -242,7 +231,16 @@ body{
     .header{padding:5px 12px}
     .play-button{width:68px;height:68px}
 }
-</style></head><body><div class="radio"><section id="audioPanel" class="audio-panel"><header class="header">
+</style>
+</head>
+
+<body>
+
+<div class="radio">
+
+<section id="audioPanel" class="audio-panel">
+
+<header class="header">
 
     <div class="brand">
         <div class="brand-dot"></div>
@@ -270,7 +268,7 @@ body{
 <div class="play-area">
 
     <div id="audioTitle" class="now-playing">
-        keep listening to kulzzy radio network
+        KEEP LISTENING TO KULZZY RADIO NETWORK
     </div>
 
     <div id="audioMessage" class="player-message">
@@ -281,9 +279,15 @@ body{
 
 </div>
 
-</section><!-- YOUTUBE LIVE SECTION --><section id="livePanel" class="live-panel"><header class="live-header">
+</section>
+
+<section id="livePanel" class="live-panel">
+
+<header class="live-header">
     <div class="live-logo">🔴 KULZZY RADIO NETWORK LIVE</div>
-    <div class="live-subtitle">LISTEN LIVE • CELEBRATING LIVES EVERYDAY</div>
+    <div class="live-subtitle">
+        LISTEN LIVE • CELEBRATING LIVES EVERYDAY
+    </div>
 </header>
 
 <div class="live-content">
@@ -299,15 +303,19 @@ body{
 
 </div>
 
-</section></div><script>
+</section>
+
+</div>
+
+<script>
 "use strict";
 
 (function(){
 
     const CONFIG_URL="./config.json";
 
-    // Default YouTube broadcast
-    const DEFAULT_YOUTUBE_ID="a3Iri2fUgZg";
+    // PERMANENT KULZZY RADIO YOUTUBE CHANNEL
+    const YOUTUBE_CHANNEL_ID="UCIFBfRiTKy7kYe7l0y1KI1g";
 
     const audioPanel=document.getElementById("audioPanel");
     const livePanel=document.getElementById("livePanel");
@@ -326,7 +334,7 @@ body{
     let currentRefresh=null;
     let audioPlayMode="REPEAT";
     let configRequestRunning=false;
-    let currentYoutubeID="";
+    let currentYoutubeSource="";
 
     function cleanTitle(value){
 
@@ -379,7 +387,7 @@ body{
     function stopYoutube(){
 
         youtubeFrame.src="";
-        currentYoutubeID="";
+        currentYoutubeSource="";
     }
 
     function getAudioURL(config){
@@ -400,30 +408,24 @@ body{
         }
     }
 
-    function getYoutubeID(config){
+    function getYoutubeSource(config){
 
-        const supplied=String(
-            config.youtubeLiveURL||
-            config.youtubeLiveID||
-            DEFAULT_YOUTUBE_ID
+        // Permanent channel-based live broadcast.
+        const channelID=String(
+            config.youtubeLiveChannelId||
+            YOUTUBE_CHANNEL_ID
         ).trim();
 
-        const match=supplied.match(
-            /(?:youtube\.com\/(?:live\/|watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+        return (
+            "https://www.youtube.com/embed/live_stream"+
+            "?channel="+encodeURIComponent(channelID)+
+            "&autoplay=1&playsinline=1&rel=0"
         );
-
-        if(match)return match[1];
-
-        if(/^[a-zA-Z0-9_-]{11}$/.test(supplied)){
-            return supplied;
-        }
-
-        return DEFAULT_YOUTUBE_ID;
     }
 
     function switchToLive(config){
 
-        const videoID=getYoutubeID(config);
+        const source=getYoutubeSource(config);
 
         if(currentMode!=="LIVE"){
 
@@ -432,14 +434,11 @@ body{
             currentMode="LIVE";
         }
 
-        if(currentYoutubeID!==videoID){
+        if(currentYoutubeSource!==source){
 
-            currentYoutubeID=videoID;
+            currentYoutubeSource=source;
 
-            youtubeFrame.src=
-                "https://www.youtube.com/embed/"+
-                videoID+
-                "?autoplay=1&playsinline=1&rel=0";
+            youtubeFrame.src=source;
         }
 
         showLivePanel();
@@ -637,5 +636,7 @@ body{
     setInterval(loadConfig,2000);
 
 })();
-</script></body>
+</script>
+
+</body>
 </html>
