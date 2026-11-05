@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#06122a">
-<title>Kulzzy Radio Network</title>
-
-<style>
+<title>Kulzzy Radio Network</title><style>
 * {
     box-sizing: border-box;
 }
@@ -40,7 +37,7 @@ body {
     width: 100%;
     height: 100%;
     min-width: 0;
-    background: #031326;
+    background: #ffffff;
     border: 2px solid #ffd700;
     overflow: hidden;
 }
@@ -56,8 +53,8 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 5px;
-    border-bottom: 1px solid rgba(255,255,255,.12);
-    background: linear-gradient(120deg,#061b31,#031326);
+    border-bottom: 1px solid #eeeeee;
+    background: #ffffff;
 }
 
 .brand {
@@ -82,7 +79,7 @@ body {
 }
 
 .brand-name {
-    color: #ffd700;
+    color: #06122a;
     font-size: clamp(11px,3vw,22px);
     line-height: 1.05;
     font-weight: 900;
@@ -91,21 +88,21 @@ body {
 
 .slogan {
     margin-top: 2px;
-    color: #c8d2df;
+    color: #555555;
     font-size: clamp(8px,1.7vw,12px);
     line-height: 1.1;
 }
 
 .play-button {
-    width: clamp(42px,9vw,68px);
-    height: clamp(42px,9vw,68px);
+    width: clamp(48px,10vw,74px);
+    height: clamp(48px,10vw,74px);
     flex: 0 0 auto;
     padding: 0;
     border: 3px solid #ffd700;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 30%,#ff2638,#ed001d 72%);
     color: #fff;
-    font-size: clamp(22px,4.5vw,36px);
+    font-size: clamp(25px,5vw,40px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -135,14 +132,14 @@ body {
     justify-content: center;
     align-items: center;
     gap: 1px;
-    background: linear-gradient(120deg,#061b31,#031326);
+    background: #ffffff;
     overflow: hidden;
 }
 
 .now-playing {
     max-width: 100%;
     padding: 1px 3px;
-    color: #ffd700;
+    color: #06122a;
     text-align: center;
     font-weight: bold;
     font-size: clamp(8px,1.8vw,12px);
@@ -153,7 +150,7 @@ body {
 .player-message {
     max-width: 100%;
     padding: 0 3px;
-    color: #c8d2df;
+    color: #555555;
     text-align: center;
     font-size: clamp(7px,1.5vw,10px);
     line-height: 1.05;
@@ -220,7 +217,7 @@ body {
     width: 100%;
     max-width: 650px;
     min-width: 0;
-    height: 35px;
+    height: 68px;
     margin: 0 auto;
 }
 
@@ -252,9 +249,9 @@ body {
     }
 
     .play-button {
-        width: 40px;
-        height: 40px;
-        font-size: 21px;
+        width: 46px;
+        height: 46px;
+        font-size: 24px;
     }
 
     .now-playing {
@@ -274,7 +271,7 @@ body {
     }
 
     .live-audio {
-        height: 32px;
+        height: 46px;
     }
 }
 
@@ -284,88 +281,79 @@ body {
     }
 
     .play-button {
-        width: 62px;
-        height: 62px;
+        width: 68px;
+        height: 68px;
     }
 }
-</style>
-</head>
+</style></head><body><div class="radio"><!-- NORMAL AUDIO PLAYER -->
 
-<body>
+<section id="audioPanel" class="audio-panel">
 
-<div class="radio">
+    <header class="header">
 
-    <!-- NORMAL AUDIO PLAYER -->
+        <div class="brand">
+            <div class="brand-dot"></div>
 
-    <section id="audioPanel" class="audio-panel">
+            <div class="brand-text">
+                <div class="brand-name">
+                    KULZZY RADIO<br>NETWORK
+                </div>
 
-        <header class="header">
-
-            <div class="brand">
-                <div class="brand-dot"></div>
-
-                <div class="brand-text">
-                    <div class="brand-name">
-                        KULZZY RADIO<br>NETWORK
-                    </div>
-
-                    <div class="slogan">
-                        Celebrating Lives Everyday
-                    </div>
+                <div class="slogan">
+                    Celebrating Lives Everyday
                 </div>
             </div>
-
-            <button id="playButton"
-                    class="play-button"
-                    type="button"
-                    aria-label="Play Kulzzy Radio">
-                <span id="playIcon">▶</span>
-            </button>
-
-        </header>
-
-        <div class="play-area">
-
-            <div id="audioTitle" class="now-playing">
-              keep listening to kulzzy radio network 
-            </div>
-
-            <div id="audioMessage" class="player-message">
-                Tap the button to listen.
-            </div>
-
-            <audio id="normalAudio" preload="auto" playsinline></audio>
-
         </div>
 
-    </section>
+        <button id="playButton"
+                class="play-button"
+                type="button"
+                aria-label="Play Kulzzy Radio">
+            <span id="playIcon">▶</span>
+        </button>
 
-    <!-- LIVE PLAYER -->
+    </header>
 
-    <section id="livePanel" class="live-panel">
+    <div class="play-area">
 
-        <header class="live-header">
-            <div class="live-logo">KULZZY RADIO NETWORK</div>
-            <div class="live-subtitle">celebrating lives everyday</div>
-        </header>
-
-        <div class="live-content">
-
-            <audio id="liveAudio"
-                   class="live-audio"
-                   controls
-                   playsinline
-                   preload="none"></audio>
-
-            <div id="liveMessage" class="live-message"></div>
-
+        <div id="audioTitle" class="now-playing">
+          keep listening to kulzzy radio network
         </div>
 
-    </section>
+        <div id="audioMessage" class="player-message">
+            Tap the button to listen.
+        </div>
 
-</div>
+        <audio id="normalAudio" preload="auto" playsinline></audio>
 
-<script>
+    </div>
+
+</section>
+
+<!-- LIVE PLAYER -->
+
+<section id="livePanel" class="live-panel">
+
+    <header class="live-header">
+        <div class="live-logo">KULZZY RADIO NETWORK</div>
+        <div class="live-subtitle">celebrating lives everyday</div>
+    </header>
+
+    <div class="live-content">
+
+        <audio id="liveAudio"
+               class="live-audio"
+               controls
+               playsinline
+               preload="none"></audio>
+
+        <div id="liveMessage" class="live-message"></div>
+
+    </div>
+
+</section>
+
+</div><script>
 "use strict";
 
 (function(){
@@ -713,7 +701,5 @@ body {
     setInterval(loadConfig, 2000);
 
 })();
-</script>
-
-</body>
+</script></body>
 </html>
