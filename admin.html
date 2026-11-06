@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#020d1a">
-<title>Kulzzy Radio Admin</title>
-
-<style>
+<title>Kulzzy Radio Admin</title><style>
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;min-height:100%}
 body{background:#020d1a;color:#fff;font-family:Arial,Helvetica,sans-serif;padding:15px}
@@ -53,27 +50,10 @@ body{padding:8px}
 h1{font-size:23px}
 .modeButtons{grid-template-columns:1fr}
 }
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-<h1>🎛️ KULZZY RADIO ADMIN</h1>
-<div class="subtitle">Kulzzy Radio Network • Celebrating Lives Everyday</div>
-
-<!-- GITHUB AUTHORIZATION -->
-
-<div class="section">
-
-<div class="sectionTitle">🔐 GITHUB AUTHORIZATION</div>
-
-<div id="tokenStatus" class="tokenStatus">
+</style></head><body><div class="container"><h1>🎛️ KULZZY RADIO ADMIN</h1>
+<div class="subtitle">Kulzzy Radio Network • Celebrating Lives Everyday</div><!-- GITHUB AUTHORIZATION --><div class="section"><div class="sectionTitle">🔐 GITHUB AUTHORIZATION</div><div id="tokenStatus" class="tokenStatus">
 Checking authorization...
-</div>
-
-<input id="tokenInput"
+</div><input id="tokenInput"
 class="tokenInput"
 type="password"
 autocomplete="off"
@@ -81,41 +61,22 @@ placeholder="Paste your GitHub token">
 
 <button id="tokenButton" class="smallButton" type="button">
 🔑 SET GITHUB TOKEN
-</button>
-
-<div class="note">
+</button><div class="note">
 Your GitHub token is stored in this browser's local storage.
 Never share your token publicly.
-</div>
-
-</div>
-
-
-<!-- CLOUDINARY AUDIO UPLOAD -->
-
-<div class="section">
-
-<div class="sectionTitle">☁️ CLOUDINARY AUDIO UPLOAD</div>
-
-<div class="cloudStatus">
+</div></div><!-- CLOUDINARY AUDIO UPLOAD --><div class="section"><div class="sectionTitle">☁️ CLOUDINARY AUDIO UPLOAD</div><div class="cloudStatus">
 ✅ Cloudinary settings<br>
 Cloud Name: <strong>s4j0x7dk</strong><br>
 Upload Preset: <strong>AUDIO PLAYER</strong><br>
 Upload Mode: <strong>Unsigned</strong>
-</div>
-
-<div class="uploadBox">
-
-<input id="audioUpload"
+</div><div class="uploadBox"><input id="audioUpload"
 class="fileInput"
 type="file"
 accept=".mp3,audio/mpeg">
 
 <div id="fileName" class="fileName">
 No MP3 selected
-</div>
-
-<button id="uploadButton"
+</div><button id="uploadButton"
 class="uploadButton"
 type="button">
 ☁️ UPLOAD LONG AUDIO TO CLOUDINARY
@@ -123,34 +84,11 @@ type="button">
 
 <div id="progressOuter" class="progressOuter">
 <div id="progressInner" class="progressInner"></div>
-</div>
-
-</div>
-
-<div id="cloudAudioBox" class="cloudAudioBox">
-
-<div class="cloudAudioTitle">
+</div></div><div id="cloudAudioBox" class="cloudAudioBox"><div class="cloudAudioTitle">
 ✅ AUDIO UPLOADED TO CLOUDINARY
-</div>
-
-<div id="cloudAudioUrl" class="cloudAudioUrl"></div>
-
-</div>
-
-<div class="note">
+</div><div id="cloudAudioUrl" class="cloudAudioUrl"></div></div><div class="note">
 After uploading, click SAVE &amp; PLAY CLOUD AUDIO to make it the current audio.
-</div>
-
-</div>
-
-
-<!-- AUDIO CONTROL -->
-
-<div class="section">
-
-<div class="sectionTitle">🎵 AUDIO CONTROL</div>
-
-<label for="cloudAudioInput">CLOUDINARY AUDIO</label>
+</div></div><!-- AUDIO CONTROL --><div class="section"><div class="sectionTitle">🎵 AUDIO CONTROL</div><label for="cloudAudioInput">CLOUDINARY AUDIO</label>
 
 <input id="cloudAudioInput"
 type="text"
@@ -165,9 +103,7 @@ placeholder="Example: Birthday Celebration">
 
 <label>🔁 PLAY MODE</label>
 
-<div class="modeButtons">
-
-<button id="repeatButton"
+<div class="modeButtons"><button id="repeatButton"
 class="modeButton active"
 type="button">
 🔁 REPEAT SONG
@@ -179,36 +115,21 @@ type="button">
 ▶️ PLAY ONCE
 </button>
 
-</div>
-
-<div class="note">
+</div><div class="note">
 <strong>REPEAT SONG:</strong> repeats the current audio.<br><br>
 <strong>PLAY ONCE:</strong> plays the current audio once.
-</div>
-
-<button id="saveButton"
+</div><button id="saveButton"
 class="saveButton"
 type="button"
 disabled>
-💾 SAVE &amp; PLAY CLOUD AUDIO
+💾 SAVE & PLAY CLOUD AUDIO
 </button>
 
-</div>
-
-
-<!-- EXISTING GITHUB AUDIO -->
-
-<div class="section">
-
-<div class="sectionTitle">📁 EXISTING GITHUB AUDIO</div>
-
-<label for="audioSelect">SELECT EXISTING AUDIO</label>
+</div><!-- EXISTING GITHUB AUDIO --><div class="section"><div class="sectionTitle">📁 EXISTING GITHUB AUDIO</div><label for="audioSelect">SELECT EXISTING AUDIO</label>
 
 <select id="audioSelect">
 <option value="">Loading songs...</option>
-</select>
-
-<button id="refreshButton"
+</select><button id="refreshButton"
 class="refreshButton"
 type="button">
 🔄 REFRESH AUDIO LIST
@@ -216,28 +137,15 @@ type="button">
 
 <div class="note">
 Choose an existing MP3 to make it the current audio.
-</div>
-
-</div>
-
-
-<!-- YOUTUBE LIVE CONTROL -->
-
-<div class="section">
-
-<div class="sectionTitle">🔴 YOUTUBE LIVE CONTROL</div>
-
-<div class="cloudStatus">
-YouTube Channel: <strong>@kulzzyradio1</strong><br>
-Channel ID:<br>
-<strong>UCIFBfRiTKy7kYe7l0y1KI1g</strong><br>
-Broadcast connection: <strong>YouTube Live</strong>
-</div>
-
-<button id="liveButton"
+</div></div><!-- KULZZY RADIO LIVE CONTROL --><div class="section"><div class="sectionTitle">🔴 KULZZY RADIO LIVE BROADCAST CONTROL</div><div class="cloudStatus">
+✅ Your own live audio broadcast server<br>
+Broadcast Server: <strong>Render / Icecast</strong><br>
+Live Audio: <strong>Kulzzy Radio MP3 Stream</strong><br>
+Connection: <strong>Ready for broadcast</strong>
+</div><button id="liveButton"
 class="liveButton"
 type="button">
-🔴 GO LIVE ON YOUTUBE
+🔴 GO LIVE ON KULZZY RADIO
 </button>
 
 <button id="offButton"
@@ -246,32 +154,21 @@ type="button">
 ⏹️ RETURN TO NORMAL AUDIO
 </button>
 
-<div class="note">
+<div class="note"><strong>BEFORE GOING LIVE:</strong><br><br>
 
-<strong>BEFORE GOING LIVE:</strong><br><br>
-
-1. Open PRISM Live Studio.<br>
-2. Start your YouTube broadcast.<br>
-3. Confirm that YouTube shows your broadcast as LIVE.<br>
-4. Return here and press GO LIVE ON YOUTUBE.<br><br>
+1. Open your Kulzzy Radio Live Broadcast Studio.<br>
+2. Enter your studio password.<br>
+3. Select your microphone.<br>
+4. Press START LIVE.<br>
+5. Return here and press GO LIVE ON KULZZY RADIO.<br><br>
 
 When your broadcast ends, press RETURN TO NORMAL AUDIO.
 
 <br><br>
 
-These buttons switch the listener player. They do not start or stop your PRISM broadcast.
+These buttons switch the listener player. They do not start or stop the microphone broadcast itself.
 
-</div>
-
-</div>
-
-
-<div id="status" class="status">Ready</div>
-
-</div>
-
-
-<script>
+</div></div><div id="status" class="status">Ready</div></div><script>
 "use strict";
 
 const GITHUB_USERNAME = "kulzzy";
@@ -287,8 +184,8 @@ const CLOUDINARY_UPLOAD_URL =
     "https://api.cloudinary.com/v1_1/" +
     CLOUDINARY_CLOUD_NAME + "/video/upload";
 
-const YOUTUBE_CHANNEL_ID =
-    "UCIFBfRiTKy7kYe7l0y1KI1g";
+const LIVE_AUDIO_URL =
+    "https://kulzzy-radio-icecast.onrender.com/kulzzy.mp3";
 
 let playMode = "REPEAT";
 let cloudinaryAudioURL = "";
@@ -527,6 +424,21 @@ async function loadConfig() {
             savedNormalTitle =
                 config.nowPlaying || "";
         }
+    }
+
+    if (config.playMode) {
+
+        playMode = String(config.playMode).toUpperCase();
+
+        repeatButton.classList.toggle(
+            "active",
+            playMode === "REPEAT"
+        );
+
+        onceButton.classList.toggle(
+            "active",
+            playMode === "ONCE"
+        );
     }
 
     return config;
@@ -1096,7 +1008,7 @@ refreshButton.addEventListener(
 );
 
 
-/* YOUTUBE GO LIVE */
+/* GO LIVE ON KULZZY RADIO */
 
 liveButton.addEventListener("click", async () => {
 
@@ -1154,8 +1066,7 @@ liveButton.addEventListener("click", async () => {
 
             status: "LIVE",
 
-            youtubeLiveChannelId:
-                YOUTUBE_CHANNEL_ID,
+            liveStreamUrl: LIVE_AUDIO_URL,
 
             background: "",
 
@@ -1170,11 +1081,11 @@ liveButton.addEventListener("click", async () => {
 
         await updateConfig(
             config,
-            "Kulzzy Radio GO LIVE ON YOUTUBE"
+            "Kulzzy Radio GO LIVE"
         );
 
         setStatus(
-            "🔴 YOUTUBE LIVE MODE ACTIVATED. Listener players are switching to your YouTube channel.",
+            "🔴 KULZZY RADIO LIVE MODE ACTIVATED. Listener players are switching to your Icecast live stream.",
             "success"
         );
 
@@ -1308,7 +1219,7 @@ async function start() {
 
             config.status === "LIVE"
 
-                ? "🔴 Configuration is set to YOUTUBE LIVE. Normal audio is preserved."
+                ? "🔴 Configuration is set to KULZZY RADIO LIVE. Normal audio is preserved."
 
                 : "✅ Configuration loaded. Normal audio is selected.",
 
@@ -1331,7 +1242,5 @@ async function start() {
 
 start();
 
-</script>
-
-</body>
+</script></body>
 </html>
