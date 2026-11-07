@@ -1,9 +1,12 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#06122a">
-<title>Kulzzy Radio Network</title><style>
+<title>Kulzzy Radio Network</title>
+
+<style>
 *{box-sizing:border-box}
 
 html,body{
@@ -240,7 +243,16 @@ body{
     .header{padding:5px 12px}
     .play-button{width:68px;height:68px}
 }
-</style></head><body><div class="radio"><section id="audioPanel" class="audio-panel"><header class="header">
+</style>
+</head>
+
+<body>
+
+<div class="radio">
+
+<section id="audioPanel" class="audio-panel">
+
+<header class="header">
 
     <div class="brand">
         <div class="brand-dot"></div>
@@ -279,8 +291,12 @@ body{
     <audio id="normalAudio" preload="none" playsinline></audio>
 
 </div>
+</section>
 
-</section><section id="livePanel" class="live-panel"><header class="live-header">
+
+<section id="livePanel" class="live-panel">
+
+<header class="live-header">
 
     <div class="live-logo">
         🔴 KULZZY RADIO NETWORK LIVE
@@ -312,8 +328,12 @@ body{
     <audio id="liveAudio" preload="none" playsinline></audio>
 
 </div>
+</section>
 
-</section></div><script>
+</div>
+
+
+<script>
 "use strict";
 
 (function(){
@@ -451,10 +471,12 @@ body{
 
         try{
 
-            if(!liveAudio.src){
+            if(!liveAudio.getAttribute("src")){
 
                 liveAudio.src=
-                    currentLiveURL+"?t="+Date.now();
+                    currentLiveURL+
+                    (currentLiveURL.includes("?")?"&":"?")+
+                    "t="+Date.now();
 
                 liveAudio.load();
             }
@@ -487,25 +509,23 @@ body{
             currentMode="LIVE";
         }
 
-        currentLiveURL=getLiveURL(config);
+        const newLiveURL=getLiveURL(config);
+
+        if(newLiveURL!==currentLiveURL){
+
+            currentLiveURL=newLiveURL;
+
+            stopLiveAudio();
+        }
 
         showLivePanel();
-
-        if(liveAudio.src){
-
-            const loadedURL=liveAudio.src.split("?")[0];
-
-            if(loadedURL!==currentLiveURL){
-                stopLiveAudio();
-            }
-        }
 
         if(liveAudio.paused){
 
             liveListenButton.disabled=false;
             liveListenButton.textContent="▶ LISTEN LIVE";
 
-            if(!liveAudio.src){
+            if(!liveAudio.getAttribute("src")){
                 liveMessage.textContent=
                     "Tap LISTEN LIVE to connect to the broadcast.";
             }
@@ -663,7 +683,7 @@ body{
             return;
         }
 
-        if(!normalAudio.src){
+        if(!normalAudio.getAttribute("src")){
 
             audioMessage.textContent=
                 "No audio file is available to play.";
@@ -797,5 +817,7 @@ body{
     configTimer=setInterval(loadConfig,5000);
 
 })();
-</script></body>
+</script>
+
+</body>
 </html>
