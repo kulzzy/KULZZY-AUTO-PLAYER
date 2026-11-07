@@ -3,28 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#06122a">
+<meta name="theme-color" content="#C9A227">
 <title>Kulzzy Radio Network</title>
 
 <style>
 *{box-sizing:border-box}
-html,body{width:100%;height:100%;min-height:0;margin:0;padding:0;overflow:hidden}
-body{background:#06122a;color:#fff;font-family:Arial,Helvetica,sans-serif}
+
+html,body{
+width:100%;height:100%;min-height:0;
+margin:0;padding:0;overflow:hidden
+}
+
+body{
+background:#8C6239;
+color:#fff;
+font-family:Arial,Helvetica,sans-serif
+}
+
 .radio{width:100%;height:100%;overflow:hidden}
 
 .audio-panel,.live-panel{
-width:100%;height:100%;min-width:0;background:#fff;overflow:hidden
+width:100%;height:100%;min-width:0;
+background:#C9A227;overflow:hidden
 }
 
 .audio-panel{border:2px solid #ffd700}
 .audio-panel.hidden{display:none}
-.live-panel{display:none;border:1px solid #dedede}
+.live-panel{display:none;border:1px solid #A7A9AC}
 .live-panel.visible{display:flex;flex-direction:column}
 
 .header{
 width:100%;height:70%;min-height:0;padding:4px 8px;
 display:flex;align-items:center;justify-content:space-between;
-gap:5px;background:#fff
+gap:5px;background:#C9A227
 }
 
 .brand{
@@ -35,44 +46,89 @@ flex:1 1 auto;min-width:0
 .brand-dot{
 width:clamp(9px,2.5vw,18px);
 height:clamp(9px,2.5vw,18px);
-flex:0 0 auto;border-radius:50%;background:#ff1025;
+flex:0 0 auto;border-radius:50%;
+background:#ff1025;
 box-shadow:0 0 10px rgba(255,0,35,.6)
 }
 
 .brand-text{min-width:0}
 
 .brand-name{
-color:#06122a;font-size:clamp(11px,3vw,22px);
-line-height:1.05;font-weight:900
+color:#fff;
+font-size:clamp(11px,3vw,22px);
+line-height:1.05;
+font-weight:900;
+text-shadow:0 2px 5px rgba(0,0,0,.45)
 }
 
 .slogan{
-margin-top:2px;color:#555;
-font-size:clamp(8px,1.7vw,12px);line-height:1.1
+margin-top:2px;
+color:#fff;
+font-size:clamp(8px,1.7vw,12px);
+line-height:1.1;
+text-shadow:0 1px 4px rgba(0,0,0,.5)
 }
+
+/* LUXURY PLAYER BUTTONS */
 
 .play-button{
-position:relative;z-index:5;
-width:clamp(56px,13vw,88px);
-height:clamp(56px,13vw,88px);
-flex:0 0 auto;padding:0;
-border:3px solid #ffd700;
-border-radius:50%;
-background:radial-gradient(circle at 35% 30%,#ff2638,#ed001d 72%);
-color:#fff;font-size:clamp(30px,6vw,48px);
-display:flex;align-items:center;justify-content:center;
-cursor:pointer;touch-action:manipulation;
+position:relative;
+z-index:5;
+
+width:min(94%,340px);
+height:clamp(48px,12vw,62px);
+
+flex:0 0 auto;
+padding:0 14px;
+
+border:3px solid #E6C66B;
+border-radius:999px;
+
+background:linear-gradient(
+135deg,
+#F7E7A1 0%,
+#D4AF37 25%,
+#B8860B 50%,
+#F5D76E 75%,
+#C9A227 100%
+);
+
+color:#402900;
+
+font-size:clamp(10px,3.2vw,15px);
+font-weight:900;
+letter-spacing:.4px;
+
+white-space:nowrap;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+cursor:pointer;
+touch-action:manipulation;
 -webkit-tap-highlight-color:transparent;
-box-shadow:0 0 15px rgba(255,0,30,.32)
+
+box-shadow:
+0 4px 12px rgba(0,0,0,.28),
+inset 0 2px 4px rgba(255,255,255,.35)
 }
 
-.play-button:disabled{opacity:.65;cursor:wait}
-.play-button span{line-height:1;pointer-events:none}
+.play-button:disabled{
+opacity:.65;
+cursor:wait
+}
 
 .play-area{
-width:100%;height:30%;min-height:0;padding:1px 5px;
-display:flex;flex-direction:column;justify-content:center;
-align-items:center;gap:1px;background:#fff;overflow:hidden
+width:100%;height:30%;min-height:0;
+padding:1px 5px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:1px;
+background:#C9A227;
+overflow:hidden
 }
 
 .now-playing,
@@ -82,46 +138,69 @@ align-items:center;gap:1px;background:#fff;overflow:hidden
 display:none!important
 }
 
+/* LIVE PLAYER */
+
 .live-header{
-width:100%;height:70%;min-height:0;padding:4px 8px;
-display:flex;align-items:center;justify-content:space-between;
-gap:5px;background:#fff
-}
+width:100%;height:70%;min-height:0;
+padding:4px 8px;
 
-.live-logo{
-display:flex;align-items:center;gap:6px;
-flex:1 1 auto;min-width:0;
-color:#06122a;font-size:clamp(11px,3vw,22px);
-font-weight:900;line-height:1.05
-}
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:5px;
 
-.live-logo-text{min-width:0}
-
-.live-subtitle{
-margin-top:2px;color:#555;
-font-size:clamp(8px,1.7vw,12px);line-height:1.1;
-font-weight:normal
+background:#C9A227
 }
 
 .live-content{
 width:100%;height:30%;min-height:0;
-padding:1px 5px;background:#fff;
-display:flex;justify-content:center;
-align-items:center;overflow:hidden
+padding:1px 5px;
+
+background:#C9A227;
+
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden
 }
 
 @media(max-width:360px){
-.header,.live-header{padding:3px 5px;gap:4px}
-.brand,.live-logo{gap:4px}
-.brand-name,.live-logo{font-size:11px}
-.slogan,.live-subtitle{font-size:7px}
-.play-button{width:56px;height:56px;font-size:30px}
+
+.header,.live-header{
+padding:3px 5px;
+gap:4px
+}
+
+.brand{gap:4px}
+
+.brand-name{font-size:11px}
+
+.slogan{font-size:7px}
+
+.play-button{
+width:min(96%,340px);
+height:48px;
+font-size:10px;
+padding:0 8px;
+letter-spacing:.2px
+}
+
 }
 
 @media(min-width:600px){
-.header,.live-header{padding:5px 12px}
-.play-button{width:82px;height:82px}
+
+.header,.live-header{
+padding:5px 12px
 }
+
+.play-button{
+height:60px;
+font-size:15px
+}
+
+}
+
+/* PREMIUM COLOUR CHANGING BACKGROUND */
 
 .audio-panel,
 .live-panel,
@@ -133,22 +212,36 @@ animation:radioBackground 10s steps(1,end) infinite;
 }
 
 @keyframes radioBackground{
-0%{background-color:#ffffff}
-10%{background-color:#06122a}
-20%{background-color:#ffd700}
-30%{background-color:#8b0000}
-40%{background-color:#4b0082}
-50%{background-color:#006400}
-60%{background-color:#ff6600}
-70%{background-color:#000000}
-80%{background-color:#008b8b}
-90%{background-color:#800020}
-100%{background-color:#ffffff}
+
+0%{background-color:#C9A227}
+
+10%{background-color:#8A8F98}
+
+20%{background-color:#D6B56D}
+
+30%{background-color:#8C6239}
+
+40%{background-color:#B76E79}
+
+50%{background-color:#B87333}
+
+60%{background-color:#9B1C31}
+
+70%{background-color:#6F42C1}
+
+80%{background-color:#A7A9AC}
+
+90%{background-color:#C18F59}
+
+100%{background-color:#C9A227}
+
 }
+
 </style>
 </head>
 
 <body>
+
 <div class="radio">
 
 <section id="audioPanel" class="audio-panel">
@@ -156,24 +249,42 @@ animation:radioBackground 10s steps(1,end) infinite;
 <header class="header">
 
 <div class="brand">
+
 <div class="brand-dot"></div>
 
 <div class="brand-text">
-<div class="brand-name">KULZZY RADIO<br>NETWORK</div>
-<div class="slogan">Celebrating Lives Everyday</div>
+
+<div class="brand-name">
+KULZZY RADIO<br>NETWORK
+</div>
+
+<div class="slogan">
+Celebrating Lives Everyday
+</div>
+
 </div>
 </div>
 
-<button id="playButton" class="play-button" type="button" aria-label="Play Kulzzy Radio">
-<span id="playIcon">▶</span>
+<button
+id="playButton"
+class="play-button"
+type="button"
+aria-label="Play Kulzzy Radio">
+
+LIVE ON-AIR - STAY TUNED IN
+
 </button>
 
 </header>
 
 <div class="play-area">
+
 <div id="audioTitle" class="now-playing"></div>
+
 <div id="audioMessage" class="player-message"></div>
+
 <audio id="normalAudio" preload="none" playsinline></audio>
+
 </div>
 
 </section>
@@ -184,16 +295,30 @@ animation:radioBackground 10s steps(1,end) infinite;
 <header class="live-header">
 
 <div class="brand">
+
 <div class="brand-dot"></div>
 
 <div class="brand-text">
-<div class="brand-name">KULZZY RADIO<br>NETWORK</div>
-<div class="slogan">Celebrating Lives Everyday</div>
+
+<div class="brand-name">
+KULZZY RADIO<br>NETWORK
+</div>
+
+<div class="slogan">
+Celebrating Lives Everyday
+</div>
+
 </div>
 </div>
 
-<button id="liveListenButton" class="play-button" type="button" aria-label="Listen to Kulzzy Radio Live">
-<span id="livePlayIcon">▶</span>
+<button
+id="liveListenButton"
+class="play-button"
+type="button"
+aria-label="Listen to Kulzzy Radio Live">
+
+LIVE ON-AIR - STAY TUNED IN
+
 </button>
 
 </header>
@@ -212,6 +337,7 @@ animation:radioBackground 10s steps(1,end) infinite;
 
 </div>
 
+
 <script>
 "use strict";
 
@@ -228,9 +354,7 @@ const livePanel=$("livePanel");
 const normalAudio=$("normalAudio");
 const liveAudio=$("liveAudio");
 const playButton=$("playButton");
-const playIcon=$("playIcon");
 const liveListenButton=$("liveListenButton");
-const livePlayIcon=$("livePlayIcon");
 const liveMessage=$("liveMessage");
 const audioTitle=$("audioTitle");
 const audioMessage=$("audioMessage");
@@ -246,11 +370,13 @@ let liveWaitTimer=null;
 let liveAttempt=0;
 
 function cleanTitle(value){
+
     const title=String(value||"").trim();
 
     if(!title ||
        title.toLowerCase().includes("automatic audio") ||
        title.toLowerCase().includes("now playing kulzzy radio")){
+
         return "CELEBRATING LIVES EVERYDAY";
     }
 
@@ -258,7 +384,7 @@ function cleanTitle(value){
 }
 
 function setNormalButton(playing){
-    playIcon.textContent=playing?"Ⅱ":"▶";
+
     playButton.setAttribute(
         "aria-label",
         playing?"Pause Kulzzy Radio":"Play Kulzzy Radio"
@@ -266,7 +392,7 @@ function setNormalButton(playing){
 }
 
 function setLiveButton(playing){
-    livePlayIcon.textContent=playing?"Ⅱ":"▶";
+
     liveListenButton.setAttribute(
         "aria-label",
         playing?"Pause Kulzzy Radio Live":"Listen to Kulzzy Radio Live"
@@ -274,16 +400,19 @@ function setLiveButton(playing){
 }
 
 function showNormalPanel(){
+
     audioPanel.classList.remove("hidden");
     livePanel.classList.remove("visible");
 }
 
 function showLivePanel(){
+
     audioPanel.classList.add("hidden");
     livePanel.classList.add("visible");
 }
 
 function clearLiveTimer(){
+
     if(liveWaitTimer){
         clearTimeout(liveWaitTimer);
         liveWaitTimer=null;
@@ -291,24 +420,33 @@ function clearLiveTimer(){
 }
 
 function stopNormalAudio(){
+
     normalAudio.pause();
     normalAudio.removeAttribute("src");
     normalAudio.load();
+
     currentAudioURL="";
+
     setNormalButton(false);
 }
 
 function stopLiveAudio(){
+
     clearLiveTimer();
+
     liveAudio.pause();
     liveAudio.removeAttribute("src");
     liveAudio.load();
+
     liveListenButton.disabled=false;
+
     setLiveButton(false);
 }
 
 function getAudioURL(config){
+
     const value=String(config.currentAudio||"").trim();
+
     if(!value)return "";
 
     try{
@@ -319,6 +457,7 @@ function getAudioURL(config){
 }
 
 function getLiveURL(config){
+
     return String(config.liveStreamUrl||"").trim()||DEFAULT_LIVE_URL;
 }
 
@@ -336,6 +475,7 @@ async function startLiveAudio(){
     liveAttempt++;
 
     liveListenButton.disabled=true;
+
     liveMessage.textContent="Connecting...";
 
     liveAudio.pause();
@@ -343,51 +483,66 @@ async function startLiveAudio(){
     const separator=currentLiveURL.includes("?")?"&":"?";
 
     liveAudio.src=currentLiveURL+separator+"t="+Date.now();
+
     liveAudio.load();
 
     liveWaitTimer=setTimeout(function(){
 
         if(liveAudio.paused || liveAudio.readyState<2){
+
             liveAudio.pause();
+
             liveListenButton.disabled=false;
-            setLiveButton(false);
-            liveMessage.textContent="Connection taking too long. Please try again.";
+
+            liveMessage.textContent=
+                "Connection taking too long. Please try again.";
         }
 
     },LIVE_WAIT_LIMIT);
 
     try{
+
         await liveAudio.play();
+
     }catch(error){
+
         clearLiveTimer();
 
         console.error("Live audio error:",error);
 
         liveListenButton.disabled=false;
-        setLiveButton(false);
-        liveMessage.textContent="Live audio could not connect. Please try again.";
+
+        liveMessage.textContent=
+            "Live audio could not connect. Please try again.";
     }
 }
 
 function switchToLive(config){
 
     if(currentMode!=="LIVE"){
+
         normalWasPlayingBeforeLive=!normalAudio.paused;
+
         stopNormalAudio();
+
         currentMode="LIVE";
     }
 
     const newURL=getLiveURL(config);
 
     if(newURL!==currentLiveURL){
+
         currentLiveURL=newURL;
+
         stopLiveAudio();
     }
 
     showLivePanel();
 
     if(liveAudio.paused){
+
         liveListenButton.disabled=false;
+
         setLiveButton(false);
     }
 }
@@ -397,9 +552,13 @@ function switchToNormalAudio(config,forceReload){
     const wasLive=currentMode==="LIVE";
 
     if(wasLive){
+
         stopLiveAudio();
+
         currentMode="AUDIO";
+
     }else{
+
         currentMode="AUDIO";
     }
 
@@ -408,6 +567,7 @@ function switchToNormalAudio(config,forceReload){
     const audioURL=getAudioURL(config);
 
     audioPlayMode=String(config.playMode||"REPEAT").toUpperCase();
+
     normalAudio.loop=audioPlayMode!=="ONCE";
 
     audioTitle.textContent=cleanTitle(
@@ -417,26 +577,39 @@ function switchToNormalAudio(config,forceReload){
     );
 
     if(!audioURL){
+
         stopNormalAudio();
+
         audioMessage.textContent="No normal audio is saved.";
+
         normalWasPlayingBeforeLive=false;
+
         return;
     }
 
     if(forceReload||currentAudioURL!==audioURL){
+
         stopNormalAudio();
+
         currentAudioURL=audioURL;
+
         normalAudio.src=audioURL;
+
         normalAudio.load();
+
         audioMessage.textContent="Audio is ready.";
     }
 
     if(wasLive&&normalWasPlayingBeforeLive){
+
         normalWasPlayingBeforeLive=false;
 
         normalAudio.play().then(function(){
+
             audioMessage.textContent="Enjoy listening.";
+
         }).catch(function(){
+
             audioMessage.textContent="Tap the button to resume listening.";
         });
     }
@@ -449,12 +622,14 @@ async function loadConfig(){
     configRequestRunning=true;
 
     try{
+
         const response=await fetch(
             CONFIG_URL+"?t="+Date.now(),
             {cache:"no-store"}
         );
 
         if(!response.ok){
+
             throw new Error("Could not load radio settings.");
         }
 
@@ -470,19 +645,27 @@ async function loadConfig(){
         currentRefresh=config.refresh;
 
         if(status==="LIVE"){
+
             switchToLive(config);
+
         }else{
+
             switchToNormalAudio(config,refreshChanged);
         }
 
     }catch(error){
+
         console.error("Kulzzy Radio configuration:",error);
 
         if(!currentMode){
+
             showNormalPanel();
+
             audioMessage.textContent="Unable to load radio settings.";
         }
+
     }finally{
+
         configRequestRunning=false;
     }
 }
@@ -492,29 +675,41 @@ async function loadConfig(){
 playButton.addEventListener("click",async function(event){
 
     event.preventDefault();
+
     event.stopPropagation();
 
     if(currentMode==="LIVE")return;
 
     if(!normalAudio.paused){
+
         normalAudio.pause();
+
         return;
     }
 
     if(!normalAudio.getAttribute("src")){
+
         audioMessage.textContent="No normal audio is available.";
+
         return;
     }
 
     playButton.disabled=true;
 
     try{
+
         await normalAudio.play();
+
         audioMessage.textContent="Enjoy listening.";
+
     }catch(error){
+
         console.error("Normal audio error:",error);
+
         audioMessage.textContent="Audio could not start. Try again.";
+
     }finally{
+
         playButton.disabled=false;
     }
 
@@ -523,39 +718,57 @@ playButton.addEventListener("click",async function(event){
 /* LIVE AUDIO */
 
 liveListenButton.addEventListener("click",function(event){
+
     event.preventDefault();
+
     event.stopPropagation();
+
     startLiveAudio();
+
 },{passive:false});
 
 liveAudio.addEventListener("playing",function(){
+
     clearLiveTimer();
+
     liveListenButton.disabled=false;
+
     setLiveButton(true);
+
     liveMessage.textContent="You are listening to Kulzzy Radio LIVE.";
 });
 
 liveAudio.addEventListener("waiting",function(){
+
     liveMessage.textContent="Connecting to the live broadcast...";
 });
 
 liveAudio.addEventListener("stalled",function(){
+
     liveMessage.textContent="The live stream is buffering...";
 });
 
 liveAudio.addEventListener("error",function(){
+
     clearLiveTimer();
+
     liveListenButton.disabled=false;
+
     setLiveButton(false);
+
     liveMessage.textContent="Live audio is temporarily unavailable.";
 });
 
 liveAudio.addEventListener("pause",function(){
+
     clearLiveTimer();
 
     if(currentMode==="LIVE"){
+
         liveListenButton.disabled=false;
+
         setLiveButton(false);
+
         liveMessage.textContent="Live broadcast paused.";
     }
 });
@@ -563,10 +776,12 @@ liveAudio.addEventListener("pause",function(){
 /* NORMAL AUDIO EVENTS */
 
 normalAudio.addEventListener("play",function(){
+
     setNormalButton(true);
 });
 
 normalAudio.addEventListener("pause",function(){
+
     setNormalButton(false);
 });
 
@@ -575,18 +790,24 @@ normalAudio.addEventListener("ended",function(){
     if(currentMode!=="AUDIO")return;
 
     if(audioPlayMode==="ONCE"){
+
         setNormalButton(false);
+
         audioMessage.textContent="Audio finished playing.";
+
         return;
     }
 
     normalAudio.currentTime=0;
+
     normalAudio.play().catch(function(error){
+
         console.error(error);
     });
 });
 
 normalAudio.addEventListener("error",function(){
+
     if(currentMode!=="AUDIO")return;
 
     audioMessage.textContent="Audio could not load.";
@@ -595,6 +816,7 @@ normalAudio.addEventListener("error",function(){
 /* START */
 
 loadConfig();
+
 setInterval(loadConfig,5000);
 
 })();
