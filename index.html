@@ -30,12 +30,12 @@ background:#C9A227;overflow:hidden
 .live-panel.visible{display:flex;flex-direction:column}
 
 .header{
-width:100%;height:70%;min-height:0;padding:4px 8px;
+width:100%;height:70%;min-height:0;padding:clamp(12px,4vh,28px) 8px 4px;
 display:flex;
 flex-direction:column;
 align-items:center;
-justify-content:center;
-gap:12px;
+justify-content:flex-start;
+gap:clamp(12px,3vh,20px);
 background:#C9A227
 }
 
@@ -187,13 +187,13 @@ display:none!important
 
 .live-header{
 width:100%;height:70%;min-height:0;
-padding:4px 8px;
+padding:clamp(12px,4vh,28px) 8px 4px;
 
 display:flex;
 flex-direction:column;
 align-items:center;
-justify-content:center;
-gap:12px;
+justify-content:flex-start;
+gap:clamp(12px,3vh,20px);
 
 background:#C9A227
 }
@@ -213,8 +213,8 @@ overflow:hidden
 @media(max-width:360px){
 
 .header,.live-header{
-padding:3px 5px;
-gap:10px
+padding:clamp(12px,4vh,24px) 5px 3px;
+gap:clamp(10px,3vh,16px)
 }
 
 .brand-name{font-size:clamp(10px,3.5vw,13px)}
@@ -240,7 +240,7 @@ flex-basis:8px
 @media(min-width:600px){
 
 .header,.live-header{
-padding:5px 12px
+padding:clamp(12px,4vh,28px) 12px 5px
 }
 
 .play-button{
