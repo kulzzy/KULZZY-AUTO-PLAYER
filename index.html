@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#C9A227">
-<title>Kulzzy Radio Network</title>
-
-<style>
+<title>Kulzzy Radio Network</title><style>
 *{box-sizing:border-box}
 
 html,body{
@@ -34,35 +31,40 @@ background:#C9A227;overflow:hidden
 
 .header{
 width:100%;height:70%;min-height:0;padding:4px 8px;
-display:flex;align-items:center;justify-content:space-between;
-gap:5px;background:#C9A227
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:12px;
+background:#C9A227
 }
 
 .brand{
-display:flex;align-items:center;gap:6px;
-flex:1 1 auto;min-width:0
+display:flex;
+align-items:center;
+justify-content:center;
+width:100%;
+min-width:0;
+text-align:center
 }
 
-.brand-dot{
-width:clamp(9px,2.5vw,18px);
-height:clamp(9px,2.5vw,18px);
-flex:0 0 auto;border-radius:50%;
-background:#ff1025;
-box-shadow:0 0 10px rgba(255,0,35,.6)
+.brand-text{
+min-width:0;
+width:100%;
+text-align:center
 }
-
-.brand-text{min-width:0}
 
 .brand-name{
 color:#fff;
-font-size:clamp(11px,3vw,22px);
+font-size:clamp(10px,3.5vw,22px);
 line-height:1.05;
 font-weight:900;
+white-space:nowrap;
 text-shadow:0 2px 5px rgba(0,0,0,.45)
 }
 
 .slogan{
-margin-top:2px;
+margin-top:4px;
 color:#fff;
 font-size:clamp(8px,1.7vw,12px);
 line-height:1.1;
@@ -81,7 +83,7 @@ height:clamp(48px,12vw,62px);
 flex:0 0 auto;
 padding:0 14px;
 
-border:3px solid #E6C66B;
+border:3px solid #ff1025;
 border-radius:999px;
 
 background:linear-gradient(
@@ -104,14 +106,57 @@ white-space:nowrap;
 display:flex;
 align-items:center;
 justify-content:center;
+gap:6px;
 
 cursor:pointer;
 touch-action:manipulation;
 -webkit-tap-highlight-color:transparent;
 
+animation:redButtonEdge 1s steps(1,end) infinite;
+
 box-shadow:
 0 4px 12px rgba(0,0,0,.28),
 inset 0 2px 4px rgba(255,255,255,.35)
+}
+
+@keyframes redButtonEdge{
+0%,49%{
+border-color:#ff1025;
+box-shadow:
+0 0 5px #ff1025,
+0 0 12px rgba(255,0,35,.7),
+0 4px 12px rgba(0,0,0,.28),
+inset 0 2px 4px rgba(255,255,255,.35)
+}
+50%,100%{
+border-color:#E6C66B;
+box-shadow:
+0 4px 12px rgba(0,0,0,.28),
+inset 0 2px 4px rgba(255,255,255,.35)
+}
+}
+
+.red-live-dot{
+width:9px;
+height:9px;
+flex:0 0 9px;
+border-radius:50%;
+background:#ff1025;
+box-shadow:0 0 7px #ff1025;
+animation:redDotBlink .8s steps(1,end) infinite
+}
+
+@keyframes redDotBlink{
+0%,49%{
+opacity:1;
+background:#ff1025;
+box-shadow:0 0 8px #ff1025,0 0 14px #ff1025
+}
+50%,100%{
+opacity:.2;
+background:#990000;
+box-shadow:none
+}
 }
 
 .play-button:disabled{
@@ -145,9 +190,10 @@ width:100%;height:70%;min-height:0;
 padding:4px 8px;
 
 display:flex;
+flex-direction:column;
 align-items:center;
-justify-content:space-between;
-gap:5px;
+justify-content:center;
+gap:12px;
 
 background:#C9A227
 }
@@ -168,12 +214,10 @@ overflow:hidden
 
 .header,.live-header{
 padding:3px 5px;
-gap:4px
+gap:10px
 }
 
-.brand{gap:4px}
-
-.brand-name{font-size:11px}
+.brand-name{font-size:clamp(10px,3.5vw,13px)}
 
 .slogan{font-size:7px}
 
@@ -183,6 +227,12 @@ height:48px;
 font-size:10px;
 padding:0 8px;
 letter-spacing:.2px
+}
+
+.red-live-dot{
+width:8px;
+height:8px;
+flex-basis:8px
 }
 
 }
@@ -237,108 +287,37 @@ animation:radioBackground 10s steps(1,end) infinite;
 
 }
 
-</style>
-</head>
-
-<body>
-
-<div class="radio">
-
-<section id="audioPanel" class="audio-panel">
-
-<header class="header">
-
-<div class="brand">
-
-<div class="brand-dot"></div>
-
-<div class="brand-text">
-
-<div class="brand-name">
-KULZZY RADIO<br>NETWORK
-</div>
-
-<div class="slogan">
-Celebrating Lives Everyday
-</div>
-
-</div>
-</div>
-
-<button
+</style></head><body><div class="radio"><section id="audioPanel" class="audio-panel"><header class="header"><button
 id="playButton"
 class="play-button"
 type="button"
 aria-label="Play Kulzzy Radio">
 
-LIVE ON-AIR - STAY TUNED IN
+LIVE ON-AIR - <span class="red-live-dot"></span> STAY TUNED IN
 
-</button>
-
-</header>
-
-<div class="play-area">
-
-<div id="audioTitle" class="now-playing"></div>
-
-<div id="audioMessage" class="player-message"></div>
-
-<audio id="normalAudio" preload="none" playsinline></audio>
-
-</div>
-
-</section>
-
-
-<section id="livePanel" class="live-panel">
-
-<header class="live-header">
-
-<div class="brand">
-
-<div class="brand-dot"></div>
-
-<div class="brand-text">
-
-<div class="brand-name">
-KULZZY RADIO<br>NETWORK
-</div>
-
-<div class="slogan">
+</button><div class="brand"><div class="brand-text"><div class="brand-name">
+KULZZY RADIO NETWORK
+</div><div class="slogan">
 Celebrating Lives Everyday
-</div>
+</div></div>
+</div></header><div class="play-area"><div id="audioTitle" class="now-playing"></div><div id="audioMessage" class="player-message"></div><audio id="normalAudio" preload="none" playsinline></audio>
 
-</div>
-</div>
-
-<button
+</div></section><section id="livePanel" class="live-panel"><header class="live-header"><button
 id="liveListenButton"
 class="play-button"
 type="button"
 aria-label="Listen to Kulzzy Radio Live">
 
-LIVE ON-AIR - STAY TUNED IN
+LIVE ON-AIR - <span class="red-live-dot"></span> STAY TUNED IN
 
-</button>
+</button><div class="brand"><div class="brand-text"><div class="brand-name">
+KULZZY RADIO NETWORK
+</div><div class="slogan">
+Celebrating Lives Everyday
+</div></div>
+</div></header><div class="live-content"><div id="liveStatus" class="live-status"></div><div id="liveMessage" class="live-message"></div><audio id="liveAudio" preload="none" playsinline></audio>
 
-</header>
-
-<div class="live-content">
-
-<div id="liveStatus" class="live-status"></div>
-
-<div id="liveMessage" class="live-message"></div>
-
-<audio id="liveAudio" preload="none" playsinline></audio>
-
-</div>
-
-</section>
-
-</div>
-
-
-<script>
+</div></section></div><script>
 "use strict";
 
 (function(){
@@ -820,7 +799,5 @@ loadConfig();
 setInterval(loadConfig,5000);
 
 })();
-</script>
-
-</body>
+</script></body>
 </html>
