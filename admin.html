@@ -110,7 +110,7 @@ Upload Mode: <strong>Unsigned</strong>
 </div>
 
 <div class="note">
-After uploading, click SAVE &amp; PLAY CLOUD AUDIO to make it the current audio.
+After a successful upload, the audio is automatically saved to your public radio player. You do not need to paste a Cloudinary URL manually.
 </div>
 </div>
 
@@ -544,6 +544,53 @@ function formatBytes(bytes) {
     ) + " " + units[i];
 }
 
+/* CREATE NORMAL AUDIO CONFIGURATION */
+
+function makeAudioConfig(audio, title) {
+    return {
+        version: 1,
+        currentAudio: audio,
+        nowPlaying: title || "",
+        title: "AUTOMATIC AUDIO",
+        status: "AUDIO",
+        background: "",
+        volume: 1,
+        playlistMode: false,
+        playMode: playMode,
+        refresh: Date.now()
+    };
+}
+
+/* PUBLISH CLOUDINARY AUDIO AUTOMATICALLY */
+
+async function publishCloudinaryAudio() {
+    if (!cloudinaryAudioURL) {
+        throw new Error("No Cloudinary audio URL is available.");
+    }
+
+    const title = nowPlaying.value.trim();
+
+    const config = makeAudioConfig(
+        cloudinaryAudioURL,
+        title
+    );
+
+    await updateConfig(
+        config,
+        "Automatically publish Kulzzy Radio Cloudinary audio"
+    );
+
+    savedNormalAudio = cloudinaryAudioURL;
+    savedNormalTitle = title;
+
+    saveButton.disabled = false;
+
+    setStatus(
+        "✅ SUCCESS! Cloudinary audio has been saved and selected as the public radio audio.",
+        "success"
+    );
+}
+
 /* CLOUDINARY UPLOAD */
 
 uploadButton.addEventListener("click", () => {
@@ -555,6 +602,8 @@ uploadButton.addEventListener("click", () => {
     }
 
     uploadButton.disabled = true;
+    saveButton.disabled = true;
+
     progressOuter.style.display = "block";
     progressInner.style.width = "0%";
 
@@ -580,10 +629,10 @@ uploadButton.addEventListener("click", () => {
         }
     });
 
-    xhr.onload = () => {
-        uploadButton.disabled = false;
-
+    xhr.onload = async () => {
         if (xhr.status < 200 || xhr.status >= 300) {
+            uploadButton.disabled = false;
+
             let message = "Cloudinary upload failed.";
 
             try {
@@ -606,24 +655,45 @@ uploadButton.addEventListener("click", () => {
             }
 
             cloudinaryAudioURL = result.secure_url;
+
             cloudAudioInput.value = cloudinaryAudioURL;
             cloudAudioUrl.textContent = cloudinaryAudioURL;
             cloudAudioBox.style.display = "block";
+
             progressInner.style.width = "100%";
-            saveButton.disabled = false;
 
             setStatus(
-                "✅ Audio uploaded. Click SAVE & PLAY CLOUD AUDIO.",
+                "✅ Upload complete. Automatically publishing audio...",
                 "success"
             );
 
+            /*
+              The uploaded Cloudinary URL is now automatically
+              saved into config.json for the public player.
+            */
+
+            await publishCloudinaryAudio();
+
+            uploadButton.disabled = false;
+
             setTimeout(() => {
                 progressOuter.style.display = "none";
-            }, 1200);
+            }, 1500);
 
         } catch (error) {
+            console.error(error);
+
+            uploadButton.disabled = false;
             progressOuter.style.display = "none";
-            setStatus("❌ " + error.message, "error");
+
+            saveButton.disabled = !cloudinaryAudioURL;
+
+            setStatus(
+                "⚠️ Cloudinary upload succeeded, but publishing failed: " +
+                error.message +
+                ". Your uploaded URL is retained. Correct the GitHub authorization and press SAVE & PLAY CLOUD AUDIO.",
+                "warning"
+            );
         }
     };
 
@@ -654,24 +724,7 @@ onceButton.addEventListener("click", () => {
     repeatButton.classList.remove("active");
 });
 
-/* NORMAL AUDIO CONFIGURATION */
-
-function makeAudioConfig(audio, title) {
-    return {
-        version: 1,
-        currentAudio: audio,
-        nowPlaying: title || "",
-        title: "AUTOMATIC AUDIO",
-        status: "AUDIO",
-        background: "",
-        volume: 1,
-        playlistMode: false,
-        playMode: playMode,
-        refresh: Date.now()
-    };
-}
-
-/* SAVE CLOUDINARY AUDIO */
+/* MANUAL SAVE CLOUDINARY AUDIO */
 
 saveButton.addEventListener("click", async () => {
     if (!cloudinaryAudioURL) {
@@ -685,30 +738,10 @@ saveButton.addEventListener("click", async () => {
     saveButton.disabled = true;
 
     try {
-        const title = nowPlaying.value.trim();
-
-        const config = makeAudioConfig(
-            cloudinaryAudioURL,
-            title
-        );
-
-        await updateConfig(
-            config,
-            "Set Kulzzy Radio Cloudinary audio"
-        );
-
-        savedNormalAudio = cloudinaryAudioURL;
-        savedNormalTitle = title;
-
-        setStatus(
-            "✅ Cloudinary audio saved. The player will switch to normal audio.",
-            "success"
-        );
-
+        await publishCloudinaryAudio();
     } catch (error) {
         console.error(error);
         setStatus("❌ " + error.message, "error");
-
     } finally {
         saveButton.disabled = false;
     }
@@ -786,7 +819,7 @@ liveButton.addEventListener("click", async () => {
         await updateConfig(config, "Kulzzy Radio GO LIVE");
 
         setStatus(
-            "🔴 KULZZY RADIO LIVE MODE ACTIVATED. Listener players are switching to your Icecast live stream.",
+            "🔴 KULZZY RADIO LIVE MODE ACTIVATED. Your normal Cloudinary audio is preserved.",
             "success"
         );
 
@@ -809,9 +842,7 @@ offButton.addEventListener("click", async () => {
     try {
         const current = await loadConfig();
 
-        let normalAudio = current.status === "LIVE"
-            ? (current.currentAudio || savedNormalAudio)
-            : (current.currentAudio || savedNormalAudio);
+        let normalAudio = current.currentAudio || savedNormalAudio;
 
         let normalTitle = current.status === "LIVE"
             ? (current.normalAudioTitle || savedNormalTitle)
@@ -837,7 +868,7 @@ offButton.addEventListener("click", async () => {
         savedNormalTitle = normalTitle;
 
         setStatus(
-            "✅ NORMAL AUDIO RESTORED. Listener players are returning to normal radio audio.",
+            "✅ NORMAL AUDIO RESTORED. Listener players are returning to your saved audio.",
             "success"
         );
 
