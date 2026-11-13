@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "currentAudio": "https://res.cloudinary.com/s4j0x7dk/video/upload/v1794062594/mmmtrawc68d0mvmel60u.mp3",
+  "currentAudio": "https://res.cloudinary.com/s4j0x7dk/video/upload/v1794560712/eg8xppbezrklm9ezcrir.mp3",
   "normalAudioTitle": "LIVE ON AIR",
-  "nowPlaying": "LIVE ON AIR",
+  "nowPlaying": "",
   "title": "AUTOMATIC AUDIO",
   "status": "AUDIO",
   "liveStreamUrl": "https://kulzzy-radio-icecast.onrender.com/kulzzy.mp3",
@@ -10,5 +10,5 @@
   "volume": 1,
   "playlistMode": false,
   "playMode": "REPEAT",
-  "refresh": 1794249996635
+  "refresh": 1794560791024
 }
