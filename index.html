@@ -285,11 +285,8 @@ const CONFIG_URL="./config.json";
 const DEFAULT_LIVE_URL="https://kulzzy-radio-icecast.onrender.com/kulzzy.mp3";
 const LIVE_WAIT_LIMIT=70000;
 
-/* COMPETITION AUDIO COMMUNICATION */
-
 const RADIO_CONTROL_KEY="kulzzyCompetitionAudioControl";
 
-/* SAME-ORIGIN CHANNEL FOR THE COMPETITION PAGE AND RADIO IFRAME */
 const radioChannel=typeof BroadcastChannel!=="undefined"
 ?new BroadcastChannel("kulzzy-radio-audio-control")
 :null;
@@ -374,7 +371,7 @@ liveWaitTimer=null;
 
 }
 
-/* PAUSE RADIO FOR COMPETITION WITHOUT DESTROYING AUDIO SOURCE */
+/* PAUSE RADIO FOR COMPETITION */
 
 function pauseRadioForCompetition(){
 
@@ -405,7 +402,7 @@ normalAudio.pause();
 return;
 }
 
-/* No radio audio was playing before the competition song. */
+/* Radio was not playing before the competition song. */
 
 competitionOwnsAudio=true;
 
@@ -425,8 +422,6 @@ competitionResumeMode="";
 competitionWasPlaying=false;
 
 if(!shouldResume)return;
-
-/* Do not resume an old mode if the admin changed the radio mode. */
 
 if(currentMode!==resumeMode)return;
 
@@ -471,7 +466,7 @@ liveMessage.textContent="Tap to resume live broadcast.";
 
 }
 
-/* RECEIVE COMMANDS FROM THE COMPETITION PLAYER */
+/* RECEIVE COMPETITION COMMANDS */
 
 function handleCompetitionRadioMessage(message){
 
@@ -489,14 +484,36 @@ resumeRadioAfterCompetition();
 
 }
 
-/* Primary communication: BroadcastChannel works between same-origin frames. */
-if(radioChannel){
-radioChannel.addEventListener("message",function(event){
-handleCompetitionRadioMessage(event.data);
+/* DIRECT MESSAGE FROM MAIN APP */
+
+window.addEventListener("message",function(event){
+
+if(event.source!==window.parent)return;
+
+if(event.origin!=="https://kulzzy.github.io")return;
+
+const data=event.data;
+
+if(!data||data.type!=="KULZZY_COMPETITION_AUDIO")return;
+
+handleCompetitionRadioMessage(data);
+
 });
+
+/* BROADCAST CHANNEL FALLBACK */
+
+if(radioChannel){
+
+radioChannel.addEventListener("message",function(event){
+
+handleCompetitionRadioMessage(event.data);
+
+});
+
 }
 
-/* Fallback communication: localStorage. */
+/* LOCAL STORAGE FALLBACK */
+
 window.addEventListener("storage",function(event){
 
 if(event.key!==RADIO_CONTROL_KEY||!event.newValue)return;
@@ -784,7 +801,7 @@ configRequestRunning=false;
 
 }
 
-/* NORMAL AUDIO */
+/* NORMAL AUDIO BUTTON */
 
 playButton.addEventListener("click",async function(event){
 
@@ -792,8 +809,6 @@ event.preventDefault();
 event.stopPropagation();
 
 if(currentMode==="LIVE")return;
-
-/* Do not allow manual radio playback while competition owns audio. */
 
 if(competitionOwnsAudio)return;
 
@@ -835,7 +850,7 @@ playButton.disabled=false;
 
 },{passive:false});
 
-/* LIVE AUDIO */
+/* LIVE AUDIO BUTTON */
 
 liveListenButton.addEventListener("click",function(event){
 
@@ -950,7 +965,7 @@ audioMessage.textContent="Audio could not load.";
 
 });
 
-/* START */
+/* START RADIO */
 
 loadConfig();
 
