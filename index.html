@@ -289,6 +289,11 @@ const LIVE_WAIT_LIMIT=70000;
 
 const RADIO_CONTROL_KEY="kulzzyCompetitionAudioControl";
 
+/* SAME-ORIGIN CHANNEL FOR THE COMPETITION PAGE AND RADIO IFRAME */
+const radioChannel=typeof BroadcastChannel!=="undefined"
+?new BroadcastChannel("kulzzy-radio-audio-control")
+:null;
+
 let competitionOwnsAudio=false;
 let competitionResumeMode="";
 let competitionWasPlaying=false;
@@ -468,6 +473,30 @@ liveMessage.textContent="Tap to resume live broadcast.";
 
 /* RECEIVE COMMANDS FROM THE COMPETITION PLAYER */
 
+function handleCompetitionRadioMessage(message){
+
+if(!message||!message.action)return;
+
+if(message.action==="pause"){
+
+pauseRadioForCompetition();
+
+}else if(message.action==="resume"){
+
+resumeRadioAfterCompetition();
+
+}
+
+}
+
+/* Primary communication: BroadcastChannel works between same-origin frames. */
+if(radioChannel){
+radioChannel.addEventListener("message",function(event){
+handleCompetitionRadioMessage(event.data);
+});
+}
+
+/* Fallback communication: localStorage. */
 window.addEventListener("storage",function(event){
 
 if(event.key!==RADIO_CONTROL_KEY||!event.newValue)return;
@@ -480,15 +509,7 @@ message=JSON.parse(event.newValue);
 return;
 }
 
-if(message.action==="pause"){
-
-pauseRadioForCompetition();
-
-}else if(message.action==="resume"){
-
-resumeRadioAfterCompetition();
-
-}
+handleCompetitionRadioMessage(message);
 
 });
 
