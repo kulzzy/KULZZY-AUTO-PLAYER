@@ -302,7 +302,7 @@ setLiveButton(false);
 
 }
 
-/* UNIVERSAL MEDIA CONTROLLER INTEGRATION */
+/* PLAYER-SPECIFIC STOP HOOK FOR EXTERNAL CONNECTOR */
 
 function stopRadioForUniversalControl(detail){
 
@@ -321,24 +321,7 @@ detail||{}
 
 }
 
-window.KULZZY_MEDIA_PLAYER_CONFIG={
-playerId:"kulzzy-radio-audio-live",
-playerName:"Kulzzy Radio Audio / LIVE Stream",
-stop:stopRadioForUniversalControl
-};
-
-const universalControllerScript=document.createElement("script");
-
-universalControllerScript.src=
-"https://raw.githubusercontent.com/kulzzy/KULZZY-UNIVERSAL-MEDIA-CONTROL/main/controller.js";
-
-universalControllerScript.async=true;
-
-universalControllerScript.onerror=function(){
-console.error("[Kulzzy Radio] Universal Media Controller could not be loaded.");
-};
-
-document.head.appendChild(universalControllerScript);
+window.KULZZY_STOP_PLAYER=stopRadioForUniversalControl;
 
 /* GET AUDIO URL */
 
@@ -746,6 +729,9 @@ loadConfig();
 
 })();
 </script>
+
+<!-- EXTERNAL UNIVERSAL MEDIA CONNECTOR -->
+<script src="./connector.js"></script>
 
 </body>
 </html>
