@@ -200,18 +200,6 @@ const DEFAULT_LIVE_URL="https://kulzzy-radio-icecast.onrender.com/kulzzy.mp3";
 const LIVE_WAIT_LIMIT=70000;
 const CONFIG_CHECK_INTERVAL=15000;
 
-const MAIN_APP_ORIGIN="https://kulzzy-radio-main-app.pages.dev";
-const RADIO_CONTROL_KEY="kulzzyCompetitionAudioControl";
-
-const radioChannel=typeof BroadcastChannel!=="undefined"
-?new BroadcastChannel("kulzzy-radio-audio-control")
-:null;
-
-let competitionOwnsAudio=false;
-let competitionResumeMode="";
-let competitionWasPlaying=false;
-let lastCompetitionMessage=0;
-
 const $=id=>document.getElementById(id);
 
 const audioPanel=$("audioPanel");
@@ -271,183 +259,6 @@ audioPanel.classList.add("hidden");
 livePanel.classList.add("visible");
 }
 
-/* PAUSE RADIO WHEN ANOTHER MEDIA PLAYER STARTS */
-
-function pauseRadioForCompetition(){
-
-if(competitionOwnsAudio)return;
-
-competitionResumeMode="";
-competitionWasPlaying=false;
-
-if(currentMode==="LIVE"&&!liveAudio.paused){
-
-competitionResumeMode="LIVE";
-competitionWasPlaying=true;
-competitionOwnsAudio=true;
-
-liveAudio.pause();
-
-return;
-}
-
-if(currentMode==="AUDIO"&&!normalAudio.paused){
-
-competitionResumeMode="AUDIO";
-competitionWasPlaying=true;
-competitionOwnsAudio=true;
-
-normalAudio.pause();
-
-return;
-}
-
-/* Keep radio blocked even if it was already stopped. */
-
-competitionOwnsAudio=true;
-}
-
-/* RESUME THE PREVIOUS RADIO MODE */
-
-function resumeRadioAfterCompetition(){
-
-if(!competitionOwnsAudio)return;
-
-const resumeMode=competitionResumeMode;
-const shouldResume=competitionWasPlaying;
-
-competitionOwnsAudio=false;
-competitionResumeMode="";
-competitionWasPlaying=false;
-
-if(!shouldResume)return;
-if(currentMode!==resumeMode)return;
-
-if(resumeMode==="AUDIO"){
-
-if(normalAudio.getAttribute("src")){
-
-normalAudio.play().then(function(){
-
-audioMessage.textContent="Enjoy listening.";
-
-}).catch(function(error){
-
-console.error("Radio resume error:",error);
-audioMessage.textContent="Tap the button to resume listening.";
-
-});
-
-}
-
-}else if(resumeMode==="LIVE"){
-
-if(liveAudio.getAttribute("src")){
-
-liveAudio.play().then(function(){
-
-liveMessage.textContent="You are listening to Kulzzy Radio LIVE.";
-
-}).catch(function(error){
-
-console.error("Live radio resume error:",error);
-liveListenButton.disabled=false;
-liveMessage.textContent="Tap to resume live broadcast.";
-
-});
-
-}
-
-}
-
-}
-
-/* HANDLE OLD AND UNIVERSAL MAIN APP COMMANDS */
-
-function handleCompetitionRadioMessage(message){
-
-if(!message||typeof message!=="object")return;
-
-let action="";
-
-if(message.type==="KULZZY_COMPETITION_AUDIO"){
-
-if(message.action==="pause")action="pause";
-if(message.action==="resume")action="resume";
-
-}else if(message.type==="KULZZY_MEDIA_CONTROL"){
-
-if(message.action==="pause")action="pause";
-if(message.action==="resume")action="resume";
-
-}else{
-
-return;
-
-}
-
-if(!action)return;
-
-const timestamp=Number(message.timestamp||0);
-
-/* Ignore duplicate or outdated commands. */
-
-if(timestamp&&timestamp<lastCompetitionMessage)return;
-
-if(timestamp)lastCompetitionMessage=timestamp;
-
-if(action==="pause"){
-
-pauseRadioForCompetition();
-
-}else if(action==="resume"){
-
-resumeRadioAfterCompetition();
-
-}
-
-}
-
-/* MAIN APP MESSAGE */
-
-window.addEventListener("message",function(event){
-
-if(event.origin!==MAIN_APP_ORIGIN)return;
-
-handleCompetitionRadioMessage(event.data);
-
-});
-
-/* BROADCAST CHANNEL COMPATIBILITY */
-
-if(radioChannel){
-
-radioChannel.addEventListener("message",function(event){
-
-handleCompetitionRadioMessage(event.data);
-
-});
-
-}
-
-/* LOCAL STORAGE COMPATIBILITY */
-
-window.addEventListener("storage",function(event){
-
-if(event.key!==RADIO_CONTROL_KEY||!event.newValue)return;
-
-let message;
-
-try{
-message=JSON.parse(event.newValue);
-}catch(error){
-return;
-}
-
-handleCompetitionRadioMessage(message);
-
-});
-
 /* STOP NORMAL AUDIO */
 
 function stopNormalAudio(){
@@ -491,6 +302,44 @@ setLiveButton(false);
 
 }
 
+/* UNIVERSAL MEDIA CONTROLLER INTEGRATION */
+
+function stopRadioForUniversalControl(detail){
+
+normalWasPlayingBeforeLive=false;
+
+stopNormalAudio();
+stopLiveAudio();
+
+audioMessage.textContent="Radio playback stopped because another Kulzzy Radio player started.";
+liveMessage.textContent="Radio playback stopped because another Kulzzy Radio player started.";
+
+console.log(
+"[Kulzzy Radio] Universal controller stopped radio playback.",
+detail||{}
+);
+
+}
+
+window.KULZZY_MEDIA_PLAYER_CONFIG={
+playerId:"kulzzy-radio-audio-live",
+playerName:"Kulzzy Radio Audio / LIVE Stream",
+stop:stopRadioForUniversalControl
+};
+
+const universalControllerScript=document.createElement("script");
+
+universalControllerScript.src=
+"https://raw.githubusercontent.com/kulzzy/KULZZY-UNIVERSAL-MEDIA-CONTROL/main/controller.js";
+
+universalControllerScript.async=true;
+
+universalControllerScript.onerror=function(){
+console.error("[Kulzzy Radio] Universal Media Controller could not be loaded.");
+};
+
+document.head.appendChild(universalControllerScript);
+
 /* GET AUDIO URL */
 
 function getAudioURL(config){
@@ -520,7 +369,6 @@ return String(config.liveStreamUrl||"").trim()||DEFAULT_LIVE_URL;
 async function startLiveAudio(){
 
 if(currentMode!=="LIVE")return;
-if(competitionOwnsAudio)return;
 
 if(!liveAudio.paused){
 
@@ -665,8 +513,6 @@ if(wasLive&&normalWasPlayingBeforeLive){
 
 normalWasPlayingBeforeLive=false;
 
-if(!competitionOwnsAudio){
-
 normalAudio.play().then(function(){
 
 audioMessage.textContent="Enjoy listening.";
@@ -676,8 +522,6 @@ audioMessage.textContent="Enjoy listening.";
 audioMessage.textContent="Tap the button to resume listening.";
 
 });
-
-}
 
 }
 
@@ -752,7 +596,6 @@ event.preventDefault();
 event.stopPropagation();
 
 if(currentMode==="LIVE")return;
-if(competitionOwnsAudio)return;
 
 if(!normalAudio.paused){
 
@@ -794,8 +637,6 @@ liveListenButton.addEventListener("click",function(event){
 
 event.preventDefault();
 event.stopPropagation();
-
-if(competitionOwnsAudio)return;
 
 startLiveAudio();
 
