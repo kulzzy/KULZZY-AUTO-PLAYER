@@ -198,6 +198,7 @@ LIVE ON-AIR - <span class="red-live-dot"></span> STAY TUNED IN
 const CONFIG_URL="./config.json";
 const DEFAULT_LIVE_URL="https://kulzzy-radio-icecast.onrender.com/kulzzy.mp3";
 const LIVE_WAIT_LIMIT=70000;
+const CONFIG_CHECK_INTERVAL=15000;
 
 const MAIN_APP_ORIGIN="https://kulzzy-radio-main-app.pages.dev";
 const RADIO_CONTROL_KEY="kulzzyCompetitionAudioControl";
@@ -270,7 +271,7 @@ audioPanel.classList.add("hidden");
 livePanel.classList.add("visible");
 }
 
-/* PAUSE RADIO WHEN COMPETITION STARTS */
+/* PAUSE RADIO WHEN ANOTHER MEDIA PLAYER STARTS */
 
 function pauseRadioForCompetition(){
 
@@ -301,12 +302,12 @@ normalAudio.pause();
 return;
 }
 
-/* Remember competition ownership even if radio is currently stopped. */
+/* Keep radio blocked even if it was already stopped. */
 
 competitionOwnsAudio=true;
 }
 
-/* RESUME THE SAME RADIO MODE AFTER COMPETITION */
+/* RESUME THE PREVIOUS RADIO MODE */
 
 function resumeRadioAfterCompetition(){
 
@@ -320,7 +321,6 @@ competitionResumeMode="";
 competitionWasPlaying=false;
 
 if(!shouldResume)return;
-
 if(currentMode!==resumeMode)return;
 
 if(resumeMode==="AUDIO"){
@@ -362,27 +362,45 @@ liveMessage.textContent="Tap to resume live broadcast.";
 
 }
 
-/* HANDLE COMPETITION MESSAGES */
+/* HANDLE OLD AND UNIVERSAL MAIN APP COMMANDS */
 
 function handleCompetitionRadioMessage(message){
 
-if(!message||message.type!=="KULZZY_COMPETITION_AUDIO")return;
+if(!message||typeof message!=="object")return;
 
-if(message.action!=="pause"&&message.action!=="resume")return;
+let action="";
+
+if(message.type==="KULZZY_COMPETITION_AUDIO"){
+
+if(message.action==="pause")action="pause";
+if(message.action==="resume")action="resume";
+
+}else if(message.type==="KULZZY_MEDIA_CONTROL"){
+
+if(message.action==="pause")action="pause";
+if(message.action==="resume")action="resume";
+
+}else{
+
+return;
+
+}
+
+if(!action)return;
 
 const timestamp=Number(message.timestamp||0);
 
-/* Ignore duplicate or outdated messages. */
+/* Ignore duplicate or outdated commands. */
 
 if(timestamp&&timestamp<lastCompetitionMessage)return;
 
 if(timestamp)lastCompetitionMessage=timestamp;
 
-if(message.action==="pause"){
+if(action==="pause"){
 
 pauseRadioForCompetition();
 
-}else if(message.action==="resume"){
+}else if(action==="resume"){
 
 resumeRadioAfterCompetition();
 
@@ -390,14 +408,7 @@ resumeRadioAfterCompetition();
 
 }
 
-/* DIRECT MESSAGE FROM MAIN APP */
-
-/*
-Important:
-The origin is checked, but event.source is deliberately
-not restricted. This avoids rejecting valid forwarded
-messages from the Main App.
-*/
+/* MAIN APP MESSAGE */
 
 window.addEventListener("message",function(event){
 
@@ -407,7 +418,7 @@ handleCompetitionRadioMessage(event.data);
 
 });
 
-/* BROADCAST CHANNEL FALLBACK */
+/* BROADCAST CHANNEL COMPATIBILITY */
 
 if(radioChannel){
 
@@ -419,7 +430,7 @@ handleCompetitionRadioMessage(event.data);
 
 }
 
-/* LOCAL STORAGE FALLBACK */
+/* LOCAL STORAGE COMPATIBILITY */
 
 window.addEventListener("storage",function(event){
 
@@ -428,20 +439,16 @@ if(event.key!==RADIO_CONTROL_KEY||!event.newValue)return;
 let message;
 
 try{
-
 message=JSON.parse(event.newValue);
-
 }catch(error){
-
 return;
-
 }
 
 handleCompetitionRadioMessage(message);
 
 });
 
-/* NORMAL AUDIO CONTROLS */
+/* STOP NORMAL AUDIO */
 
 function stopNormalAudio(){
 
@@ -455,6 +462,8 @@ setNormalButton(false);
 
 }
 
+/* LIVE TIMER */
+
 function clearLiveTimer(){
 
 if(liveWaitTimer){
@@ -465,6 +474,8 @@ liveWaitTimer=null;
 }
 
 }
+
+/* STOP LIVE AUDIO */
 
 function stopLiveAudio(){
 
@@ -480,6 +491,8 @@ setLiveButton(false);
 
 }
 
+/* GET AUDIO URL */
+
 function getAudioURL(config){
 
 const value=String(config.currentAudio||"").trim();
@@ -487,16 +500,14 @@ const value=String(config.currentAudio||"").trim();
 if(!value)return "";
 
 try{
-
 return new URL(value,window.location.href).href;
-
 }catch(error){
-
 return value;
-
 }
 
 }
+
+/* GET LIVE URL */
 
 function getLiveURL(config){
 
@@ -509,13 +520,11 @@ return String(config.liveStreamUrl||"").trim()||DEFAULT_LIVE_URL;
 async function startLiveAudio(){
 
 if(currentMode!=="LIVE")return;
-
 if(competitionOwnsAudio)return;
 
 if(!liveAudio.paused){
 
 liveAudio.pause();
-
 return;
 
 }
@@ -523,7 +532,6 @@ return;
 clearLiveTimer();
 
 liveListenButton.disabled=true;
-
 liveMessage.textContent="Connecting...";
 
 liveAudio.pause();
@@ -531,7 +539,6 @@ liveAudio.pause();
 const separator=currentLiveURL.includes("?")?"&":"?";
 
 liveAudio.src=currentLiveURL+separator+"t="+Date.now();
-
 liveAudio.load();
 
 liveWaitTimer=setTimeout(function(){
@@ -539,7 +546,6 @@ liveWaitTimer=setTimeout(function(){
 if(liveAudio.paused||liveAudio.readyState<2){
 
 liveAudio.pause();
-
 liveListenButton.disabled=false;
 
 liveMessage.textContent="Connection taking too long. Please try again.";
@@ -559,7 +565,6 @@ clearLiveTimer();
 console.error("Live audio error:",error);
 
 liveListenButton.disabled=false;
-
 liveMessage.textContent="Live audio could not connect. Please try again.";
 
 }
@@ -585,7 +590,6 @@ const newURL=getLiveURL(config);
 if(newURL!==currentLiveURL){
 
 currentLiveURL=newURL;
-
 stopLiveAudio();
 
 }
@@ -595,7 +599,6 @@ showLivePanel();
 if(liveAudio.paused){
 
 liveListenButton.disabled=false;
-
 setLiveButton(false);
 
 }
@@ -611,7 +614,6 @@ const wasLive=currentMode==="LIVE";
 if(wasLive){
 
 stopLiveAudio();
-
 currentMode="AUDIO";
 
 }else{
@@ -653,7 +655,6 @@ stopNormalAudio();
 currentAudioURL=audioURL;
 
 normalAudio.src=audioURL;
-
 normalAudio.load();
 
 audioMessage.textContent="Audio is ready.";
@@ -731,7 +732,6 @@ console.error("Kulzzy Radio configuration:",error);
 if(!currentMode){
 
 showNormalPanel();
-
 audioMessage.textContent="Unable to load radio settings.";
 
 }
@@ -752,13 +752,11 @@ event.preventDefault();
 event.stopPropagation();
 
 if(currentMode==="LIVE")return;
-
 if(competitionOwnsAudio)return;
 
 if(!normalAudio.paused){
 
 normalAudio.pause();
-
 return;
 
 }
@@ -766,7 +764,6 @@ return;
 if(!normalAudio.getAttribute("src")){
 
 audioMessage.textContent="No normal audio is available.";
-
 return;
 
 }
@@ -776,13 +773,11 @@ playButton.disabled=true;
 try{
 
 await normalAudio.play();
-
 audioMessage.textContent="Enjoy listening.";
 
 }catch(error){
 
 console.error("Normal audio error:",error);
-
 audioMessage.textContent="Audio could not start. Try again.";
 
 }finally{
@@ -806,6 +801,38 @@ startLiveAudio();
 
 },{passive:false});
 
+/* NORMAL AUDIO EVENTS */
+
+normalAudio.addEventListener("playing",function(){
+
+setNormalButton(true);
+audioMessage.textContent="Enjoy listening.";
+
+});
+
+normalAudio.addEventListener("pause",function(){
+
+setNormalButton(false);
+
+});
+
+normalAudio.addEventListener("ended",function(){
+
+setNormalButton(false);
+
+if(audioPlayMode==="ONCE"){
+audioMessage.textContent="Playback finished.";
+}
+
+});
+
+normalAudio.addEventListener("error",function(){
+
+setNormalButton(false);
+audioMessage.textContent="Unable to play this audio.";
+
+});
+
 /* LIVE AUDIO EVENTS */
 
 liveAudio.addEventListener("playing",function(){
@@ -817,3 +844,67 @@ liveListenButton.disabled=false;
 setLiveButton(true);
 
 liveMessage.textContent="You are listening to Kulzzy Radio LIVE.";
+
+});
+
+liveAudio.addEventListener("pause",function(){
+
+setLiveButton(false);
+
+});
+
+liveAudio.addEventListener("waiting",function(){
+
+if(!liveAudio.paused){
+liveMessage.textContent="Connecting to live broadcast...";
+}
+
+});
+
+liveAudio.addEventListener("stalled",function(){
+
+if(!liveAudio.paused){
+liveMessage.textContent="Live broadcast connection interrupted. Reconnecting...";
+}
+
+});
+
+liveAudio.addEventListener("ended",function(){
+
+clearLiveTimer();
+
+liveListenButton.disabled=false;
+setLiveButton(false);
+
+liveMessage.textContent="Live broadcast has stopped.";
+
+});
+
+liveAudio.addEventListener("error",function(){
+
+clearLiveTimer();
+
+liveListenButton.disabled=false;
+setLiveButton(false);
+
+liveMessage.textContent="Live broadcast is temporarily unavailable.";
+
+});
+
+/* INITIAL RADIO SETTINGS */
+
+loadConfig();
+
+/* CHECK FOR RADIO MODE AND AUDIO UPDATES */
+
+setInterval(function(){
+
+loadConfig();
+
+},CONFIG_CHECK_INTERVAL);
+
+})();
+</script>
+
+</body>
+</html>
