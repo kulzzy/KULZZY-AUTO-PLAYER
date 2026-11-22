@@ -7,9 +7,7 @@
   const PLAYER_NAME = "Kulzzy Radio Audio / LIVE Stream";
 
   const CONTROLLER_URL =
-    "https://raw.githubusercontent.com/kulzzy/KULZZY-UNIVERSAL-MEDIA-CONTROL/main/controller.js";
-
-  let controllerLoading = false;
+    "https://raw.githubusercontent.com/kulzzy/KULZZY-UNIVERSAL-MEDIA-CONTROL/main/controller.js?v=3.3";
 
   window.KULZZY_MEDIA_PLAYER_CONFIG = {
     playerId: PLAYER_ID,
@@ -28,27 +26,18 @@
   };
 
   function connectPlayer() {
-    if (controllerLoading) return;
     if (window.KULZZY_UNIVERSAL_MEDIA_CONTROL) return;
-
-    controllerLoading = true;
 
     const script = document.createElement("script");
     script.src = CONTROLLER_URL;
     script.async = true;
 
     script.onload = function () {
-      console.log(
-        "[Kulzzy Radio] Universal Media Controller connected:",
-        PLAYER_NAME
-      );
+      console.log("[Kulzzy Radio] Controller loaded:", PLAYER_NAME);
     };
 
     script.onerror = function () {
-      controllerLoading = false;
-      console.error(
-        "[Kulzzy Radio] Could not connect to the Universal Media Controller."
-      );
+      console.error("[Kulzzy Radio] Controller failed to load.");
     };
 
     document.head.appendChild(script);
