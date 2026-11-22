@@ -1,6 +1,6 @@
 /* ==========================================
    KULZZY RADIO AUTO PLAYER CONNECTOR
-   UNIVERSAL MEDIA CONTROL VERSION 4.0
+   UNIVERSAL MEDIA CONTROL VERSION 4.1
 ========================================== */
 
 (function () {
@@ -10,15 +10,15 @@
   const PLAYER_NAME = "Kulzzy Radio Audio / LIVE Stream";
 
   const CONTROLLER_URL =
-    "https://raw.githubusercontent.com/kulzzy/KULZZY-UNIVERSAL-MEDIA-CONTROL/main/controller.js?v=4.0";
+    "https://raw.githubusercontent.com/kulzzy/KULZZY-UNIVERSAL-MEDIA-CONTROL/main/controller.js?v=4.1";
 
   window.KULZZY_MEDIA_PLAYER_CONFIG = {
     playerId: PLAYER_ID,
     playerName: PLAYER_NAME,
-
     mediaSelector: "audio,video",
 
     stop: function (detail) {
+
       if (typeof window.KULZZY_STOP_PLAYER === "function") {
         window.KULZZY_STOP_PLAYER(detail);
       }
@@ -28,10 +28,12 @@
           media.pause();
         } catch (error) {}
       });
+
     }
   };
 
   function connectPlayer() {
+
     if (window.KULZZY_UNIVERSAL_MEDIA_CONTROL) return;
 
     if (document.getElementById("kulzzy-universal-controller")) return;
@@ -44,7 +46,7 @@
 
     script.onload = function () {
       console.log(
-        "[Kulzzy Radio] Universal Media Control 4.0 connected."
+        "[Kulzzy Radio] Universal Media Control 4.1 connected."
       );
     };
 
@@ -58,11 +60,17 @@
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", connectPlayer, {
-      once: true
-    });
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      connectPlayer,
+      { once: true }
+    );
+
   } else {
+
     connectPlayer();
+
   }
 
 })();
